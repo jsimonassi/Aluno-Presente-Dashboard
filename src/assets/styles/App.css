@@ -1,0 +1,10 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    transition: all 0.50s linear;
+    font-family: "Medium";
+}
