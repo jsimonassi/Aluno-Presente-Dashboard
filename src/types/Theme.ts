@@ -4,4 +4,6 @@ export interface AppTheme {
 	surface1: string;
 	surface2: string;
 	secondaryText: string;
+	whiteText: string;
+	error: string;
 }

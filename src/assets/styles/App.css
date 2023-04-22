@@ -1,3 +1,28 @@
+@font-face {
+    font-family: "XLight";   /*Can be any text*/
+    src: local("Nunito-ExtraLight"), url("../fonts/Nunito/Nunito-ExtraLight.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Light";   /*Can be any text*/
+    src: local("Nunito-ExtraLight"), url("../fonts/Nunito/Nunito-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Medium";   /*Can be any text*/
+    src: local("Nunito-Medium"), url("../fonts/Nunito/Nunito-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Bold";   /*Can be any text*/
+    src: local("Nunito-Bold"), url("../fonts/Nunito/Nunito-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Normal";   /*Can be any text*/
+    src: local("Nunito-Medium"), url("../fonts/Nunito/Nunito-Medium.ttf") format("truetype");
+}
+
 
 * {
     margin: 0;
