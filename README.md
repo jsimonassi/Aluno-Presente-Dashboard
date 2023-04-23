@@ -42,8 +42,8 @@ O protótipo do portal do professor pode ser acessado no seguinte link: https://
 
 ### Desenvolvedor
 
-Desenvolvido por João Victor Simonassi como parte do projeto de conclusão do curso de Ciência da Computação da Universidade Federal Fluminense - UFF.
-Orientador: Lauro Eduardo Kozovits
+Desenvolvido por João Victor Simonassi como parte do trabalho final do curso de Ciência da Computação da Universidade Federal Fluminense - UFF.
+Orientador: Lauro Eduardo Kozovits.
 
 jsimonassi@id.uff.br
 
