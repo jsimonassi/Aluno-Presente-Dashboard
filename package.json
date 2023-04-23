@@ -34,6 +34,9 @@
     "styled-components": "^5"
   },
   "scripts": {
+    "build:dev": "env-cmd -f .env.development yarn run build",
+    "build:hml": "env-cmd -f .env.homolog yarn run build",
+    "build:prd": "env-cmd -f .env.production  yarn run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

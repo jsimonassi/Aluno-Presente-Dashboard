@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+<img src="./src/assets/images/logoBlue.png" width="300"/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Portal do professor
 
-## Available Scripts
+O Aluno Presente facilita seu controle de frequência e reúne em um só lugar tudo sobre a participação dos seus alunos.
 
-In the project directory, you can run:
+### Sobre
 
-### `npm start`
+Este repositório encontra-se a implementação do portal do professor do sistema Aluno Presente. O portal do professor é uma aplicação web que permite ao professor visualizar as turmas que ele leciona, bem como a frequência dos alunos em cada uma das aulas.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Esta é uma aplicação front-end que consome a API do sistema Aluno Presente.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Dependências
 
-### `npm test`
+Para executar o projeto é preciso ter as seguintes dependências instaladas:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```Node: 18.0```
+```Yarn: 1.22.5```
 
-### `npm run build`
+### Instruções para execução
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Para executar o projeto localmente com as envs de desenvolvimento é preciso executar o seguinte comando:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```yarn start```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Ambientes de execução
 
-### `npm run eject`
+O projeto possui 3 ambientes de execução:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Desenvolvimento: ```yarn run build:dev```
+- Homologação: ```yarn run build:hml```
+- Produção: ```yarn run build:production```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Os ambientes de homologação e produção estão publicados e podem ser acessados nos seguintes links:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Homologação: https://aluno-presente-hml.vercel.app
+- Produção: https://aluno-presente.vercel.app
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Protótipo
 
-## Learn More
+O protótipo do portal do professor pode ser acessado no seguinte link: https://www.figma.com/file/SqHdDnjIjzOOlDBCKCiHz0/Aluno-Presente---Portal-do-professor?node-id=0%3A1&t=C0TxnIOFSmDOflfC-1
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Desenvolvedor
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Desenvolvido por João Victor Simonassi como parte do projeto de conclusão do curso de Ciência da Computação da Universidade Federal Fluminense - UFF
+
+jsimonassi@id.uff.br
+
+
