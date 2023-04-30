@@ -1,8 +1,10 @@
 import LOGIN from "./login";
+import SIDEBAR from "./sidebar";
 
 
 const MESSAGES = {
-	LOGIN
+	LOGIN,
+	SIDEBAR
 };
 
 export default MESSAGES;

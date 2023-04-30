@@ -5,11 +5,18 @@ import MESSAGES from "../../../../constants/messages";
 import { MainInput } from "../../../../components/Inputs";
 import { MainButton } from "../../../../components/Buttons";
 
+interface LoginBoxProps {
+	onLoginHandler: (email: string, password: string) => void;
+}
 
-const LoginBox = () => {
+const LoginBox = (props: LoginBoxProps) => {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+	const validateLogin = () => {
+		props.onLoginHandler(email, password);
+	};
 
 	return (
 		<Container>
@@ -31,7 +38,7 @@ const LoginBox = () => {
 					title={MESSAGES.LOGIN.PASSWORD}
 					style={{marginTop: "8px"}}
 				/>
-				<MainButton enabled onClick={() => null} text={MESSAGES.LOGIN.LOGIN_BTN} styles={{width: "80%"}} />
+				<MainButton enabled onClick={validateLogin} text={MESSAGES.LOGIN.LOGIN_BTN} styles={{width: "80%"}} />
 
 				<p>{MESSAGES.LOGIN.FORGOT_PASSWORD}</p>
 				
