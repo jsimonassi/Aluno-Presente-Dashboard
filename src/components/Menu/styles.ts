@@ -8,21 +8,10 @@ export const MenuStyled = styled.div`
 
 interface Props {
     sidebarOpen: boolean;
-    isMainPage: boolean;
 }
 
 const getPadding = (props: Props) => {
-	if (!props.isMainPage) {
-		return 0;
-	}
 	return  props.sidebarOpen ? 310 : 100;
-};
-
-const getRightPadding = (props: Props) => {
-	if (!props.isMainPage) {
-		return 0;
-	}
-	return  40;
 };
 
 export const Content = styled.div<Props>`
@@ -31,7 +20,7 @@ export const Content = styled.div<Props>`
     width: 100%;
     margin-top: 130px;
     padding-left: ${props => getPadding(props)}px;
-    padding-right: ${props => getRightPadding(props)}px;
+    padding-right: 40px;
     min-width: 400px;
 
     transition: padding-left ${TRANSITION_TIME};

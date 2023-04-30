@@ -3,50 +3,43 @@ import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import { LocalStorage } from "../../services/storage";
 import { Content, MenuStyled } from "./styles";
-import Sidebar from "../Sidebar";
+import Sidebar from "./Sidebar";
+import MainHeader from "./MainHeader";
 const IS_OPEN_KEY = "isOpenKey";
 
 interface MenuProps {
 	renderAsPartial?: boolean;
-	isMainPage?: boolean;
 }
 
-const getSideBarPosition = (isMainPage: boolean) => {
+const getSideBarPosition = () => {
 	const lastSelectedOption = LocalStorage.getLocalData(IS_OPEN_KEY);
 	if (lastSelectedOption) {
 		return (JSON.parse(lastSelectedOption));
-	}else{
-		return isMainPage ?? false;
+	} else {
+		return false;
 	}
 };
 
 const Menu = (props: MenuProps) => {
-	
 
-	const [sidebarOpen, setSidebarOpen] = useState<boolean>(getSideBarPosition(props.isMainPage ?? false));
+
+	const [sidebarOpen, setSidebarOpen] = useState<boolean>(getSideBarPosition());
 	// const navigate = useNavigate();
 
 	const getFixedComponents = () => {
-		if (props.isMainPage) {
-			return (
-				<>
-					<Sidebar
-						sideBarOpen={sidebarOpen}
-						onOpen={(isOpen) => {
-							setSidebarOpen(isOpen);
-							LocalStorage.storeLocalData(IS_OPEN_KEY, JSON.stringify(isOpen));
-						}}
-					/>
-					{/* <MainHeader
-						open={sidebarOpen}
-					/> */}
-				</>
-			);
-		}
-
 		return (
-			// <SecondaryHeader />
-			<></>
+			<>
+				<Sidebar
+					sideBarOpen={sidebarOpen}
+					onOpen={(isOpen) => {
+						setSidebarOpen(isOpen);
+						LocalStorage.storeLocalData(IS_OPEN_KEY, JSON.stringify(isOpen));
+					}}
+				/>
+				<MainHeader
+					open={sidebarOpen}
+				/>
+			</>
 		);
 	};
 
@@ -66,7 +59,7 @@ const Menu = (props: MenuProps) => {
 					},
 				}}
 			/>
-			<Content sidebarOpen={sidebarOpen} isMainPage={props.isMainPage ?? false}>
+			<Content sidebarOpen={sidebarOpen} >
 				{props.renderAsPartial ? <Outlet /> : null}
 			</Content>
 		</MenuStyled>
