@@ -3,8 +3,9 @@ import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import { LocalStorage } from "../../services/storage";
 import { Content, MenuStyled } from "./styles";
-import Sidebar from "./Sidebar";
-import MainHeader from "./MainHeader";
+import { useWindowDimensions } from "../../hooks";
+import CONSTANTS from "../../constants";
+import { MainHeader, Sidebar, MobileHeader } from "./components";
 const IS_OPEN_KEY = "isOpenKey";
 
 interface MenuProps {
@@ -15,18 +16,22 @@ const getSideBarPosition = () => {
 	const lastSelectedOption = LocalStorage.getLocalData(IS_OPEN_KEY);
 	if (lastSelectedOption) {
 		return (JSON.parse(lastSelectedOption));
-	} else {
-		return false;
 	}
+	return false;
 };
 
 const Menu = (props: MenuProps) => {
 
 
 	const [sidebarOpen, setSidebarOpen] = useState<boolean>(getSideBarPosition());
-	// const navigate = useNavigate();
+	const { width } = useWindowDimensions();
 
 	const getFixedComponents = () => {
+
+		if (width < CONSTANTS.SCREEN_SIZE.TABLET) {
+			return <MobileHeader/>;
+		}
+
 		return (
 			<>
 				<Sidebar

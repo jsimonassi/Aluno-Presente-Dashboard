@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TRANSITION_TIME } from "../../../constants/menu";
+import { TRANSITION_TIME } from "../../../../constants/menu";
 
 
 export const Container = styled.div`

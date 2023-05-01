@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Container, DropdownItem, OpenContainer, SpacingContainer, StackContainer } from "./styles";
 import { IoIosArrowDown, IoIosArrowForward, IoIosArrowUp } from "react-icons/io";
 import { BiUserCircle } from "react-icons/bi";
-import { useTeacher } from "../../../../../contexts/Teacher";
-import { useAppTheme } from "../../../../../contexts/Theme";
+import { useTeacher } from "../../../../../../contexts/Teacher";
+import { useAppTheme } from "../../../../../../contexts/Theme";
 
 
 interface TextInputProps {

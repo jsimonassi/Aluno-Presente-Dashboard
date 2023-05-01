@@ -1,15 +1,15 @@
 import React from "react";
 import { CloseSidebarButton, ClosedSideBar, Container, LargeImgContainer, OpenSidebarButton, SidebarStyled, SmallImage, SmallImageContainer } from "./styles";
-import logoBlue from "../../../assets/images/logoBlue.png";
-import showLess from "../../../assets/images/showLess.png";
-import showMore from "../../../assets/images/showMore.png";
+import logoBlue from "../../../../assets/images/logoBlue.png";
+import showLess from "../../../../assets/images/showLess.png";
+import showMore from "../../../../assets/images/showMore.png";
 
 
 // import { MESSAGES } from "../../constants/messages";
 import { useNavigate, useLocation } from "react-router-dom";
 import { SidebarItem, SidebarSmallItem } from "./components";
-import CONSTANTS from "../../../constants";
-import MESSAGES from "../../../constants/messages";
+import CONSTANTS from "../../../../constants";
+import MESSAGES from "../../../../constants/messages";
 
 import { IoMdBook } from "react-icons/io";
 import { AiFillFolderOpen } from "react-icons/ai";

@@ -1,9 +1,11 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { HeaderStyled } from "./styles";
-import ROUTES from "../../../constants/routes";
-import MESSAGES from "../../../constants/messages";
+import ROUTES from "../../../../constants/routes";
+import MESSAGES from "../../../../constants/messages";
 import { ConfigDropdown, ProfileDropdown } from "./components";
+import { useWindowDimensions } from "../../../../hooks";
+import CONSTANTS from "../../../../constants";
 
 interface Props {
     open: boolean;
@@ -15,6 +17,7 @@ const CONFIG_LIST: string[] = [ MESSAGES.HEADER.COOKIES_OPTION ];
 const MainHeader = (props: Props) => {
 
 	const location = useLocation();
+	const { width } = useWindowDimensions();
 
 	const getPageTitle = () => {
 		const path = location.pathname;
@@ -33,7 +36,7 @@ const MainHeader = (props: Props) => {
 
 	return (
 		<HeaderStyled sideBarOpen={props.open}>
-			<h1>{getPageTitle()}</h1>
+			<h1>{width > CONSTANTS.SCREEN_SIZE.DESKTOP && getPageTitle()}</h1>
 			<ConfigDropdown
 				title={MESSAGES.HEADER.CONFIG_TITLE}
 				items={CONFIG_LIST}

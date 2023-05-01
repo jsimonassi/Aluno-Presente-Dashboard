@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, DropdownItem, OpenContainer, SpacingContainer, StackContainer } from "./styles";
 import { IoIosArrowDown, IoIosArrowForward, IoIosArrowUp } from "react-icons/io";
 import { MdOutlineSettings } from "react-icons/md";
-import { useAppTheme } from "../../../../../contexts/Theme";
+import { useAppTheme } from "../../../../../../contexts/Theme";
 
 interface TextInputProps {
 	items: string[];

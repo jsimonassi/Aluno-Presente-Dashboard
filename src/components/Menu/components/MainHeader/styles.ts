@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TRANSITION_TIME } from "../../../constants/menu";
+import { TRANSITION_TIME } from "../../../../constants/menu";
 
 interface ContainerProps {
     sideBarOpen: boolean,
@@ -22,7 +22,7 @@ export const HeaderStyled = styled.header<ContainerProps>`
         color: ${props => props.theme.primary};
         display: flex;
         width: 100%;
-        min-width: 280px;
+        /* min-width: 280px; */
         padding-left: ${props => props.sideBarOpen ? 310 : 100}px;
         font-family: "bold";
 
