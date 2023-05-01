@@ -7,9 +7,6 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useAppTheme } from "../../../../contexts/Theme";
 import CONSTANTS from "../../../../constants";
 
-const PROFILE_LIST: string[] = [MESSAGES.HEADER.PROFILE_OPTION, MESSAGES.HEADER.LOGOUT_OPTION];
-const CONFIG_LIST: string[] = [MESSAGES.HEADER.COOKIES_OPTION];
-
 const MobileHeader = () => {
 
 	const location = useLocation();
