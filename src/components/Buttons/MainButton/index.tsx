@@ -5,7 +5,9 @@ interface MainButtonProps {
     text: string;
     onClick: () => void;
 	enabled?: boolean;
-	styles: React.CSSProperties;
+	styles?: React.CSSProperties;
+	leftIcon?: string;
+	rightIcon?: string;
 }
 
 const MainButton = (props: MainButtonProps) => {
@@ -16,7 +18,9 @@ const MainButton = (props: MainButtonProps) => {
 			enabled={props.enabled}
 			style={props.styles}
 		>
+			{props.leftIcon && <img src={props.leftIcon} alt={"left icon"} />}
 			{props.text}
+			{props.rightIcon && <img src={props.rightIcon} alt={"left icon"} />}
 		</ButtonStyled>
 	);
 };

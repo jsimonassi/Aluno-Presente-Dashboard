@@ -114,11 +114,11 @@ interface ImageProps {
 }
 
 export const SmallImage = styled.img<ImageProps>`
-    width: ${props => props.open ? 0 : 40}px;
+    width: ${props => props.open ? 0 : 50}px;
     transition: width ${TRANSITION_TIME};
 
     height: 40px;
-    object-fit: cover;
+    object-fit: contain;
     margin-bottom: 5px;
     border-radius: ${props => props?.radiusEnabled ? 10 : 0}px;
 
