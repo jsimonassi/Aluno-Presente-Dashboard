@@ -1,6 +1,7 @@
 import React from "react";
 import { CloseSidebarButton, ClosedSideBar, Container, LargeImgContainer, OpenSidebarButton, SidebarStyled, SmallImage, SmallImageContainer } from "./styles";
 import logoBlue from "../../../../assets/images/logoBlue.png";
+import logoSmall from "../../../../assets/images/logoSmall.png";
 import showLess from "../../../../assets/images/showLess.png";
 import showMore from "../../../../assets/images/showMore.png";
 
@@ -37,7 +38,7 @@ const Sidebar = (props: Props) => {
 		return (
 			<ClosedSideBar open={props.sideBarOpen}>
 				<SmallImageContainer>
-					<SmallImage src={logoBlue} alt={"Logo"} open={props.sideBarOpen} onClick={() => redirectTo("/")} />
+					<SmallImage src={logoSmall} alt={"Logo"} open={props.sideBarOpen} onClick={() => redirectTo("/")} />
 				</SmallImageContainer>
 
 				{<SidebarSmallItem icon={IoMdBook} selected={isSelected(CONSTANTS.ROUTES.OPTIONS.MY_CLASSES)} onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.MY_CLASSES)} />}

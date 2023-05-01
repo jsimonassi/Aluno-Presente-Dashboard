@@ -64,7 +64,7 @@ const Menu = (props: MenuProps) => {
 					},
 				}}
 			/>
-			<Content sidebarOpen={sidebarOpen} >
+			<Content sidebarOpen={sidebarOpen} width={width}>
 				{props.renderAsPartial ? <Outlet /> : null}
 			</Content>
 		</MenuStyled>
