@@ -1,6 +1,7 @@
 const SCREEN_SIZE = {
 	MOBILE: 480,
 	TABLET: 768,
+	DESKTOP: 1024,
 };
 
 export { SCREEN_SIZE };
