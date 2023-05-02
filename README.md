@@ -33,8 +33,8 @@ O projeto possui 3 ambientes de execução:
 
 Os ambientes de homologação e produção estão publicados e podem ser acessados nos seguintes links:
 
-- Homologação: https://aluno-presente-hml.vercel.app
-- Produção: https://aluno-presente.vercel.app
+- Homologação: https://alunopresente-hml.vercel.app
+- Produção: https://alunopresente.vercel.app
 
 ### Protótipo
 
