@@ -6,10 +6,12 @@ import emptyClassImg from "../../../assets/images/emptyClassImg.svg";
 import plusIcon from "../../../assets/images/plusIcon.svg";
 import MESSAGES from "../../../constants/messages";
 import { MainButton } from "../../../components/Buttons";
+import { NewClassModal } from "./components";
 
 const MyClasses = () => {
 
 	const [classes, setClasses] = useState<StudentsClass[] | null>(null);
+	const [newClassModalOpen, setNewClassModalOpen] = useState<boolean>(false);
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -24,7 +26,7 @@ const MyClasses = () => {
 				<h1>{MESSAGES.MY_CLASSES.EMPTY_LIST_MESSAGE}</h1>
 				<p>{MESSAGES.MY_CLASSES.EMPTY_LIST_DESCRIPTION}</p>
 				<MainButton 
-					onClick={() => null} 
+					onClick={() => setNewClassModalOpen(true)} 
 					text={MESSAGES.MY_CLASSES.NEW_CLASS_BTN} 
 					styles={{width: "30%", borderRadius: "24px", minWidth: "200px", maxWidth: "350px"}} 
 					enabled
@@ -56,6 +58,7 @@ const MyClasses = () => {
 
 	return (
 		<Container>
+			<NewClassModal isOpen={newClassModalOpen} onCancel={() => setNewClassModalOpen(false)} handleNewClass={() => null} />
 			{getContent()}
 		</Container>
 	);

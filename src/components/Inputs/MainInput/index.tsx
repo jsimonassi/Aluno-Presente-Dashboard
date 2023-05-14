@@ -33,6 +33,7 @@ const MainInput = (props: MainInputProps) => {
 						value={props.value}
 						disabled={props.disabled || props.isLoading}
 						isError={!!props.errorText}
+						style={props.inputStyle}
 					/>
 					:
 					<InputStyled
