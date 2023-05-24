@@ -9,4 +9,5 @@ export interface StudentsClass {
 interface ClassTime {
     start: string;
     end: string;
+    dayOfWeek: string;
 }

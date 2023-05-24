@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, RowContainer } from "./styles";
+import { DaysScroll, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, RowContainer } from "./styles";
 import { StudentsClass } from "../../../../../types/StudentsClass";
-import { MainInput } from "../../../../../components/Inputs";
-import { MainButton } from "../../../../../components/Buttons";
+import { Dropdown, MainInput, TimeInput } from "../../../../../components/Inputs";
+import { MainButton, OutlineButton } from "../../../../../components/Buttons";
 import MESSAGES from "../../../../../constants/messages";
 import closeIcon from "../../../../../assets/images/closeIcon.svg";
+import { DAYS_OF_WEEK } from "../../../../../constants/dates";
+import bluePlusIcon from "../../../../../assets/images/bluePlusIcon.svg";
 
 interface NewClassModalProps {
 	isOpen: boolean;
@@ -13,13 +15,17 @@ interface NewClassModalProps {
 }
 
 
-const NewClassModal = (props: NewClassModalProps ) => {
+const NewClassModal = (props: NewClassModalProps) => {
 
-	const [newClass, setNewClass] = useState<StudentsClass>({id: -1, courseName: ""});
+	const [newClass, setNewClass] = useState<StudentsClass>({ id: -1, courseName: "", daysOfWeek: [{ start: "07:00", end: "09:00", dayOfWeek: DAYS_OF_WEEK[0] }], period: "", about: "" });
 
 	const handleNewClass = () => {
 		//TODO: Tratar se está tudo certinho
 		props.handleNewClass(newClass);
+	};
+
+	const handleAddTime = () => {
+		console.log("Add Time");
 	};
 
 	return (
@@ -28,8 +34,8 @@ const NewClassModal = (props: NewClassModalProps ) => {
 				<ModalHeader >
 					<h1>{MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.TITLE}</h1>
 					<div>
-						<img src={closeIcon} alt="Close" onClick={() => {props.onCancel();}}/>
-					</div> 
+						<img src={closeIcon} alt="Close" onClick={() => { props.onCancel(); }} />
+					</div>
 				</ModalHeader>
 				<ModalBody >
 					<RowContainer >
@@ -40,7 +46,7 @@ const NewClassModal = (props: NewClassModalProps ) => {
 							placeholder={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.COURSE_PLACEHOLDER}
 							onChange={(newValue) => setNewClass({ ...newClass, courseName: newValue })}
 							errorText={""}
-							inputStyle={{borderRadius: "16px", marginRight: "8px"}}
+							inputStyle={{ borderRadius: "16px", marginRight: "8px" }}
 						/>
 						<MainInput
 							type="text"
@@ -49,7 +55,41 @@ const NewClassModal = (props: NewClassModalProps ) => {
 							placeholder={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.PERIOD_PLACEHOLDER}
 							onChange={(newValue) => setNewClass({ ...newClass, period: newValue })}
 							errorText={""}
-							inputStyle={{borderRadius: "16px"}}
+							inputStyle={{ borderRadius: "16px" }}
+						/>
+					</RowContainer>
+					<RowContainer>
+						<DaysScroll>
+							{newClass.daysOfWeek && newClass.daysOfWeek.map((day, index) => (
+								<RowContainer key={index}>
+									<Dropdown
+										items={DAYS_OF_WEEK}
+										onChange={() => null}
+										selected="a"
+										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.WEEKDAY}
+										style={{ marginRight: "8px", marginBottom: "8px" }}
+									/>
+									<TimeInput
+										onChange={() => null}
+										value="00:00"
+										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.FROM}
+										style={{ marginRight: "8px" }}
+									/>
+									<TimeInput
+										onChange={() => null}
+										value="00:30"
+										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.TO}
+										style={{ marginRight: "8px" }}
+									/>
+								</RowContainer>)
+							)}
+						</DaysScroll>
+						<OutlineButton
+							enabled
+							onClick={() => handleAddTime()}
+							text={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.NEW_TIME}
+							leftIcon={bluePlusIcon}
+							styles={{ maxWidth: "300px", width: "50%", marginLeft: "16px" }}
 						/>
 					</RowContainer>
 					<RowContainer >
@@ -60,7 +100,7 @@ const NewClassModal = (props: NewClassModalProps ) => {
 							placeholder={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.ABOUT_PLACEHOLDER}
 							onChange={(newValue) => setNewClass({ ...newClass, courseName: newValue })}
 							errorText={""}
-							inputStyle={{borderRadius: "16px", marginRight: "8px"}}
+							inputStyle={{ borderRadius: "16px", marginRight: "8px" }}
 							rowsNumber={4}
 						/>
 					</RowContainer>

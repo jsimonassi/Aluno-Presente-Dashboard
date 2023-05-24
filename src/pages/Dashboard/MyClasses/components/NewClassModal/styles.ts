@@ -86,12 +86,20 @@ export const RowContainer = styled.div`
 	align-items: center;
 	width: 100%;
 
-	h5 {
-		margin: 1%;
-	}
-
     @media ${DEVICE.TABLET} {
         flex-direction: column;
+    }
+`;
+
+export const DaysScroll = styled.div`
+	display: flex;
+	overflow-y: scroll;
+	max-height: 80px;
+	width: 100%;
+
+	@media ${DEVICE.TABLET} {
+        flex-direction: column;
+		max-height: max-content;
     }
 `;
 
