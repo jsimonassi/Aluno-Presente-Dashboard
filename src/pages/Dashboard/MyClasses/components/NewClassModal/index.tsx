@@ -1,31 +1,45 @@
 import React, { useState } from "react";
-import { DaysScroll, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, RowContainer } from "./styles";
-import { StudentsClass } from "../../../../../types/StudentsClass";
+import { DaysScroll, DeleteButtonContainer, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, RowContainer } from "./styles";
+import { ClassTime, StudentsClass } from "../../../../../types/StudentsClass";
 import { Dropdown, MainInput, TimeInput } from "../../../../../components/Inputs";
 import { MainButton, OutlineButton } from "../../../../../components/Buttons";
 import MESSAGES from "../../../../../constants/messages";
 import closeIcon from "../../../../../assets/images/closeIcon.svg";
 import { DAYS_OF_WEEK } from "../../../../../constants/dates";
 import bluePlusIcon from "../../../../../assets/images/bluePlusIcon.svg";
+import trashIcon from "../../../../../assets/images/trashIcon.svg";
+import { Feedback } from "../../../../../types/Feedback";
 
 interface NewClassModalProps {
 	isOpen: boolean;
 	onCancel: () => void;
-	handleNewClass: (studentClass: StudentsClass) => void;
+	onFeedback: (feedback: Feedback) => void;
 }
 
 
 const NewClassModal = (props: NewClassModalProps) => {
 
-	const [newClass, setNewClass] = useState<StudentsClass>({ id: -1, courseName: "", daysOfWeek: [{ start: "07:00", end: "09:00", dayOfWeek: DAYS_OF_WEEK[0] }], period: "", about: "" });
+	const [classDays, setClassDays] = useState<ClassTime []>([{ start: "07:00", end: "09:00", dayOfWeek: DAYS_OF_WEEK[0] }]);
+	const timesRef = React.createRef<HTMLDivElement>();
+	const [newClass, setNewClass] = useState<StudentsClass>({ id: -1, courseName: "", daysOfWeek:classDays, period: "", about: "" });
+
 
 	const handleNewClass = () => {
-		//TODO: Tratar se está tudo certinho
-		props.handleNewClass(newClass);
+		//TODO: Tratar se está tudo certinho e salvar no backend
+		// props.handleNewClass(newClass);
+		props.onFeedback({isOpen: true, success: true});
 	};
 
-	const handleAddTime = () => {
-		console.log("Add Time");
+	const handleAddClassTime = () => {
+		const newClassTime:ClassTime = {start: "07:00", end: "09:00", dayOfWeek: DAYS_OF_WEEK[0]};
+		setClassDays([...classDays, newClassTime]);
+		timesRef.current?.scrollIntoView({ behavior: "smooth" });
+	};
+
+	const handleUpdateClassTime = (newTime: ClassTime, index: number) => {
+		const oldList = [...classDays];
+		oldList[index] = newTime;
+		setClassDays(oldList);
 	};
 
 	return (
@@ -59,34 +73,39 @@ const NewClassModal = (props: NewClassModalProps) => {
 						/>
 					</RowContainer>
 					<RowContainer>
-						<DaysScroll>
-							{newClass.daysOfWeek && newClass.daysOfWeek.map((day, index) => (
+						<DaysScroll ref={timesRef}>
+							{classDays.map((time, index) => (
 								<RowContainer key={index}>
 									<Dropdown
 										items={DAYS_OF_WEEK}
-										onChange={() => null}
-										selected="a"
+										onChange={(newValue) => handleUpdateClassTime({...time, dayOfWeek: newValue}, index)}
+										selected={time.dayOfWeek}
 										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.WEEKDAY}
 										style={{ marginRight: "8px", marginBottom: "8px" }}
 									/>
 									<TimeInput
-										onChange={() => null}
-										value="00:00"
+										onChange={(newValue) => handleUpdateClassTime({...time, start: newValue}, index)}
+										value={time.start}
 										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.FROM}
 										style={{ marginRight: "8px" }}
 									/>
 									<TimeInput
-										onChange={() => null}
-										value="00:30"
+										onChange={(newValue) => handleUpdateClassTime({...time, end: newValue}, index)}
+										value={time.end}
 										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.TO}
 										style={{ marginRight: "8px" }}
 									/>
+									{index != 0 &&
+										<DeleteButtonContainer>
+											<img src={trashIcon} alt="Delete" onClick={() => setClassDays(classDays.filter((_, i) => i != index))} style={{width:"20px"}} />
+										</DeleteButtonContainer>
+									}
 								</RowContainer>)
 							)}
 						</DaysScroll>
 						<OutlineButton
 							enabled
-							onClick={() => handleAddTime()}
+							onClick={() => handleAddClassTime()}
 							text={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.NEW_TIME}
 							leftIcon={bluePlusIcon}
 							styles={{ maxWidth: "300px", width: "50%", marginLeft: "16px" }}

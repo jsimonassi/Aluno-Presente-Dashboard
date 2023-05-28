@@ -7,11 +7,14 @@ import plusIcon from "../../../assets/images/plusIcon.svg";
 import MESSAGES from "../../../constants/messages";
 import { MainButton } from "../../../components/Buttons";
 import { NewClassModal } from "./components";
+import { FeedbackModal } from "../../../components/Modals";
+import { Feedback } from "../../../types/Feedback";
 
 const MyClasses = () => {
 
 	const [classes, setClasses] = useState<StudentsClass[] | null>(null);
 	const [newClassModalOpen, setNewClassModalOpen] = useState<boolean>(false);
+	const [feedbackStatus, setFeedbackStatus] = useState<Feedback>({isOpen: false, success: false});
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -56,9 +59,18 @@ const MyClasses = () => {
 		}
 	};
 
+	const onFeedbackReceived = (feedbackStatus: Feedback) => {
+		setNewClassModalOpen(false);
+		setFeedbackStatus(feedbackStatus);
+		setTimeout(() => {
+			setFeedbackStatus({isOpen: false, success: false});
+		}, 3000);
+	};
+
 	return (
 		<Container>
-			<NewClassModal isOpen={newClassModalOpen} onCancel={() => setNewClassModalOpen(false)} handleNewClass={() => null} />
+			<FeedbackModal isOpen={feedbackStatus.isOpen} success={feedbackStatus.success} />
+			<NewClassModal isOpen={newClassModalOpen} onCancel={() => setNewClassModalOpen(false)} onFeedback={(newClass) => onFeedbackReceived(newClass)} />
 			{getContent()}
 		</Container>
 	);

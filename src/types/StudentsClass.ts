@@ -6,7 +6,7 @@ export interface StudentsClass {
     about?: string;
 }
 
-interface ClassTime {
+export interface ClassTime {
     start: string;
     end: string;
     dayOfWeek: string;

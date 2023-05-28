@@ -93,8 +93,9 @@ export const RowContainer = styled.div`
 
 export const DaysScroll = styled.div`
 	display: flex;
+	flex-direction: column;
 	overflow-y: scroll;
-	max-height: 80px;
+	max-height: 150px;
 	width: 100%;
 
 	@media ${DEVICE.TABLET} {
@@ -108,7 +109,6 @@ export const ModalFooter = styled.div`
 	justify-content: flex-end;
 	width: 100%;
 	align-items: center;
-	margin-top: 10px;
 
 	button {
 		width: 30%;
@@ -128,4 +128,22 @@ export const ModalFooter = styled.div`
 		}
 	}
 
+`;
+
+export const DeleteButtonContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+    background-color: ${props => props.theme.background};
+	width: 150px;
+	height: 45px;
+	border-radius: 15px;
+	margin-top: 10px;
+	margin-right: 8px;
+
+	&:hover {
+		opacity: 0.5;
+		cursor: pointer;
+	}
 `;
