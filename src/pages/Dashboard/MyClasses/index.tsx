@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { StudentsClass } from "../../../types/StudentsClass";
-import { Container, EmptyContainer, LoaderContainer } from "./styles";
+import { AllClassContainer, Container, ContentContainer, EmptyContainer } from "./styles";
 import { SvgLoader } from "../../../components/Loaders";
 import emptyClassImg from "../../../assets/images/emptyClassImg.svg";
 import plusIcon from "../../../assets/images/plusIcon.svg";
 import MESSAGES from "../../../constants/messages";
 import { MainButton } from "../../../components/Buttons";
-import { NewClassModal } from "./components";
+import { ClassCard, NewClassModal } from "./components";
 import { FeedbackModal } from "../../../components/Modals";
 import { Feedback } from "../../../types/Feedback";
+import Api from "../../../services/api";
 
 const MyClasses = () => {
 
 	const [classes, setClasses] = useState<StudentsClass[] | null>(null);
 	const [newClassModalOpen, setNewClassModalOpen] = useState<boolean>(false);
-	const [feedbackStatus, setFeedbackStatus] = useState<Feedback>({isOpen: false, success: false});
+	const [feedbackStatus, setFeedbackStatus] = useState<Feedback>({ isOpen: false, success: false });
 
 	useEffect(() => {
-		setTimeout(() => {
+		Api.Classes.getClasses().then((response) => {
+			setClasses(response);
+		}).catch((error) => {
+			console.log(error);
 			setClasses([]);
-		}, 2000);
+		});
 	}, []);
+
 
 	const EmptyClassListLayout = () => {
 		return (
@@ -28,10 +33,10 @@ const MyClasses = () => {
 				<img src={emptyClassImg} alt={"Empty Class List"} />
 				<h1>{MESSAGES.MY_CLASSES.EMPTY_LIST_MESSAGE}</h1>
 				<p>{MESSAGES.MY_CLASSES.EMPTY_LIST_DESCRIPTION}</p>
-				<MainButton 
-					onClick={() => setNewClassModalOpen(true)} 
-					text={MESSAGES.MY_CLASSES.NEW_CLASS_BTN} 
-					styles={{width: "30%", borderRadius: "24px", minWidth: "200px", maxWidth: "350px"}} 
+				<MainButton
+					onClick={() => setNewClassModalOpen(true)}
+					text={MESSAGES.MY_CLASSES.NEW_CLASS_BTN}
+					styles={{ width: "30%", borderRadius: "24px", minWidth: "200px", maxWidth: "350px" }}
 					enabled
 					leftIcon={plusIcon}
 				/>
@@ -42,19 +47,32 @@ const MyClasses = () => {
 	const getContent = () => {
 		if (classes === null) {
 			return (
-				<LoaderContainer >
+				<ContentContainer >
 					{
 						[...Array(4)].map((_, index) => (
 							<SvgLoader key={index} />
 						))
 					}
-				</LoaderContainer>
+				</ContentContainer>
 			);
 		} else if (classes.length === 0) {
 			return <EmptyClassListLayout />;
 		} else {
 			return (
-				<></>
+				<AllClassContainer>
+					<ContentContainer>
+						{classes.map((currentClass) => (
+							<ClassCard currentClass={currentClass} key={currentClass.id} />
+						))}
+					</ContentContainer>
+					<MainButton
+						onClick={() => setNewClassModalOpen(true)}
+						text={MESSAGES.MY_CLASSES.NEW_CLASS_BTN}
+						styles={{ width: "30%", borderRadius: "24px", minWidth: "200px", maxWidth: "350px" }}
+						enabled
+						leftIcon={plusIcon}
+					/>
+				</AllClassContainer>
 			);
 		}
 	};
@@ -63,7 +81,7 @@ const MyClasses = () => {
 		setNewClassModalOpen(false);
 		setFeedbackStatus(feedbackStatus);
 		setTimeout(() => {
-			setFeedbackStatus({isOpen: false, success: false});
+			setFeedbackStatus({ isOpen: false, success: false });
 		}, 3000);
 	};
 

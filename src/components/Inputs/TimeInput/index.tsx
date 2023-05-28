@@ -1,7 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import React from "react";
 import {InputContainer, StackContainer, TimeInputStyled, TitleContainer } from "./styles";
-import { AiOutlineClockCircle } from "react-icons/ai";
 import moment from "moment";
 
 

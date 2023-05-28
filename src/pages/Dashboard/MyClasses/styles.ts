@@ -36,12 +36,16 @@ export const EmptyContainer = styled.div`
     }
 `;
 
-export const LoaderContainer = styled.div`
+export const ContentContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    width: 100%;
-    width: auto;
+    /* justify-content: space-evenly; */
+    justify-content: center;
+`;
 
+export const AllClassContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
