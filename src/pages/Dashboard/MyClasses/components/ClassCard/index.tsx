@@ -8,6 +8,7 @@ import editIcon from "../../../../../assets/images/editIcon.svg";
 
 export interface ClassCardProps {
     currentClass: StudentsClass;
+	onClassSelected: (selectedClass: StudentsClass) => void;
 }
 
 const ClassCard = (props: ClassCardProps) => {
@@ -31,7 +32,7 @@ const ClassCard = (props: ClassCardProps) => {
 	};
 
 	return (
-		<Container>
+		<Container onClick={() => props.onClassSelected(props.currentClass)}>
 			<Header>
 				<Infos>
 					<h1>{props.currentClass.courseName}</h1>
