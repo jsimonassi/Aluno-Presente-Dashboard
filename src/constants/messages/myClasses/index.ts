@@ -26,6 +26,14 @@ const MY_CLASSES = {
 		AVAILABLE_OPTIONS: ["Chamada", "Adicionar alunos", "Frequência da turma"],
 		EDIT_BTN: "Editar",
 		EXPORT_BTN: "Exportar chamada",
+		SELECT_OPTION: "Selecione uma opção:",
+		IMPORT_STUDENTS: "Importar alunos de uma planilha .xlsx",
+		MANUAL_ADD: "Adicionar alunos manualmente",
+		IMPORT_STUDENTS_DESCRIPTION: "Escolha esta opção se você possui uma planilha listando nome e e-mail dos alunos. O sistema irá identificar e cadastrar automaticamente todos os alunos em sua turma.",
+		MANUAL_ADD_DESCRIPTION: "Adicione manualmente a informação de novos alunos. O controle de presença só ficará válido para o aluno a partir da data de ingresso na disciplina. As aulas anteriores não terão falta ou presença a menos que o professor faça a edição.",
+	
+		FREQUENCY: "Frequência",
+		FREQUENCY_DESCRIPTION: "A frequência da turma é de ",
 	}
 };
 
