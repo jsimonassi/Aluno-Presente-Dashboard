@@ -37,8 +37,8 @@ const MY_CLASSES = {
 
 		ADD_FROM_XLSX_MODAL: {
 			TITLE: "Importar alunos",
-			TABLE: "Planilha de alunos",
-			FINNED_STUDENTS: "Alunos encontrados",
+			TABLE: "Planilha de alunos:",
+			FINNED_STUDENTS: "Alunos encontrados:",
 			OBS: "Obs: Alunos que já estão na lista (Com o mesmo e-mail) serão ignorados.",
 			ADD_BTN: "Adicionar",
 			NAME: "Nome",
