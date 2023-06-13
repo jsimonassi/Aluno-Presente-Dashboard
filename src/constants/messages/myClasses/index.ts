@@ -34,6 +34,18 @@ const MY_CLASSES = {
 	
 		FREQUENCY: "Frequência",
 		FREQUENCY_DESCRIPTION: "A frequência da turma é de ",
+
+		ADD_FROM_XLSX_MODAL: {
+			TITLE: "Importar alunos",
+			TABLE: "Planilha de alunos",
+			FINNED_STUDENTS: "Alunos encontrados",
+			OBS: "Obs: Alunos que já estão na lista (Com o mesmo e-mail) serão ignorados.",
+			ADD_BTN: "Adicionar",
+			NAME: "Nome",
+			EMAIL: "E-mail",
+			CPF: "CPF",
+			NUMBER: "Matrícula",
+		}
 	}
 };
 
