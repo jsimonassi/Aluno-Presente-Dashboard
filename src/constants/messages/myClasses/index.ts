@@ -45,6 +45,8 @@ const MY_CLASSES = {
 			EMAIL: "E-mail",
 			CPF: "CPF",
 			NUMBER: "Matrícula",
+			NULL_LIST: "Carregue um arquivo para ver a lista de alunos encontrados.",
+			EMPTY_LIST: "Nenhum aluno encontrado.",
 		}
 	}
 };

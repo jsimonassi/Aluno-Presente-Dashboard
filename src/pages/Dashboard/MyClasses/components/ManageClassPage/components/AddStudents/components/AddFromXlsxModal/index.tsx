@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader } from "./styles";
+import { InputFileContainer, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, ResultContainer } from "./styles";
 import { MainButton } from "../../../../../../../../../components/Buttons";
 import closeIcon from "../../../../../../../../../assets/images/closeIcon.svg";
 import MESSAGES from "../../../../../../../../../constants/messages";
@@ -17,11 +17,12 @@ const AddFromXlsxModal = (props: AddFromXlsxModalProps) => {
 
 	const [studentsList, setStudentsList] = useState<Student[] | null>(null);
 
-
 	const handleAddStudents = async (file: File) => {
 		const studentsFound = await Helpers.XlsxManager.getStudentsFromXlsx(file);
 		setStudentsList(studentsFound);
 	};
+
+
 
 	return (
 		<ModalContainer isOpen={props.isOpen} >
@@ -33,13 +34,18 @@ const AddFromXlsxModal = (props: AddFromXlsxModalProps) => {
 					</div>
 				</ModalHeader>
 				<ModalBody >
-					<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.TABLE}</h3>
-					<FileInput
-						onChange={(file) => handleAddStudents(file)}
-						accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-					/>
-					<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.FINNED_STUDENTS}</h3>
-					<ResultTable />
+					<InputFileContainer>
+						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.TABLE}</h3>
+						<FileInput
+							onChange={(file) => handleAddStudents(file)}
+							accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+						/>
+					</InputFileContainer>
+					<ResultContainer>
+						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.FINNED_STUDENTS}</h3>
+						<ResultTable finnedStudents={studentsList} />
+					</ResultContainer>
+					<small>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.OBS}</small>
 					<ModalFooter >
 						<MainButton enabled onClick={() => null} text={"Adicionar"} />
 					</ModalFooter>

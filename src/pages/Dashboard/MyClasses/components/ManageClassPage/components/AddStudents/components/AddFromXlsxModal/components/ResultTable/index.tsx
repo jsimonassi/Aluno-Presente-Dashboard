@@ -1,12 +1,26 @@
 import React from "react";
 import MESSAGES from "../../../../../../../../../../../constants/messages";
-import { TableHeaderStyled } from "./styles";
+import { TableContainer, TableHeaderStyled } from "./styles";
+import { Student } from "../../../../../../../../../../../types/Student";
+import { TableItem } from "./components";
 
-const ResultTable = () => {
+interface ResultTableProps {
+	finnedStudents: Student[] | null;
+}
 
-	return (
-		<div>
-			<table>
+const ResultTable = (props: ResultTableProps) => {
+
+	const getTableContent = () => {
+		if (!props.finnedStudents) {
+			return (<p>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.NULL_LIST}</p>);
+		}
+
+		if (props.finnedStudents.length === 0) {
+			return (<p>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.EMPTY_LIST}</p>);
+		}
+
+		return (
+			<table cellSpacing={0} cellPadding={0}>
 				<thead>
 					<TableHeaderStyled >
 						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.NAME}</th>
@@ -16,26 +30,24 @@ const ResultTable = () => {
 					</TableHeaderStyled>
 				</thead>
 				<tbody>
-					{/* {
-						props.result.map((user, index) => (
-							<>
-								<TableItem
-									key={index}
-									user={user}
-									onClickEdit={props.onClickEdit}
-									onClickDelete={props.onClickDelete}
-								/>
-								<LineTr theme={currentTheme}>
-									<td colSpan={4}>
-										<Line theme={currentTheme} />
-									</td>
-								</LineTr>
-							</>
+					{
+						props.finnedStudents?.map((currentStudent, index) => (
+							<TableItem
+								key={index}
+								index={index}
+								currentStudent={currentStudent}
+							/>
 						))
-					} */}
+					}
 				</tbody>
 			</table>
-		</div>
+		);
+	};
+
+	return (
+		<TableContainer>
+			{getTableContent()}
+		</TableContainer>
 	);
 
 };

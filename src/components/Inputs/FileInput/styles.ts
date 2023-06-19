@@ -8,7 +8,6 @@ interface ITagInputProps {
 export const StackContainer = styled.div<ITagInputProps>`
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
   max-width: 250px;
   height: 55px;
 

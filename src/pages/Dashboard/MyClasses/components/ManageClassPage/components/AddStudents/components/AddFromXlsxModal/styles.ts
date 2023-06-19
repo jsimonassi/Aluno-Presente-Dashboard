@@ -73,6 +73,10 @@ export const ModalBody = styled.div`
 		margin-bottom: 10px;
 	}
 
+	small {
+		margin-top: 20px;
+	}
+
 
     @media ${DEVICE.TABLET} {
         overflow-y: scroll;
@@ -80,29 +84,7 @@ export const ModalBody = styled.div`
     }
 `;
 
-export const RowContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	width: 100%;
 
-    @media ${DEVICE.TABLET} {
-        flex-direction: column;
-    }
-`;
-
-export const DaysScroll = styled.div`
-	display: flex;
-	flex-direction: column;
-	overflow-y: scroll;
-	max-height: 150px;
-	width: 100%;
-
-	@media ${DEVICE.TABLET} {
-        flex-direction: column;
-		max-height: max-content;
-    }
-`;
 
 export const ModalFooter = styled.div`
 	display: flex;
@@ -130,20 +112,23 @@ export const ModalFooter = styled.div`
 
 `;
 
-export const DeleteButtonContainer = styled.div`
+export const InputFileContainer = styled.div`
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction: column;
 
-    background-color: ${props => props.theme.background};
-	width: 150px;
-	height: 45px;
-	border-radius: 15px;
-	margin-top: 10px;
-	margin-right: 8px;
-
-	&:hover {
-		opacity: 0.5;
-		cursor: pointer;
+	h3 {
+		margin-bottom: 10px;
 	}
 `;
+
+export const ResultContainer = styled.div`
+	display: flex;
+	margin-top: 40px;
+	flex-direction: column;
+	min-height: 150px;
+
+	h3 {
+		margin-bottom: 20px;
+	}
+`;
+
