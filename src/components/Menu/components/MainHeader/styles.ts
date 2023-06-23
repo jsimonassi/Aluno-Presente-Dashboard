@@ -12,6 +12,7 @@ export const HeaderStyled = styled.header<ContainerProps>`
     padding-top: 1%;
     padding-bottom: 1%;
     height: 8%;
+    max-height: 60px;
     position: fixed;
     width: 100%;
     background-color: ${props => props.theme.background};

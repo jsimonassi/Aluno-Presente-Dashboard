@@ -13,6 +13,7 @@ interface MainInputProps {
 	rowsNumber?: number;
 	style?: React.CSSProperties;
 	inputStyle?: React.CSSProperties;
+	titleStyle?: React.CSSProperties;
 	disabled?: boolean;
 	isLoading?: boolean;
 }
@@ -22,7 +23,7 @@ const MainInput = (props: MainInputProps) => {
 
 	return (
 		<StackContainer style={props.style} disabled={props.disabled}>
-			{props.title && <h1>{props.title}</h1>}
+			{props.title && <h1 style={props.titleStyle}>{props.title}</h1>}
 			<RowContainer>
 				{props?.rowsNumber ?
 					<TextAreaStyled

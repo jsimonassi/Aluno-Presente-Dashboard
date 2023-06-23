@@ -47,6 +47,20 @@ const MY_CLASSES = {
 			NUMBER: "Matrícula",
 			NULL_LIST: "Carregue um arquivo para ver a lista de alunos encontrados.",
 			EMPTY_LIST: "Nenhum aluno encontrado.",
+		},
+
+		ADD_FROM_MANUAL_MODAL: {
+			TITLE: "Adicionar aluno",
+			NAME: "Nome",
+			EMAIL: "E-mail",
+			CPF: "CPF",
+			NUMBER: "Matrícula",
+			ADD_BTN: "Adicionar",
+			NAME_PLACEHOLDER: "Fulano Pereira da Silva",
+			EMAIL_PLACEHOLDER: "fulano@email.com",
+			CPF_PLACEHOLDER: "000.000.000-00",
+			NUMBER_PLACEHOLDER: "000000000",
+			MANDATORY_FIELD: "Campo obrigatório",
 		}
 	}
 };

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { BigButton, Container } from "./styles";
 import MESSAGES from "../../../../../../../constants/messages";
-import { AddFromXlsxModal } from "./components";
+import { AddFromManualModal, AddFromXlsxModal } from "./components";
 
 
 const AddStudents = () => {
@@ -12,7 +12,8 @@ const AddStudents = () => {
 
 	return (
 		<Container>
-			<AddFromXlsxModal isOpen={addFromXlsxModalIsOpen} onCancel={() => setAddFromXlsxModalIsOpen(false)} />
+			<AddFromXlsxModal isOpen={addFromXlsxModalIsOpen} onClose={() => setAddFromXlsxModalIsOpen(false)} />
+			<AddFromManualModal isOpen={addFromManualModalIsOpen} onClose={() => setAddFromManualModalIsOpen(false)} />
 			<h1>{MESSAGES.MY_CLASSES.MANAGE_CLASS.SELECT_OPTION}</h1>
 			<BigButton onClick={() => setAddFromXlsxModalIsOpen(true)}>
 				<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.IMPORT_STUDENTS}</h3>

@@ -22,7 +22,7 @@ export const Content = styled.div<Props>`
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 100px;
+    margin-top: 120px;
     padding-left: ${props => getPadding(props)}px;
     padding-right: 40px;
     min-width: 400px;
