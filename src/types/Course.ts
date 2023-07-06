@@ -1,4 +1,4 @@
-export interface StudentsClass {
+export interface Course {
     id: number;
     courseName: string;
     period?: string;
@@ -7,7 +7,9 @@ export interface StudentsClass {
 }
 
 export interface ClassTime {
-    start: string;
-    end: string;
-    dayOfWeek: string;
+    startHour: number;
+    startMinute: number;
+    endHour: number;
+    endMinute: number;
+    dayOfWeek: number;
 }

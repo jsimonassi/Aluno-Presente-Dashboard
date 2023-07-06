@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { StudentsClass } from "../../../../../types/StudentsClass";
+import { Course } from "../../../../../types/Course";
 import { AddStudents, ManageClassHeader, StartFrequency, StudentsFrequency } from "./components";
 import MESSAGES from "../../../../../constants/messages";
 
 interface ManageClassPageProps {
-    selectedClass: StudentsClass;
+    selectedClass: Course;
     onBack: () => void;
 }
 

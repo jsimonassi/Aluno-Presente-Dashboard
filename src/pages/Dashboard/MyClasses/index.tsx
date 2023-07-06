@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StudentsClass } from "../../../types/StudentsClass";
+import { Course } from "../../../types/Course";
 import { AllClassContainer, Container, ContentContainer, EmptyContainer } from "./styles";
 import { SvgLoader } from "../../../components/Loaders";
 import emptyClassImg from "../../../assets/images/emptyClassImg.svg";
@@ -13,10 +13,10 @@ import Api from "../../../services/api";
 
 const MyClasses = () => {
 
-	const [classes, setClasses] = useState<StudentsClass[] | null>(null);
+	const [classes, setClasses] = useState<Course[] | null>(null);
 	const [newClassModalOpen, setNewClassModalOpen] = useState<boolean>(false);
 	const [feedbackStatus, setFeedbackStatus] = useState<Feedback>({ isOpen: false, success: false });
-	const [selectedClass, setSelectedClass] = useState<StudentsClass | null>(null);
+	const [selectedClass, setSelectedClass] = useState<Course | null>(null);
 
 	useEffect(() => {
 		Api.Classes.getClasses().then((response) => {

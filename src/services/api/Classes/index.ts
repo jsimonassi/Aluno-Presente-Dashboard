@@ -1,8 +1,8 @@
-import { StudentsClass } from "../../../types/StudentsClass";
+import { Course } from "../../../types/Course";
 
 const Classes = {
 	getClasses: () => {
-		return new Promise<StudentsClass[]>((resolve) => {
+		return new Promise<Course[]>((resolve) => {
 			setTimeout(() => {
 				resolve([
 					{
@@ -11,9 +11,11 @@ const Classes = {
 						period: "2023.1",
 						daysOfWeek: [
 							{
-								start: "19:00",
-								end: "22:00",
-								dayOfWeek: "Segunda"
+								startHour: 19,
+								startMinute: 0,
+								endHour: 22,
+								endMinute: 0,
+								dayOfWeek: 0
 							}
 						]
 					},
@@ -23,9 +25,11 @@ const Classes = {
 						period: "2023.1",
 						daysOfWeek: [
 							{
-								start: "19:00",
-								end: "22:00",
-								dayOfWeek: "Segunda"
+								startHour: 19,
+								startMinute: 0,
+								endHour: 22,
+								endMinute: 0,
+								dayOfWeek: 0
 							}
 						]
 					},
@@ -35,9 +39,11 @@ const Classes = {
 						period: "2023.1",
 						daysOfWeek: [
 							{
-								start: "19:00",
-								end: "22:00",
-								dayOfWeek: "Segunda"
+								startHour: 19,
+								startMinute: 0,
+								endHour: 22,
+								endMinute: 0,
+								dayOfWeek: 0
 							}
 						]
 					},
@@ -47,9 +53,11 @@ const Classes = {
 						period: "2023.1",
 						daysOfWeek: [
 							{
-								start: "19:00",
-								end: "22:00",
-								dayOfWeek: "Segunda"
+								startHour: 19,
+								startMinute: 0,
+								endHour: 22,
+								endMinute: 0,
+								dayOfWeek: 0
 							}
 						]
 					}

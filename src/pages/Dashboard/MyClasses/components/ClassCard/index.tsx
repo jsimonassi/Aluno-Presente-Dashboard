@@ -1,14 +1,16 @@
 import React from "react";
-import { ClassTime, StudentsClass } from "../../../../../types/StudentsClass";
+import { ClassTime, Course } from "../../../../../types/Course";
 import { Container, Footer, Header, Infos } from "./styles";
 import { IoIosArrowForward } from "react-icons/io";
 import { useAppTheme } from "../../../../../contexts/Theme";
 import trashIcon from "../../../../../assets/images/trashIcon.svg";
 import editIcon from "../../../../../assets/images/editIcon.svg";
+import { Helpers } from "../../../../../helpers";
+import { DAYS_OF_WEEK } from "../../../../../constants/dates";
 
 export interface ClassCardProps {
-    currentClass: StudentsClass;
-	onClassSelected: (selectedClass: StudentsClass) => void;
+    currentClass: Course;
+	onClassSelected: (selectedClass: Course) => void;
 }
 
 const ClassCard = (props: ClassCardProps) => {
@@ -20,11 +22,12 @@ const ClassCard = (props: ClassCardProps) => {
 		let weekDays = "";
 		let times = "";
 		timeList.forEach((time, index) => {
-			weekDays += time.dayOfWeek;
+			weekDays += DAYS_OF_WEEK[time.dayOfWeek];
 			if(index !== timeList.length - 1){
 				weekDays += ", ";
 			}
-			times += time.start + " - " + time.end;
+
+			times += Helpers.DateConverter.convertClassTimeToMoment(time).start.format("HH:mm") + " - " + Helpers.DateConverter.convertClassTimeToMoment(time).end.format("HH:mm");
 		});
 
 

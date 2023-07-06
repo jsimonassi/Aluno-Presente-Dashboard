@@ -44,22 +44,12 @@ const AddFromManualModal = (props: AddFromManualModalProps) => {
 					/>
 					<RowContainer>
 						<MainInput
-							value={newStudent?.cpf ?? ""}
-							onChange={(newCpf) => setNewStudent({ ...newStudent, name: newCpf })}
-							placeholder={MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_MANUAL_MODAL.CPF_PLACEHOLDER}
-							type="text"
-							title={MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_MANUAL_MODAL.CPF}
-							titleStyle={{ color: "black", fontSize: "14px", fontFamily: "normal" }}
-							style={{ marginRight: "10px"}}
-						/>
-						<MainInput
 							value={newStudent?.ra ?? ""}
 							onChange={(newRa) => setNewStudent({ ...newStudent, ra: newRa })}
 							placeholder={MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_MANUAL_MODAL.NUMBER_PLACEHOLDER}
-							type="text"
+							type="number"
 							title={MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_MANUAL_MODAL.NUMBER}
 							titleStyle={{ color: "black", fontSize: "14px", fontFamily: "normal" }}
-							style={{ marginLeft: "10px"}}
 						/>
 					</RowContainer>
 					<ModalFooter >
