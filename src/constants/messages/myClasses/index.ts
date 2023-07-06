@@ -62,6 +62,13 @@ const MY_CLASSES = {
 			NUMBER_PLACEHOLDER: "000000000",
 			MANDATORY_FIELD: "Campo obrigatório",
 		}
+	},
+
+	FREQUENCY_CONTROLLER: {
+		STUDENTS: "Alunos",
+		EDIT_BTN: "Editar",
+		EXPORT_BTN: "Exportar",
+		NEW_FREQUENCY: "Nova chamada",
 	}
 };
 

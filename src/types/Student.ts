@@ -1,6 +1,6 @@
 export interface Student {
+    id: string;
     name: string;
-    email: string;
-    cpf?: string;
-    ra?: string;
+    email?: string | null;
+    ra?: string | null;
 }

@@ -25,7 +25,6 @@ const ResultTable = (props: ResultTableProps) => {
 					<TableHeaderStyled >
 						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.NAME}</th>
 						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.EMAIL}</th>
-						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.CPF}</th>
 						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.NUMBER}</th>
 					</TableHeaderStyled>
 				</thead>
