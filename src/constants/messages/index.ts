@@ -3,6 +3,7 @@ import SIDEBAR from "./sidebar";
 import HEADER from "./header";
 import MY_CLASSES from "./myClasses";
 import FEEDBACK_MESSAGES from "./feedback";
+import GENERAL from "./general";
 
 
 const MESSAGES = {
@@ -10,7 +11,8 @@ const MESSAGES = {
 	SIDEBAR,
 	HEADER,
 	MY_CLASSES,
-	FEEDBACK_MESSAGES
+	FEEDBACK_MESSAGES,
+	GENERAL
 };
 
 export default MESSAGES;

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { DaysScroll, DeleteButtonContainer, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, RowContainer } from "./styles";
-import { ClassTime, StudentsClass } from "../../../../../types/StudentsClass";
+import { ClassTime, Course } from "../../../../../types/Course";
 import { Dropdown, MainInput, TimeInput } from "../../../../../components/Inputs";
 import { MainButton, OutlineButton } from "../../../../../components/Buttons";
 import MESSAGES from "../../../../../constants/messages";
 import closeIcon from "../../../../../assets/images/closeIcon.svg";
-import { DAYS_OF_WEEK } from "../../../../../constants/dates";
 import bluePlusIcon from "../../../../../assets/images/bluePlusIcon.svg";
 import trashIcon from "../../../../../assets/images/trashIcon.svg";
 import { Feedback } from "../../../../../types/Feedback";
+import { Helpers } from "../../../../../helpers";
+import { DAYS_OF_WEEK } from "../../../../../constants/dates";
+import moment from "moment";
 
 interface NewClassModalProps {
 	isOpen: boolean;
@@ -19,9 +21,9 @@ interface NewClassModalProps {
 
 const NewClassModal = (props: NewClassModalProps) => {
 
-	const [classDays, setClassDays] = useState<ClassTime []>([{ start: "07:00", end: "09:00", dayOfWeek: DAYS_OF_WEEK[0] }]);
+	const [classDays, setClassDays] = useState<ClassTime []>([{ startHour: 7, startMinute: 0, endHour: 9, endMinute: 0, dayOfWeek: 0}]);
 	const timesRef = React.createRef<HTMLDivElement>();
-	const [newClass, setNewClass] = useState<StudentsClass>({ id: -1, courseName: "", daysOfWeek:classDays, period: "", about: "" });
+	const [newClass, setNewClass] = useState<Course>({ id: -1, courseName: "", daysOfWeek:classDays , period: "", about: "" });
 
 
 	const handleNewClass = () => {
@@ -31,12 +33,13 @@ const NewClassModal = (props: NewClassModalProps) => {
 	};
 
 	const handleAddClassTime = () => {
-		const newClassTime:ClassTime = {start: "07:00", end: "09:00", dayOfWeek: DAYS_OF_WEEK[0]};
+		const newClassTime:ClassTime = { startHour: 7, startMinute: 0, endHour: 9, endMinute: 0, dayOfWeek: 0};
 		setClassDays([...classDays, newClassTime]);
 		timesRef.current?.scrollIntoView({ behavior: "smooth" });
 	};
 
 	const handleUpdateClassTime = (newTime: ClassTime, index: number) => {
+		console.log("Hora atual: ", newTime);
 		const oldList = [...classDays];
 		oldList[index] = newTime;
 		setClassDays(oldList);
@@ -78,20 +81,20 @@ const NewClassModal = (props: NewClassModalProps) => {
 								<RowContainer key={index}>
 									<Dropdown
 										items={DAYS_OF_WEEK}
-										onChange={(newValue) => handleUpdateClassTime({...time, dayOfWeek: newValue}, index)}
-										selected={time.dayOfWeek}
+										onChange={(newValue) => handleUpdateClassTime({...time, dayOfWeek: DAYS_OF_WEEK.indexOf(newValue)}, index)}
+										selected={DAYS_OF_WEEK[time.dayOfWeek]}
 										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.WEEKDAY}
 										style={{ marginRight: "8px", marginBottom: "8px" }}
 									/>
 									<TimeInput
-										onChange={(newValue) => handleUpdateClassTime({...time, start: newValue}, index)}
-										value={time.start}
+										onChange={(newValue) => handleUpdateClassTime({...time, startHour: moment(newValue).hours(), startMinute: moment(newValue).minute()}, index)}
+										value={Helpers.DateConverter.convertClassTimeToMoment(time).start.format("HH:mm")}
 										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.FROM}
 										style={{ marginRight: "8px" }}
 									/>
 									<TimeInput
-										onChange={(newValue) => handleUpdateClassTime({...time, end: newValue}, index)}
-										value={time.end}
+										onChange={(newValue) => handleUpdateClassTime({...time, endHour: moment(newValue).hours(), endMinute:  moment(newValue).minute()}, index)}
+										value={Helpers.DateConverter.convertClassTimeToMoment(time).end.format("HH:mm")}
 										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.TO}
 										style={{ marginRight: "8px" }}
 									/>

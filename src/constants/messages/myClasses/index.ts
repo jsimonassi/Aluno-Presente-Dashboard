@@ -19,6 +19,56 @@ const MY_CLASSES = {
 		ABOUT_PLACEHOLDER: "A disciplina de inteligência artificial explica os fundamentos teórico-conceituais da inteligência artificial de modo abrangente, porém coerente; atravessa os paradigmas da inteligência artificial e introduzir noções das diversas técnicas utilizadas na área.",
 		NEW_TIME: "Novo horário",
 		SAVE: "Salvar",
+	},
+
+	MANAGE_CLASS: {
+		STUDENTS: "Alunos",
+		AVAILABLE_OPTIONS: ["Chamada", "Adicionar alunos", "Frequência da turma"],
+		EDIT_BTN: "Editar",
+		EXPORT_BTN: "Exportar chamada",
+		SELECT_OPTION: "Selecione uma opção:",
+		IMPORT_STUDENTS: "Importar alunos de uma planilha .xlsx",
+		MANUAL_ADD: "Adicionar alunos manualmente",
+		IMPORT_STUDENTS_DESCRIPTION: "Escolha esta opção se você possui uma planilha listando nome e e-mail dos alunos. O sistema irá identificar e cadastrar automaticamente todos os alunos em sua turma.",
+		MANUAL_ADD_DESCRIPTION: "Adicione manualmente a informação de novos alunos. O controle de presença só ficará válido para o aluno a partir da data de ingresso na disciplina. As aulas anteriores não terão falta ou presença a menos que o professor faça a edição.",
+	
+		FREQUENCY: "Frequência",
+		FREQUENCY_DESCRIPTION: "A frequência da turma é de ",
+
+		ADD_FROM_XLSX_MODAL: {
+			TITLE: "Importar alunos",
+			TABLE: "Planilha de alunos:",
+			FINNED_STUDENTS: "Alunos encontrados:",
+			OBS: "Obs: Alunos que já estão na lista (Com o mesmo e-mail) serão ignorados.",
+			ADD_BTN: "Adicionar",
+			NAME: "Nome",
+			EMAIL: "E-mail",
+			CPF: "CPF",
+			NUMBER: "Matrícula",
+			NULL_LIST: "Carregue um arquivo para ver a lista de alunos encontrados.",
+			EMPTY_LIST: "Nenhum aluno encontrado.",
+		},
+
+		ADD_FROM_MANUAL_MODAL: {
+			TITLE: "Adicionar aluno",
+			NAME: "Nome",
+			EMAIL: "E-mail",
+			CPF: "CPF",
+			NUMBER: "Matrícula",
+			ADD_BTN: "Adicionar",
+			NAME_PLACEHOLDER: "Fulano Pereira da Silva",
+			EMAIL_PLACEHOLDER: "fulano@email.com",
+			CPF_PLACEHOLDER: "000.000.000-00",
+			NUMBER_PLACEHOLDER: "000000000",
+			MANDATORY_FIELD: "Campo obrigatório",
+		}
+	},
+
+	FREQUENCY_CONTROLLER: {
+		STUDENTS: "Alunos",
+		EDIT_BTN: "Editar",
+		EXPORT_BTN: "Exportar",
+		NEW_FREQUENCY: "Nova chamada",
 	}
 };
 

@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { StudentsClass } from "../../../types/StudentsClass";
+import { Course } from "../../../types/Course";
 import { AllClassContainer, Container, ContentContainer, EmptyContainer } from "./styles";
 import { SvgLoader } from "../../../components/Loaders";
 import emptyClassImg from "../../../assets/images/emptyClassImg.svg";
 import plusIcon from "../../../assets/images/plusIcon.svg";
 import MESSAGES from "../../../constants/messages";
 import { MainButton } from "../../../components/Buttons";
-import { ClassCard, NewClassModal } from "./components";
+import { ClassCard, ManageClassPage, NewClassModal } from "./components";
 import { FeedbackModal } from "../../../components/Modals";
 import { Feedback } from "../../../types/Feedback";
 import Api from "../../../services/api";
 
 const MyClasses = () => {
 
-	const [classes, setClasses] = useState<StudentsClass[] | null>(null);
+	const [classes, setClasses] = useState<Course[] | null>(null);
 	const [newClassModalOpen, setNewClassModalOpen] = useState<boolean>(false);
 	const [feedbackStatus, setFeedbackStatus] = useState<Feedback>({ isOpen: false, success: false });
+	const [selectedClass, setSelectedClass] = useState<Course | null>(null);
 
 	useEffect(() => {
 		Api.Classes.getClasses().then((response) => {
 			setClasses(response);
+			// setClasses([]);
 		}).catch((error) => {
 			console.log(error);
 			setClasses([]);
@@ -62,7 +64,7 @@ const MyClasses = () => {
 				<AllClassContainer>
 					<ContentContainer>
 						{classes.map((currentClass) => (
-							<ClassCard currentClass={currentClass} key={currentClass.id} />
+							<ClassCard currentClass={currentClass} key={currentClass.id} onClassSelected={(cClass) => setSelectedClass(cClass)}/>
 						))}
 					</ContentContainer>
 					<MainButton
@@ -85,7 +87,12 @@ const MyClasses = () => {
 		}, 3000);
 	};
 
-	return (
+
+	if(selectedClass !== null){
+		return <ManageClassPage selectedClass={selectedClass} onBack={() => setSelectedClass(null)}/>;
+	}
+
+	return (	
 		<Container>
 			<FeedbackModal isOpen={feedbackStatus.isOpen} success={feedbackStatus.success} />
 			<NewClassModal isOpen={newClassModalOpen} onCancel={() => setNewClassModalOpen(false)} onFeedback={(newClass) => onFeedbackReceived(newClass)} />
