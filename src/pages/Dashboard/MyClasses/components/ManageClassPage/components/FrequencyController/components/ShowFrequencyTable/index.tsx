@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Container, TableHeaderStyled } from "./styles";
+import { FrequencyDataStyled, TableHeaderStyled, TableRowStyled, TableStyled } from "./styles";
 import { CourseFrequency } from "../../../../../../../../../types/Course";
 import MESSAGES from "../../../../../../../../../constants/messages";
 import { getPastClassesTimeByFrequency } from "../../utils";
@@ -8,7 +8,7 @@ import { AVAILABLE_FREQUENCY_STATUS } from "../../../../../../../../../constants
 
 
 interface ShowFrequencyTableProps {
-    courseFrequency: CourseFrequency[]
+	courseFrequency: CourseFrequency[]
 }
 
 const ShowFrequencyTable = (props: ShowFrequencyTableProps) => {
@@ -18,8 +18,8 @@ const ShowFrequencyTable = (props: ShowFrequencyTableProps) => {
 	}, [props.courseFrequency]);
 
 	return (
-		<Container>
-			<table cellSpacing={0} cellPadding={0}>
+		<div>
+			<TableStyled cellSpacing={0} cellPadding={0}>
 				<thead>
 					<TableHeaderStyled >
 						<th>{MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.STUDENTS}</th>
@@ -34,22 +34,25 @@ const ShowFrequencyTable = (props: ShowFrequencyTableProps) => {
 				<tbody>
 					{
 						props.courseFrequency?.map((currentStudent, index) => (
-							<tr key={index}>
-								<td>{currentStudent.name}</td>
-								{dateHeaderItems?.map((currentDate, index) => (
-									<td key={index}>
-										{
-											AVAILABLE_FREQUENCY_STATUS.get(currentStudent.frequencies.find((frequency) => moment(frequency.date).isSame(currentDate))?.status ?? -1)?.name ?? ""
-										}
-									</td>
-								))}
-							</tr>
+							<TableRowStyled key={index} index={index} >
+								<FrequencyDataStyled value="">{currentStudent.name}</FrequencyDataStyled>
+								{dateHeaderItems?.map((currentDate, index) => {
+									const frequencyData = AVAILABLE_FREQUENCY_STATUS.get(currentStudent.frequencies.find((frequency) => moment(frequency.date).isSame(currentDate))?.status ?? -1)?.name ?? "";
+									return (
+										<FrequencyDataStyled key={index} value={frequencyData}>
+											{
+												frequencyData
+											}
+										</FrequencyDataStyled>
+									);
+								})}
+							</TableRowStyled>
 						))
 					}
 				</tbody>
-			</table>
+			</TableStyled>
 
-		</Container>
+		</div>
 	);
 };
 
