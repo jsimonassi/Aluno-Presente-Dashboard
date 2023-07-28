@@ -1,7 +1,12 @@
-import React from "react";
-import { Container } from "./styles";
-import { ShowFrequencyTable } from "./components";
+import React, {useEffect, useMemo, useState} from "react";
+import { Container, FooterContainer } from "./styles";
+import { FrequencyTable } from "./components";
 import { CourseFrequency } from "../../../../../../../types/Course";
+import DateNavigator from "../../../../../../../components/DateNavigator";
+import moment from "moment";
+import { filterFrequencyByMonth } from "./utils";
+import { MainButton } from "../../../../../../../components/Buttons";
+
 
 const mock =
 	[
@@ -98,9 +103,27 @@ const mock =
 
 const FrequencyController = () => {
 
+	const [frequency, setFrequency] = useState<CourseFrequency[]>(mock); //TODO: Get frequency from API [CourseFrequency[]
+	const [currentDate, setCurrentDate] = useState<moment.Moment>(moment());
+	const monthFrequencies = useMemo(() => {
+		return filterFrequencyByMonth(frequency, currentDate.month());
+	}, [currentDate]);
+
+	const increaseMonth = () => {
+		setCurrentDate(previousDate => previousDate.clone().add(1, "months"));
+	};
+
+	const decreaseMonth = () => {
+		setCurrentDate(previousDate => previousDate.clone().subtract(1, "months"));
+	};
+
 	return (
 		<Container>
-			<ShowFrequencyTable courseFrequency={mock} />
+			<FrequencyTable courseFrequency={monthFrequencies} />
+
+			<FooterContainer>
+				<DateNavigator currentDate={currentDate} onNextMonth={increaseMonth} onPreviousMonth={decreaseMonth}/>
+			</FooterContainer>
 		</Container>
 	);
 };

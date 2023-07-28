@@ -1,3 +1,3 @@
-import ShowFrequencyTable from "./ShowFrequencyTable";
+import FrequencyTable from "./FrequencyTable";
 
-export { ShowFrequencyTable };
+export { FrequencyTable };

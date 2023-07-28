@@ -12,3 +12,10 @@ export const Container = styled.div`
     padding: 24px;
     box-sizing: border-box;
 `;
+
+
+export const FooterContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-top: 5%;
+`;
