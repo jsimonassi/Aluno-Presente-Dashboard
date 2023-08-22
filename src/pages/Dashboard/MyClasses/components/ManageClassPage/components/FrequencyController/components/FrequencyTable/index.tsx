@@ -18,41 +18,38 @@ const FrequencyTable = (props: FrequencyTableProps) => {
 	}, [props.courseFrequency]);
 
 	return (
-		<div>
-			<TableStyled cellSpacing={0} cellPadding={0}>
-				<thead>
-					<TableHeaderStyled >
-						<th>{MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.STUDENTS}</th>
-						{dateHeaderItems?.map((currentDate, index) => (
-							<th key={index}>
-								<h5>{moment(currentDate).format("DD/MM")}</h5>
-								<p>{moment(currentDate).format("hh:mm")}</p>
-							</th>
-						))}
-					</TableHeaderStyled>
-				</thead>
-				<tbody>
-					{
-						props.courseFrequency?.map((currentStudent, index) => (
-							<TableRowStyled key={index} index={index} >
-								<FrequencyDataStyled value="">{currentStudent.name}</FrequencyDataStyled>
-								{dateHeaderItems?.map((currentDate, index) => {
-									const frequencyData = AVAILABLE_FREQUENCY_STATUS.get(currentStudent.frequencies.find((frequency) => moment(frequency.date).isSame(currentDate))?.status ?? -1)?.name ?? "";
-									return (
-										<FrequencyDataStyled key={index} value={frequencyData}>
-											{
-												frequencyData
-											}
-										</FrequencyDataStyled>
-									);
-								})}
-							</TableRowStyled>
-						))
-					}
-				</tbody>
-			</TableStyled>
-
-		</div>
+		<TableStyled cellSpacing={0} cellPadding={0}>
+			<thead>
+				<TableHeaderStyled >
+					<th>{MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.STUDENTS}</th>
+					{dateHeaderItems?.map((currentDate, index) => (
+						<th key={index}>
+							<h5>{moment(currentDate).format("DD/MM")}</h5>
+							<p>{moment(currentDate).format("hh:mm")}</p>
+						</th>
+					))}
+				</TableHeaderStyled>
+			</thead>
+			<tbody>
+				{
+					props.courseFrequency?.map((currentStudent, index) => (
+						<TableRowStyled key={index} index={index} >
+							<FrequencyDataStyled value="">{currentStudent.name}</FrequencyDataStyled>
+							{dateHeaderItems?.map((currentDate, index) => {
+								const frequencyData = AVAILABLE_FREQUENCY_STATUS.get(currentStudent.frequencies.find((frequency) => moment(frequency.date).isSame(currentDate))?.status ?? -1)?.name ?? "";
+								return (
+									<FrequencyDataStyled key={index} value={frequencyData}>
+										{
+											frequencyData
+										}
+									</FrequencyDataStyled>
+								);
+							})}
+						</TableRowStyled>
+					))
+				}
+			</tbody>
+		</TableStyled>
 	);
 };
 

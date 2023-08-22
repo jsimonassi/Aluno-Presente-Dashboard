@@ -9,6 +9,7 @@ export const Container = styled.div`
     p {
         font-size: 18px;
         color: ${props => props.theme.primary};
+        font-family: "Light";
     }
 `;
 

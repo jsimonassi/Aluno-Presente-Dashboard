@@ -52,15 +52,15 @@ export const FrequencyDataStyled = styled.td<FrequencyDataStyledProps>`
 
 export const TableStyled = styled.table`
 	width: 100%;
-	/* min-width: 1000px; */
 	flex-direction: column;
-	/* overflow-x: scroll; TODO: Not working - Maybe a month filter work better? */
+	overflow-x: scroll;
 
 	td:first-child {
 		text-align: left;
 		padding-left: 16px;
 		border-top-left-radius:11px;
    		border-bottom-left-radius:11px;
+		font-family: "Light";
 	}
 
 	th:first-child {
