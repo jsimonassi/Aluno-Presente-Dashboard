@@ -1,3 +1,7 @@
-import ShowFrequencyTable from "./ShowFrequencyTable";
+import FrequencyTable from "./FrequencyTable";
+import NewFrequencyModal from "./NewFrequencyModal";
 
-export { ShowFrequencyTable };
+export { 
+	FrequencyTable,
+	NewFrequencyModal
+};

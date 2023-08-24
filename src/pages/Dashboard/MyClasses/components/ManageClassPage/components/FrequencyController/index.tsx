@@ -1,7 +1,13 @@
-import React from "react";
-import { Container } from "./styles";
-import { ShowFrequencyTable } from "./components";
+import React, {useEffect, useMemo, useState} from "react";
+import { ButtonGroup, Container, FooterContainer } from "./styles";
+import { FrequencyTable, NewFrequencyModal } from "./components";
 import { CourseFrequency } from "../../../../../../../types/Course";
+import DateNavigator from "../../../../../../../components/DateNavigator";
+import moment from "moment";
+import { filterFrequencyByMonth } from "./utils";
+import { MainButton, OutlineButton } from "../../../../../../../components/Buttons";
+import MESSAGES from "../../../../../../../constants/messages";
+
 
 const mock =
 	[
@@ -98,9 +104,38 @@ const mock =
 
 const FrequencyController = () => {
 
+	const [frequency, setFrequency] = useState<CourseFrequency[]>(mock); //TODO: Get frequency from API [CourseFrequency[]
+	const [currentDate, setCurrentDate] = useState<moment.Moment>(moment());
+	const monthFrequencies = useMemo(() => {
+		return filterFrequencyByMonth(frequency, currentDate.month());
+	}, [currentDate]);
+	const [newFrequencyModalIsOpen, setNewFrequencyModalIsOpen] = useState<boolean>(false);
+
+	useEffect(() => {
+		setFrequency(mock); //Replace with API call
+	}, []);
+
+	const increaseMonth = () => {
+		setCurrentDate(previousDate => previousDate.clone().add(1, "months"));
+	};
+
+	const decreaseMonth = () => {
+		setCurrentDate(previousDate => previousDate.clone().subtract(1, "months"));
+	};
+
 	return (
 		<Container>
-			<ShowFrequencyTable courseFrequency={mock} />
+			<NewFrequencyModal isOpen={newFrequencyModalIsOpen} onCancel={() => setNewFrequencyModalIsOpen(false)}/>
+			<FrequencyTable courseFrequency={monthFrequencies} />
+
+			<FooterContainer>
+				<DateNavigator currentDate={currentDate} onNextMonth={increaseMonth} onPreviousMonth={decreaseMonth}/>
+				<ButtonGroup>
+					<OutlineButton onClick={() => null} text={MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.EDIT_BTN} enabled/>
+					<OutlineButton onClick={() => null} text={MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.EXPORT_BTN} enabled/>
+					<MainButton onClick={() => setNewFrequencyModalIsOpen(!newFrequencyModalIsOpen)} text={MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.NEW_FREQUENCY} enabled/>
+				</ButtonGroup>
+			</FooterContainer>
 		</Container>
 	);
 };

@@ -69,7 +69,16 @@ const MY_CLASSES = {
 		EDIT_BTN: "Editar",
 		EXPORT_BTN: "Exportar",
 		NEW_FREQUENCY: "Nova chamada",
-	}
+	},
+
+	NEW_FREQUENCY_MODAL: {
+		TITLE: "Nova chamada",
+		OBS: "Em ambos os casos utilizaremos o GPS do aluno para validar sua posição e comparar com o endereço da instituição onde a disciplina está sendo ministrada.",
+		QR_CODE_TITLE: "Validação por QRCode (Recomendado)",
+		QR_CODE_DESCRIPTION: "Um QR code é gerado e atualizado a cada 5 segundos. O professor deve apresentar a página com o QR code a turma. O aluno faz a validação da chamada lendo o QR code pelo aplicativo Aluno Presente.  É a opção mais segura devido a atualização do QR code, garantindo que apenas alunos em sala possam validar a presença.",
+		SESSION_CODE_TITLE: "Validação por código de sessão",
+		SESSION_CODE_DESCRIPTION: "Um código curto é gerado. O professor deve apresentar o código aos alunos. O aluno informa o código no aplicativo Aluno Presente e faz a validação da presença."
+	},
 };
 
 export default MY_CLASSES;

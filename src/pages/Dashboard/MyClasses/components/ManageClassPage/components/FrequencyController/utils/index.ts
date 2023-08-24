@@ -11,6 +11,17 @@ export const getPastClassesTimeByFrequency = (frequency: CourseFrequency[]) => {
 			}
 		});
 	});
-  
+
 	return uniqueDates;
+};
+
+export const filterFrequencyByMonth = (frequency: CourseFrequency[], momentMonth: number) => {
+	const filteredFrequency = JSON.parse(JSON.stringify(frequency)) as CourseFrequency[];
+	return filteredFrequency.map(item => {
+		item.frequencies = item.frequencies.filter(frequency => {
+			const date = new Date(frequency.date);
+			return date.getMonth() === momentMonth;
+		});
+		return item;
+	});
 };
