@@ -32,6 +32,13 @@ export const ModalContent = styled.div`
 	padding: 20px;
 	box-sizing: border-box;
     max-width: 1000px;
+
+	> span {
+		color: ${props => props.theme.primary};
+		font-size: 12px;
+		font-family: "light";
+		margin-top: 24px;
+	}
 `;
 
 export const ModalHeader = styled.div`

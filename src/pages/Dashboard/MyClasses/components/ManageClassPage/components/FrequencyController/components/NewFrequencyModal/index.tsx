@@ -23,7 +23,7 @@ const NewFrequencyModal = (props: NewFrequencyModalProps) => {
 				</ModalHeader>
 				<BigButton onClick={() => props.onCancel()} title={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.QR_CODE_TITLE} description={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.QR_CODE_DESCRIPTION} />
 				<BigButton onClick={() => props.onCancel()} title={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.SESSION_CODE_TITLE} description={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.SESSION_CODE_DESCRIPTION} />
-				{/* <p>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.OBS}</p> */}
+				<span>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.OBS}</span>
 			</ModalContent>
 		</ModalContainer>
 	);
