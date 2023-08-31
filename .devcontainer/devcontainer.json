@@ -1,0 +1,44 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Aluno Presente",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mf.vscode-styled-components", //Styled Components
+				"aaron-bond.better-comments", //Better Comments
+				"GitHub.copilot", //Copilot
+				"streetsidesoftware.code-spell-checker", //Spell Checker
+				"streetsidesoftware.code-spell-checker-portuguese-brazilian", //Code Spell Checker BR
+				"eamodio.gitlens", //GitLens
+				"imyangyong.fork"
+			],
+			"settings": {
+				"editor.codeActionsOnSave": {
+					"source.fixAll.eslint": true
+				},
+				"editor.inlineSuggest.enabled": true,
+				"workbench.tree.indent": 12,
+				"editor.tabSize": 4
+			}
+		}
+	}
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
