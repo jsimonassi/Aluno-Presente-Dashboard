@@ -9,7 +9,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 	// debugger;
 	// const { currentUser } = useAdminUser();
 	// const isLoggedIn = Auth.isLoggedIn() && currentUser?.email != null;
-	const isLoggedIn = true;
+	const isLoggedIn = false;
 
 	// if(isLoggedIn){
 	// 	setToken(Auth.getToken() ?? "");

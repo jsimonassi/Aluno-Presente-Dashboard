@@ -1,3 +1,4 @@
 import SvgLoader from "./SvgLoader";
+import MainLoader from "./MainLoader";
 
-export { SvgLoader };
+export { SvgLoader, MainLoader };
