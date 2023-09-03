@@ -8,10 +8,10 @@ interface SessionProviderProps {
 const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 
 	const authConfig: TAuthConfig = {
-		clientId: "client",
-		authorizationEndpoint: "https://authorization-server-d6ca554d3cbd.herokuapp.com/v1/auth/oauth2/authorize",
-		tokenEndpoint: "https://authorization-server-d6ca554d3cbd.herokuapp.com/v1/auth/oauth2/token",
-		redirectUri: "/post-login",
+		clientId: "public",
+		authorizationEndpoint: "http://0.tcp.sa.ngrok.io:10720/v1/auth/oauth2/authorize",
+		tokenEndpoint: "http://0.tcp.sa.ngrok.io:10720/v1/auth/oauth2/token",
+		redirectUri: "http://localhost:3000/post-login",
 		scope: "openid read profile",
 		onRefreshTokenExpire: (event: TRefreshTokenExpiredEvent) => window.confirm("Session expired. Refresh page to continue using the site?") && event.login(),
 	};
