@@ -1,5 +1,5 @@
 import React from "react";
-import { ChangeInfos, ModalBody, ModalContainer, ModalContent, ModalHeader, UpdateInfos } from "./styles";
+import { ModalBody, ModalContainer, ModalContent, ModalHeader, UpdateInfos } from "./styles";
 import { ReactComponent as CloseIcon } from "../../../../../../assets/images/closeIcon.svg";
 import { CHANGELOG } from "../../../../../../../../changelog";
 

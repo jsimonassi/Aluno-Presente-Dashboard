@@ -20,6 +20,14 @@ export const getLocalData = (key: string) => {
 	}
 };
 
+export const clearItem = (key: string) => {
+	try {
+		return localStorage.removeItem(key);
+	} catch (e) {
+		console.log(e);
+	}
+};
+
 export const clearLocalStorage = () => {
 	try {
 		localStorage.clear();
