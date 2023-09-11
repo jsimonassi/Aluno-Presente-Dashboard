@@ -25,7 +25,7 @@ const PostLogin = () => {
 			console.log("location", window.location);
 			session.redirectToLogin(window.location.origin + "/" + ROUTES.POST_LOGIN);
 		} else if(!session.currentSession?.accessToken) {
-			session.getAuthToken(params.get("code") ?? "")
+			session.getAuthToken(params.get("code") ?? "", window.location.origin + "/" + ROUTES.POST_LOGIN)
 				.then(() => {
 					const defaultRoute = "/" + ROUTES.DASHBOARD + "/" +ROUTES.OPTIONS.MY_CLASSES;
 					navigate(params.get("redirect_url") ?? defaultRoute, {replace: true});
