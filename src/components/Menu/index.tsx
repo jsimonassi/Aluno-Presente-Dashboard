@@ -17,7 +17,7 @@ const getSideBarPosition = () => {
 	if (lastSelectedOption) {
 		return (JSON.parse(lastSelectedOption));
 	}
-	return false;
+	return true;
 };
 
 const Menu = (props: MenuProps) => {

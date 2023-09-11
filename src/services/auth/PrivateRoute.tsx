@@ -1,21 +1,16 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import CONSTANTS from "../../constants";
+import { useSession } from "../../contexts/Session";
 interface PrivateRouteProps {
     children: React.ReactNode;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-	// debugger;
-	// const { currentUser } = useAdminUser();
-	// const isLoggedIn = Auth.isLoggedIn() && currentUser?.email != null;
-	const isLoggedIn = true;
 
-	// if(isLoggedIn){
-	// 	setToken(Auth.getToken() ?? "");
-	// }
+	const {currentSession} = useSession();
 
-	return isLoggedIn ? <>{children}</> : <Navigate to={"/" + CONSTANTS.ROUTES.POST_LOGIN + `?redirect_url=${window.location.pathname}`} replace/>;
+	return currentSession?.accessToken ? <>{children}</> : <Navigate to={"/" + CONSTANTS.ROUTES.POST_LOGIN + `?redirect_url=${window.location.pathname}`} replace/>;
 };
 
 export default PrivateRoute;

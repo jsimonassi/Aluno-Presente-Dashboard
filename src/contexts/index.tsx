@@ -1,17 +1,20 @@
 import React from "react";
-import { TeacherProvider } from "./Teacher";
+import { UserProvider } from "./User";
 import { AppThemeProvider } from "./Theme";
+import { SessionProvider } from "./Session";
 
 interface AppProviderProps {
-    children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 	return (
 		<AppThemeProvider>
-			<TeacherProvider>
-				{ children }
-			</TeacherProvider>
+			<UserProvider>
+				<SessionProvider>
+					{children}
+				</SessionProvider>
+			</UserProvider>
 		</AppThemeProvider>
 	);
 };
