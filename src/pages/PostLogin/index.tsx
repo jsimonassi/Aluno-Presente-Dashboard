@@ -22,6 +22,7 @@ const PostLogin = () => {
 
 	useEffect(() => {
 		if(!params.get("code")) {
+			console.log("location", window.location);
 			session.redirectToLogin(window.location.origin + "/" + ROUTES.POST_LOGIN);
 		} else if(!session.currentSession?.accessToken) {
 			session.getAuthToken(params.get("code") ?? "")
