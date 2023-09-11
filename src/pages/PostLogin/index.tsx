@@ -21,12 +21,12 @@ const PostLogin = () => {
 
 	useEffect(() => {
 		if(!params.get("code")) {
-			session.redirectToLogin(window.location.href + "post-login");
+			session.redirectToLogin(window.location.origin + "/" + ROUTES.POST_LOGIN);
 		} else if(!session.currentSession?.accessToken) {
 			session.getAuthToken(params.get("code") ?? "")
 				.then(() => {
 					const defaultRoute = "/" + ROUTES.DASHBOARD + "/" +ROUTES.OPTIONS.MY_CLASSES;
-					navigate(params.get("redirect_url") ?? defaultRoute, {replace: true, state: {from: window.location.pathname}});
+					navigate(params.get("redirect_url") ?? defaultRoute, {replace: true});
 				}).catch(() => {
 					alert("Erro ao autenticar usuário");
 					navigate("/500");

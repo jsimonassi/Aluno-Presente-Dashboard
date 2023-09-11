@@ -3,6 +3,7 @@ import {
 	Routes,
 	Route,
 	BrowserRouter as Router,
+	Navigate,
 } from "react-router-dom";
 import { useAppTheme } from "../contexts/Theme";
 import "../assets/styles/App.css";
@@ -21,7 +22,7 @@ const MainRoutes = () => {
 		<Router>
 			<GlobalStyle theme={currentTheme} />
 			<Routes>
-				<Route path="/" element={<PostLogin/>} />
+				<Route path="/" element={<Navigate to={"/" + CONSTANTS.ROUTES.DASHBOARD + "/" + CONSTANTS.ROUTES.OPTIONS.MY_CLASSES} />}/>
 				<Route path={CONSTANTS.ROUTES.POST_LOGIN} element={<PostLogin/>} />
 
 				<Route path={CONSTANTS.ROUTES.DASHBOARD} element={<PrivateRoute> <Menu renderAsPartial={true} /> </PrivateRoute>}>
