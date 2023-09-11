@@ -5,6 +5,11 @@ import CONSTANTS from "../../constants";
 import { DashboardDescription, LoginBox } from "./components";
 import { useNavigate } from "react-router-dom";
 
+
+/**
+ * @deprecated
+ * Use the SSO on Auth Server instead
+ */
 const Login = () => {
 
 	const {width} = useWindowDimensions();

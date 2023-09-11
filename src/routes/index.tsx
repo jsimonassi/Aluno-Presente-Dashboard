@@ -11,8 +11,7 @@ import GlobalStyle from "../assets/styles/GlobalStyle";
 import CONSTANTS from "../constants";
 import PrivateRoute from "../services/auth/PrivateRoute";
 import Menu from "../components/Menu";
-import { About, MyClasses, OldClasses } from "../pages/Dashboard";
-import PostLogin from "../pages/PostLogin";
+import { About, ErrorPage, MyClasses, OldClasses, PostLogin } from "../pages";
 
 const MainRoutes = () => {
 
@@ -30,6 +29,9 @@ const MainRoutes = () => {
 					<Route path={CONSTANTS.ROUTES.OPTIONS.OLD_CLASSES} element={<PrivateRoute> <OldClasses /> </PrivateRoute>} />
 					<Route path={CONSTANTS.ROUTES.OPTIONS.ABOUT} element={<PrivateRoute> <About /> </PrivateRoute>} />
 				</Route>
+
+				<Route path="*" element={<ErrorPage/>} />
+				<Route path={ CONSTANTS.ROUTES.ERROR} element={<ErrorPage/>} />
 			</Routes>
 		</Router>
 	);

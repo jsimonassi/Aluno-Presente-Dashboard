@@ -1,5 +1,11 @@
-import Login from "./Login";
+import ErrorPage from "./Error";
+import { About, MyClasses, OldClasses } from "./Dashboard";
+import PostLogin from "./PostLogin";
 
-export {
-	Login
+export { 
+	ErrorPage, 
+	About, 
+	MyClasses, 
+	OldClasses, 
+	PostLogin 
 };

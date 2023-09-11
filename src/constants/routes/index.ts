@@ -8,7 +8,7 @@ const ROUTES = {
 		ABOUT: "about",
 	},
 	SETTING: "setting",
-	ERROR_404: "404",
+	ERROR: "invalid-path",
 };
 
 export default ROUTES;
