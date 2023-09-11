@@ -10,7 +10,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 
 	const {currentSession} = useSession();
 
-	return currentSession?.accessToken ? <>{children}</> : <Navigate to={"/" + CONSTANTS.ROUTES.POST_LOGIN + `?redirect_url=${window.location.pathname}`} replace/>;
+	return currentSession?.accessToken ? <>{children}</> : <Navigate to={"/" + CONSTANTS.ROUTES.POST_LOGIN } replace/>;
 };
 
 export default PrivateRoute;
