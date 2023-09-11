@@ -10,6 +10,7 @@ const SESSION_CACHE_KEY = "currentSession";
 interface SessionContextData {
 	redirectToLogin: (redirectUrl: string) => void;
 	getAuthToken: (code: string) => Promise<void>;
+	logout: () => Promise<void>;
 	currentSession: TokenSession | null;
 }
 
@@ -65,11 +66,25 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 	};
 
 
+	const logout = () => {
+		return new Promise<void>((resolve, reject) => {
+			//TODO: Replace with backend call, when available
+			setTimeout(() => {
+				setCurrentSession(null);
+				Storage.LocalStorage.clearLocalStorage();
+				Storage.SessionStorage.clearSessionStorage();
+				resolve();
+			}, 2000);
+		});
+	};
+
+
 	return (
 		<SessionContext.Provider
 			value={{
 				redirectToLogin,
 				getAuthToken,
+				logout,
 				currentSession
 			}}
 		>

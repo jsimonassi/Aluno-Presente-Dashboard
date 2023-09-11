@@ -6,6 +6,8 @@ import MESSAGES from "../../../../constants/messages";
 import { ConfigDropdown, ProfileDropdown } from "./components";
 import { useWindowDimensions } from "../../../../hooks";
 import CONSTANTS from "../../../../constants";
+import { useSession } from "../../../../contexts/Session";
+import { toast } from "react-hot-toast";
 
 interface Props {
     open: boolean;
@@ -17,6 +19,7 @@ const CONFIG_LIST: string[] = [ MESSAGES.HEADER.COOKIES_OPTION ];
 const MainHeader = (props: Props) => {
 
 	const location = useLocation();
+	const {logout} = useSession();
 	const { width } = useWindowDimensions();
 
 	const getPageTitle = () => {
@@ -34,16 +37,30 @@ const MainHeader = (props: Props) => {
 		console.log("Config clicked", option);
 	};
 
+	const onProfileClick = (option: string) => {
+		switch (option) {
+		case MESSAGES.HEADER.LOGOUT_OPTION:
+			toast.loading(MESSAGES.GENERAL.LOGOUT);
+			logout().finally(() => {
+				toast.dismiss();
+			});
+			break;
+		default:
+			console.log("Not implemented yet");
+		}
+	};
+
 	return (
 		<HeaderStyled sideBarOpen={props.open}>
 			<h1>{width > CONSTANTS.SCREEN_SIZE.DESKTOP && getPageTitle()}</h1>
 			<ConfigDropdown
 				title={MESSAGES.HEADER.CONFIG_TITLE}
 				items={CONFIG_LIST}
-				onClick={(newConfig) => { onConfigOptionClick(newConfig); }}
+				onClick={onConfigOptionClick}
 			/>
 			<ProfileDropdown
 				items={PROFILE_LIST}
+				onClick={onProfileClick}
 			/>
 		</HeaderStyled>
 	);

@@ -5,4 +5,11 @@ export const CHANGELOG = {
 			"Lançamento inicial"
 		]
 	},
+	"1.0.1": {
+		"date": "11/09/2023",
+		"changes": [
+			"Adicionando login via SSO",
+			"Adicionando logout no front"
+		]
+	},
 };

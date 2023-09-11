@@ -23,7 +23,7 @@ const AboutModal = (props: ModalProps) => {
 				</ModalHeader>
 				<ModalBody>
 					<div>
-						<p>Versão atual: {process.env.REACT_APP_VERSION}</p>
+						<p>Versão atual: {Object.keys(CHANGELOG).slice(-1)}</p>
 						<p>Ambiente: {process.env.REACT_APP_ENVIRONMENT}</p>
 					</div>
 					{
