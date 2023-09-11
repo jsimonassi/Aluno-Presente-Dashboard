@@ -9,7 +9,7 @@ const SESSION_CACHE_KEY = "currentSession";
 
 interface SessionContextData {
 	redirectToLogin: (redirectUrl: string) => void;
-	getAuthToken: (code: string) => Promise<void>;
+	getAuthToken: (code: string, redirectUrl: string) => Promise<void>;
 	logout: () => Promise<void>;
 	currentSession: TokenSession | null;
 }
@@ -40,7 +40,7 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 		Api.Session.redirectToLogin(authConfig);
 	};
 
-	const getAuthToken = (code: string) => {
+	const getAuthToken = (code: string, redirectUrl: string) => {
 		return new Promise<void>((resolve, reject) => {
 			const tokenRequestConfig: TokenRequestConfig = {
 				code,
@@ -48,7 +48,7 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 				grant_type: "authorization_code",
 				code_verifier: LocalStorage.getLocalData("codeVerifier") ?? "",
 				scope: "openid read profile",
-				redirect_uri: "http://localhost:3000/post-login"
+				redirect_uri: redirectUrl
 			};
 
 			Api.Session.getToken(tokenRequestConfig)
