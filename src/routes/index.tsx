@@ -32,6 +32,8 @@ const MainRoutes = () => {
 
 				<Route path="*" element={<ErrorPage/>} />
 				<Route path={ CONSTANTS.ROUTES.ERROR} element={<ErrorPage/>} />
+
+				<Route path="auth/*" element={<div/>}/>
 			</Routes>
 		</Router>
 	);
