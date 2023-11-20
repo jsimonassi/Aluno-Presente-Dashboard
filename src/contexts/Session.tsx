@@ -5,7 +5,7 @@ import { Helpers } from "../helpers";
 import { LocalStorage } from "../services/storage";
 import { Storage } from "../services";
 
-const SESSION_CACHE_KEY = "currentSession";
+export const SESSION_CACHE_KEY = "currentSession";
 
 interface SessionContextData {
 	redirectToLogin: (redirectUrl: string) => void;
