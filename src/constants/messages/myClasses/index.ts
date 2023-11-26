@@ -19,6 +19,8 @@ const MY_CLASSES = {
 		ABOUT_PLACEHOLDER: "A disciplina de inteligência artificial explica os fundamentos teórico-conceituais da inteligência artificial de modo abrangente, porém coerente; atravessa os paradigmas da inteligência artificial e introduzir noções das diversas técnicas utilizadas na área.",
 		NEW_TIME: "Novo horário",
 		SAVE: "Salvar",
+
+		MANDATORY_FIELD: "Campo obrigatório",
 	},
 
 	MANAGE_CLASS: {

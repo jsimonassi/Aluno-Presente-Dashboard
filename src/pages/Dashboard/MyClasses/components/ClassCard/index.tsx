@@ -19,16 +19,16 @@ const ClassCard = (props: ClassCardProps) => {
 
 	const formatClassTime = (timeList: ClassTime[]) => {
 		if (timeList.length === 0) return "";
-		let weekDays = "";
-		let times = "";
-		timeList.forEach((time, index) => {
-			weekDays += DAYS_OF_WEEK[time.dayOfWeek];
-			if(index !== timeList.length - 1){
-				weekDays += ", ";
-			}
+		const weekDays = "";
+		const times = "";
+		// timeList.forEach((time, index) => {
+		// 	weekDays += DAYS_OF_WEEK[time.dayOfWeek];
+		// 	if(index !== timeList.length - 1){
+		// 		weekDays += ", ";
+		// 	}
 
-			times += Helpers.DateConverter.convertClassTimeToMoment(time).start.format("HH:mm") + " - " + Helpers.DateConverter.convertClassTimeToMoment(time).end.format("HH:mm");
-		});
+		// 	times += Helpers.DateConverter.convertClassTimeToMoment(time).start.format("HH:mm") + " - " + Helpers.DateConverter.convertClassTimeToMoment(time).end.format("HH:mm");
+		// });
 
 
 		return weekDays + ": " + times;
@@ -38,7 +38,7 @@ const ClassCard = (props: ClassCardProps) => {
 		<Container onClick={() => props.onClassSelected(props.currentClass)}>
 			<Header>
 				<Infos>
-					<h1>{props.currentClass.courseName}</h1>
+					<h1>{props.currentClass.name}</h1>
 					<span>{formatClassTime(props.currentClass.daysOfWeek ?? [])}</span>
 				</Infos>
 				<IoIosArrowForward color={currentTheme.primary} fontSize="1.5em" />

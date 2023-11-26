@@ -4,11 +4,17 @@ import { __ApiClient } from "..";
 const Classes = {
 	getClasses: () => {
 		return new Promise<Course[]>((resolve) => {
-			__ApiClient.get<Course[]>("/course/owner").then((response) => {
+			__ApiClient.get<Course[]>("/courses/owner").then((response) => {
 				console.log("xablau", response.data);
 				resolve([]);
 			});
-	
+		});
+	},
+	addClass: (course: Course) => {
+		return new Promise<Course>((resolve) => {
+			__ApiClient.post<Course>("/courses", course).then((response) => {
+				resolve(response.data);
+			});
 		});
 	}
 };

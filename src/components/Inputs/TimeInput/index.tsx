@@ -3,7 +3,6 @@ import React from "react";
 import {InputContainer, StackContainer, TimeInputStyled, TitleContainer } from "./styles";
 import moment from "moment";
 
-
 interface MainInputProps {
     value: string | undefined;
     onChange: (value: string) => void;
@@ -41,7 +40,6 @@ const TimeInput = (props: MainInputProps) => {
 					placeholder={""}
 					value={props.value}
 					type={"time"} 
-					min={moment(props?.selectedDate).isBefore(moment()) ? moment().format("HH:mm") : ""}
 				/>
 			</InputContainer>
 		</StackContainer>

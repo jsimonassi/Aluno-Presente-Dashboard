@@ -21,7 +21,6 @@ const MyClasses = () => {
 	useEffect(() => {
 		Api.Classes.getClasses().then((response) => {
 			setClasses(response);
-			// setClasses([]);
 		}).catch((error) => {
 			console.log(error);
 			setClasses([]);

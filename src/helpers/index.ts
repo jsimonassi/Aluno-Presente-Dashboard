@@ -1,11 +1,11 @@
 import { XlsxManager } from "./xlsxManager";
-import { DateConverter } from "./dateConverter";
+import { DateHelpers } from "./dateHelpers";
 import { CodeGenerator } from "./codeGenerator";
 import { eventEmitter } from "./eventEmitter";
 
 export const Helpers = {
 	XlsxManager,
-	DateConverter,
+	DateHelpers,
 	CodeGenerator,
 	eventEmitter
 };

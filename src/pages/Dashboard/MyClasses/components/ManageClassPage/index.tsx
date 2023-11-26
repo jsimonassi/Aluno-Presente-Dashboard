@@ -29,7 +29,7 @@ const ManageClassPage = (props: ManageClassPageProps) => {
 		<div>
 			<ManageClassHeader
 				onBack={props.onBack}
-				className={props.selectedClass.courseName}
+				className={props.selectedClass.name}
 				onOptionSelected={(selection) => setSelectedOption(selection)}
 				options={MESSAGES.MY_CLASSES.MANAGE_CLASS.AVAILABLE_OPTIONS}
 				selectedOption={selectedOption}
