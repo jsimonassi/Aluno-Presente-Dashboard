@@ -3,9 +3,12 @@ import Classes from "./Classes";
 import Session from "./Session";
 import { LocalStorage } from "../storage";
 import { SESSION_CACHE_KEY } from "../../contexts/Session";
+import { TokenSession } from "../../types/Session";
+import { Helpers } from "../../helpers";
+import CONSTANTS from "../../constants";
 
 export const __ApiClient = axios.create({
-	baseURL: process.env.REACT_APP_RESOURCE_SERVER_BASE_URL,
+	baseURL: process.env.REACT_APP_RESOURCE_SERVER_BASE_URL + "/v1/api",
 	timeout: 5000,
 	headers: {
 		"Content-Type": "application/json"
@@ -13,8 +16,12 @@ export const __ApiClient = axios.create({
 });
 
 __ApiClient.interceptors.request.use((config) => {
-	config.headers.Authorization = `Bearer ${LocalStorage.getLocalData(SESSION_CACHE_KEY)}`;
-	console.log("PAssei aqui", config);
+	const tokenData = LocalStorage.getLocalData(SESSION_CACHE_KEY);
+	if(tokenData){
+		const token: TokenSession = JSON.parse(tokenData);
+		config.headers.Authorization = `Bearer ${token.accessToken}`;
+	}
+	console.log(config);
 	return config;
 });
 
@@ -22,8 +29,7 @@ __ApiClient.interceptors.response.use((response) => {
 	return response;
 }, (error) => {
 	if (error.response.status === 401) {
-		alert("Sessão expirada!");
-		// Session.logout();
+		Helpers.eventEmitter.emit(CONSTANTS.EVENT.SESSION_EXPIRED);
 	}
 	return Promise.reject(error);
 });
