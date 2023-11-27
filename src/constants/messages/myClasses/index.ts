@@ -81,6 +81,18 @@ const MY_CLASSES = {
 		SESSION_CODE_TITLE: "Validação por código de sessão",
 		SESSION_CODE_DESCRIPTION: "Um código curto é gerado. O professor deve apresentar o código aos alunos. O aluno informa o código no aplicativo Aluno Presente e faz a validação da presença."
 	},
+
+	DELETE_CLASS_MODAL: {
+		TITLE: "Excluir turma",
+		MESSAGE1: "Tem certeza que deseja excluir a turma?",
+		MESSAGE2: "Essa ação não pode ser desfeita.",
+		MESSAGE3: "Todo o histórico da turma e as presenças registradas serão perdidas.",
+		CANCEL_BTN: "Cancelar",
+		CONFIRM_BTN: "Confirmar",
+		DELETING: "Apagando...",
+		DELETED: "Turma excluída com sucesso!",
+		ERROR: "Erro ao excluir turma. Tente novamente!",
+	},
 };
 
 export default MY_CLASSES;

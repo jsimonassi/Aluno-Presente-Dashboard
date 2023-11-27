@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { DEVICE } from "../../constants/screenSize";
 
 export const Container = styled.div`
     display: flex;

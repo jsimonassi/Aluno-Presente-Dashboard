@@ -21,7 +21,6 @@ __ApiClient.interceptors.request.use((config) => {
 		const token: TokenSession = JSON.parse(tokenData);
 		config.headers.Authorization = `Bearer ${token.accessToken}`;
 	}
-	console.log(config);
 	return config;
 });
 

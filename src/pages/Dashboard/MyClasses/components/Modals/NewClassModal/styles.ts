@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DEVICE } from "../../../../../constants/screenSize";
+import { DEVICE } from "../../../../../../constants/screenSize";
 
 interface ModalProps {
 	isOpen: boolean,

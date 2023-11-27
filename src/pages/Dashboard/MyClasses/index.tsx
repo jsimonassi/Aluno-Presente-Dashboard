@@ -6,15 +6,17 @@ import emptyClassImg from "../../../assets/images/emptyClassImg.svg";
 import plusIcon from "../../../assets/images/plusIcon.svg";
 import MESSAGES from "../../../constants/messages";
 import { MainButton } from "../../../components/Buttons";
-import { ClassCard, ManageClassPage, NewClassModal } from "./components";
+import { ClassCard, DeleteClassModal, ManageClassPage, NewClassModal } from "./components";
 import { FeedbackModal } from "../../../components/Modals";
 import { Feedback } from "../../../types/Feedback";
 import Api from "../../../services/api";
+import toast from "react-hot-toast";
 
 const MyClasses = () => {
 
 	const [classes, setClasses] = useState<Course[] | null>(null);
 	const [newClassModalOpen, setNewClassModalOpen] = useState<boolean>(false);
+	const [deleteClassStatus, setDeleteClassStatus] = useState<{ isOpen: boolean, selectedClass: Course | null }>({ isOpen: false, selectedClass: null });
 	const [feedbackStatus, setFeedbackStatus] = useState<Feedback>({ isOpen: false, success: false });
 	const [selectedClass, setSelectedClass] = useState<Course | null>(null);
 
@@ -26,6 +28,19 @@ const MyClasses = () => {
 			setClasses([]);
 		});
 	}, []);
+
+	const onDeleteRequested = (id: string) => {
+		setDeleteClassStatus({ isOpen: false, selectedClass: null });
+		const toastReference = toast.loading(MESSAGES.MY_CLASSES.DELETE_CLASS_MODAL.DELETING);
+		Api.Classes.deleteClass(id).then(() => {
+			toast.success(MESSAGES.MY_CLASSES.DELETE_CLASS_MODAL.DELETED);
+			setClasses(classes?.filter((currentClass) => currentClass.id !== id) ?? []);
+		}).catch(() => {
+			toast.error(MESSAGES.MY_CLASSES.DELETE_CLASS_MODAL.ERROR);
+		}).finally(() => {
+			toast.dismiss(toastReference);
+		});
+	};
 
 
 	const EmptyClassListLayout = () => {
@@ -63,7 +78,13 @@ const MyClasses = () => {
 				<AllClassContainer>
 					<ContentContainer>
 						{classes.map((currentClass) => (
-							<ClassCard currentClass={currentClass} key={currentClass.id} onClassSelected={(cClass) => setSelectedClass(cClass)}/>
+							<ClassCard 
+								currentClass={currentClass} 
+								key={currentClass.id} 
+								onClassSelected={() => setSelectedClass(currentClass)}
+								onDeleteRequested={() => setDeleteClassStatus({ isOpen: true, selectedClass: currentClass })}
+								onEditRequested={() => null}
+							/>
 						))}
 					</ContentContainer>
 					<MainButton
@@ -95,6 +116,12 @@ const MyClasses = () => {
 		<Container>
 			<FeedbackModal isOpen={feedbackStatus.isOpen} success={feedbackStatus.success} />
 			<NewClassModal isOpen={newClassModalOpen} onCancel={() => setNewClassModalOpen(false)} onFeedback={(newClass) => onFeedbackReceived(newClass)} />
+			<DeleteClassModal 
+				isOpen={deleteClassStatus.isOpen} 
+				onCancel={() => setDeleteClassStatus({isOpen: false, selectedClass: null})} 
+				selectedClass={deleteClassStatus.selectedClass} 
+				onDeleteRequested={onDeleteRequested}
+			/>
 			{getContent()}
 		</Container>
 	);

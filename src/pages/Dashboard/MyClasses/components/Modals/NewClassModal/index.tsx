@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { DaysScroll, DeleteButtonContainer, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, RowContainer } from "./styles";
-import { ClassTime, Course } from "../../../../../types/Course";
-import { Dropdown, MainInput, TimeInput } from "../../../../../components/Inputs";
-import { MainButton, OutlineButton } from "../../../../../components/Buttons";
-import MESSAGES from "../../../../../constants/messages";
-import closeIcon from "../../../../../assets/images/closeIcon.svg";
-import bluePlusIcon from "../../../../../assets/images/bluePlusIcon.svg";
-import trashIcon from "../../../../../assets/images/trashIcon.svg";
-import { Feedback } from "../../../../../types/Feedback";
-import { Helpers } from "../../../../../helpers";
-import { DAYS_OF_WEEK } from "../../../../../constants/dates";
+import { ClassTime, Course } from "../../../../../../types/Course";
+import { Dropdown, MainInput, TimeInput } from "../../../../../../components/Inputs";
+import { MainButton, OutlineButton } from "../../../../../../components/Buttons";
+import MESSAGES from "../../../../../../constants/messages";
+import closeIcon from "../../../../../../assets/images/closeIcon.svg";
+import bluePlusIcon from "../../../../../../assets/images/bluePlusIcon.svg";
+import trashIcon from "../../../../../../assets/images/trashIcon.svg";
+import { Feedback } from "../../../../../../types/Feedback";
+import { Helpers } from "../../../../../../helpers";
+import { DAYS_OF_WEEK } from "../../../../../../constants/dates";
 import moment from "moment";
-import Api from "../../../../../services/api";
+import Api from "../../../../../../services/api";
 
 interface NewClassModalProps {
 	isOpen: boolean;
@@ -23,11 +23,11 @@ interface NewClassModalProps {
 const NewClassModal = (props: NewClassModalProps) => {
 
 	const [classDays, setClassDays] = useState<ClassTime[]>([{
-		start: moment().set({ hour: 7, minute: 0, second: 0 }),
-		end: moment().set({ hour: 9, minute: 0, second: 0 })
+		momentStart: moment().set({ hour: 7, minute: 0, second: 0 }),
+		momentEnd: moment().set({ hour: 9, minute: 0, second: 0 })
 	}]);
 	const timesRef = React.createRef<HTMLDivElement>();
-	const [newClass, setNewClass] = useState<Course>({ id: -1, name: "", daysOfWeek: classDays, period: "", about: "" });
+	const [newClass, setNewClass] = useState<Course>({ id: "", name: "", daysOfWeeks: classDays, period: "", about: "" });
 	const [nameError, setNameError] = useState<string>("");
 	const [periodError, setPeriodError] = useState<string>("");
 	const [aboutError, setAboutError] = useState<string>("");
@@ -56,6 +56,11 @@ const NewClassModal = (props: NewClassModalProps) => {
 		}
 
 		if(allRight) {
+			classDays.forEach((day) => {
+				day.start = day.momentStart.format(Helpers.DateHelpers.APP_DATE_FORMAT);
+				day.end = day.momentEnd.format(Helpers.DateHelpers.APP_DATE_FORMAT);
+			});
+			newClass.daysOfWeeks = classDays;
 			Api.Classes.addClass(newClass).then(() => {
 				props.onFeedback({ isOpen: true, success: true });
 			}).catch((error) => {
@@ -66,13 +71,13 @@ const NewClassModal = (props: NewClassModalProps) => {
 	};
 
 	const handleAddClassTime = () => {
-		const newClassTime: ClassTime = { start: classDays[classDays.length-1].start.clone().add(1, "day"), end: classDays[classDays.length-1].end.clone().add(1, "day") };
+		const newClassTime: ClassTime = { momentStart: classDays[classDays.length-1].momentStart.clone().add(1, "day"), momentEnd: classDays[classDays.length-1].momentEnd.clone().add(1, "day") };
 		setClassDays([...classDays, newClassTime]);
 		timesRef.current?.scrollIntoView({ behavior: "smooth" });
 	};
 
 	const handleUpdateClassTime = (newTime: ClassTime, index: number) => {
-		console.log("Hora atual: ", newTime.start.format(Helpers.DateHelpers.APP_DATE_FORMAT));
+		console.log("Hora atual: ", newTime.momentStart.format(Helpers.DateHelpers.APP_DATE_FORMAT));
 		const oldList = [...classDays];
 		oldList[index] = newTime;
 		setClassDays(oldList);
@@ -114,40 +119,40 @@ const NewClassModal = (props: NewClassModalProps) => {
 								<RowContainer key={index}>
 									<Dropdown
 										items={DAYS_OF_WEEK}
-										onChange={(newValue) => handleUpdateClassTime({ ...time, start: time.start.weekday(DAYS_OF_WEEK.indexOf(newValue) + 1), end: time.end.weekday(DAYS_OF_WEEK.indexOf(newValue) + 1) }, index)}
-										selected={DAYS_OF_WEEK[time.start.isoWeekday() - 1]}
+										onChange={(newValue) => handleUpdateClassTime({ ...time, momentStart: time.momentStart.weekday(DAYS_OF_WEEK.indexOf(newValue) + 1), momentEnd: time.momentEnd.weekday(DAYS_OF_WEEK.indexOf(newValue) + 1) }, index)}
+										selected={DAYS_OF_WEEK[time.momentStart.isoWeekday() - 1]}
 										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.WEEKDAY}
 										style={{ marginRight: "8px", marginBottom: "8px" }}
 									/>
 									<TimeInput
 										onChange={(newValue) => {
-											const newStartDate = Helpers.DateHelpers.updateHourAndMinute(time.start, newValue);
+											const newStartDate = Helpers.DateHelpers.updateHourAndMinute(time.momentStart, newValue);
 											handleUpdateClassTime(
 												{
 													...time,
-													start: newStartDate,
-													end: Helpers.DateHelpers.getNextValidEndDate(newStartDate, time.end)
+													momentStart: newStartDate,
+													momentEnd: Helpers.DateHelpers.getNextValidEndDate(newStartDate, time.momentEnd)
 												}, index);
 										}}
-										value={time.start.format("HH:mm")}
+										value={time.momentStart.format("HH:mm")}
 										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.FROM}
 										style={{ marginRight: "8px" }}
 									/>
 									<TimeInput
 										onChange={(newValue) => {
-											const newEndDate = Helpers.DateHelpers.updateHourAndMinute(time.end, newValue);
+											const newEndDate = Helpers.DateHelpers.updateHourAndMinute(time.momentEnd, newValue);
 
-											if (!Helpers.DateHelpers.endDateIsValid(time.start, newEndDate)) {
+											if (!Helpers.DateHelpers.endDateIsValid(time.momentStart, newEndDate)) {
 												return;
 											}
 
 											handleUpdateClassTime(
 												{
 													...time,
-													end: newEndDate
+													momentEnd: newEndDate
 												}, index);
 										}}
-										value={time.end.format("HH:mm")}
+										value={time.momentEnd.format("HH:mm")}
 										title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.TO}
 										style={{ marginRight: "8px" }}
 									/>
