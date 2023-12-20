@@ -1,6 +1,7 @@
 import axios from "axios";
 import Classes from "./Classes";
 import Session from "./Session";
+import Periods from "./Periods";
 import { LocalStorage } from "../storage";
 import { SESSION_CACHE_KEY } from "../../contexts/Session";
 import { TokenSession } from "../../types/Session";
@@ -17,6 +18,7 @@ export const __ApiClient = axios.create({
 
 __ApiClient.interceptors.request.use((config) => {
 	const tokenData = LocalStorage.getLocalData(SESSION_CACHE_KEY);
+	console.log("Token Data", tokenData);
 	if(tokenData){
 		const token: TokenSession = JSON.parse(tokenData);
 		config.headers.Authorization = `Bearer ${token.accessToken}`;
@@ -35,7 +37,8 @@ __ApiClient.interceptors.response.use((response) => {
 
 export const Api = {
 	Classes,
-	Session
+	Session,
+	Periods
 };
 
 export default Api;

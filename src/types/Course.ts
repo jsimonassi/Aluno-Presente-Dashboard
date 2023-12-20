@@ -1,5 +1,6 @@
 import { Moment } from "moment";
 import { Student } from "./Student";
+import Periods from "../services/api/Periods";
 
 export interface Course {
     id: string;

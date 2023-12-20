@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DaysScroll, DeleteButtonContainer, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, RowContainer } from "./styles";
 import { ClassTime, Course } from "../../../../../../types/Course";
 import { Dropdown, MainInput, TimeInput } from "../../../../../../components/Inputs";
@@ -13,6 +13,14 @@ import { DAYS_OF_WEEK } from "../../../../../../constants/dates";
 import moment from "moment";
 import Api from "../../../../../../services/api";
 
+const newClassInitialState = {
+	id: "",
+	name: "",
+	daysOfWeeks: [],
+	period: undefined,
+	about: ""
+};
+
 interface NewClassModalProps {
 	isOpen: boolean;
 	onCancel: () => void;
@@ -22,26 +30,45 @@ interface NewClassModalProps {
 
 const NewClassModal = (props: NewClassModalProps) => {
 
+	const [availablePeriods, setAvailablePeriods] = useState<string[]>([]);
 	const [classDays, setClassDays] = useState<ClassTime[]>([{
 		momentStart: moment().set({ hour: 7, minute: 0, second: 0 }),
 		momentEnd: moment().set({ hour: 9, minute: 0, second: 0 })
 	}]);
 	const timesRef = React.createRef<HTMLDivElement>();
-	const [newClass, setNewClass] = useState<Course>({ id: "", name: "", daysOfWeeks: classDays, period: "", about: "" });
+	const [newClass, setNewClass] = useState<Course>({ id: "", name: "", daysOfWeeks: classDays, period: undefined, about: "" });
 	const [nameError, setNameError] = useState<string>("");
-	const [periodError, setPeriodError] = useState<string>("");
 	const [aboutError, setAboutError] = useState<string>("");
+	const [periodError, setPeriodError] = useState<string>("");
+
+	useEffect(() => {
+		setNewClass(newClassInitialState);
+		setNameError("");
+		setAboutError("");
+		setPeriodError("");
+		setClassDays([{
+			momentStart: moment().set({ hour: 7, minute: 0, second: 0 }),
+			momentEnd: moment().set({ hour: 9, minute: 0, second: 0 })
+		}]);
+	}, [props.isOpen]);
+
+	useEffect(() => {
+		Api.Periods.getPeriods()
+			.then((response) => {
+				setAvailablePeriods(response);
+			});
+	}, []);
 
 	const handleNewClass = () => {
 		let allRight = true;
-		if(newClass.name === ""){
+		if (newClass.name === "") {
 			allRight = false;
 			setNameError(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.MANDATORY_FIELD);
-		}else{
+		} else {
 			setNameError("");
 		}
 
-		if(newClass.period === ""){
+		if(newClass.period === undefined){
 			allRight = false;
 			setPeriodError(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.MANDATORY_FIELD);
 		}else {
@@ -51,11 +78,11 @@ const NewClassModal = (props: NewClassModalProps) => {
 		if(newClass.about === ""){
 			allRight = false;
 			setAboutError(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.MANDATORY_FIELD);
-		}else {
+		} else {
 			setAboutError("");
 		}
 
-		if(allRight) {
+		if (allRight) {
 			classDays.forEach((day) => {
 				day.start = day.momentStart.format(Helpers.DateHelpers.APP_DATE_FORMAT);
 				day.end = day.momentEnd.format(Helpers.DateHelpers.APP_DATE_FORMAT);
@@ -71,7 +98,7 @@ const NewClassModal = (props: NewClassModalProps) => {
 	};
 
 	const handleAddClassTime = () => {
-		const newClassTime: ClassTime = { momentStart: classDays[classDays.length-1].momentStart.clone().add(1, "day"), momentEnd: classDays[classDays.length-1].momentEnd.clone().add(1, "day") };
+		const newClassTime: ClassTime = { momentStart: classDays[classDays.length - 1].momentStart.clone().add(1, "day"), momentEnd: classDays[classDays.length - 1].momentEnd.clone().add(1, "day") };
 		setClassDays([...classDays, newClassTime]);
 		timesRef.current?.scrollIntoView({ behavior: "smooth" });
 	};
@@ -103,14 +130,15 @@ const NewClassModal = (props: NewClassModalProps) => {
 							errorText={nameError}
 							inputStyle={{ borderRadius: "16px", marginRight: "8px" }}
 						/>
-						<MainInput
-							type="text"
+						<Dropdown
+							items={availablePeriods}
+							onChange={(selectedValue) =>  setNewClass({ ...newClass, period: selectedValue })}
+							selected={newClass.period}
 							title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.PERIOD}
-							value={newClass.period ?? ""}
+							containerItemsStyle={{ width: "30%" }}
+							style={{ marginBottom: "10px" }}
 							placeholder={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.PERIOD_PLACEHOLDER}
-							onChange={(newValue) => setNewClass({ ...newClass, period: newValue })}
 							errorText={periodError}
-							inputStyle={{ borderRadius: "16px" }}
 						/>
 					</RowContainer>
 					<RowContainer>

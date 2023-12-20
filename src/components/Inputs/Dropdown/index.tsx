@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Container, DropdownItem, ItemsContainer, Spacing, StackContainer } from "./styles";
+import { Container, DropdownItem, ItemsContainer, Spacing, StackContainer, ValueStyled } from "./styles";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 interface TextInputProps {
 	items: (string | null)[] | undefined;
-	selected: string;
+	selected: string | undefined;
 	onChange: (value: string) => void;
 	title?: string;
 	style?: React.CSSProperties;
+	containerItemsStyle?: React.CSSProperties;
 	disabled?: boolean;
+	placeholder?: string;
+	errorText?: string;
 }
 
 const Dropdown = (props: TextInputProps) => {
@@ -18,9 +21,12 @@ const Dropdown = (props: TextInputProps) => {
 	return (
 		<StackContainer onMouseLeave={() => { setIsOpen(false); }} style={props?.style} disabled={props.disabled ?? false}>
 			{props.title && <h5>{props.title}</h5>}
-			<Container onClick={() => {!props.disabled && setIsOpen(!isOpen);}}>
+			<Container 
+				onClick={() => {!props.disabled && setIsOpen(!isOpen);}}
+				isError={props.errorText !== undefined && props.errorText !== ""}
+			>
 				<div />
-				<p>{props.selected}</p>
+				<ValueStyled hasValue={props.selected !== undefined} >{props.selected ?? props.placeholder}</ValueStyled>
 				<div>
 					{isOpen ?
 						<IoIosArrowUp fontSize="1.5em" /> :
@@ -28,9 +34,13 @@ const Dropdown = (props: TextInputProps) => {
 					}
 				</div>
 			</Container>
+			{
+				props.errorText &&
+				<span>{props.errorText}</span>
+			}
 			{isOpen &&
 				<Spacing>
-					<ItemsContainer>
+					<ItemsContainer style={props.containerItemsStyle}>
 						{props.items?.map((item, index) => {
 							return (
 								<DropdownItem key={index} onClick={() => {

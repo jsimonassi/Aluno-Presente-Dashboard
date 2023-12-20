@@ -21,13 +21,18 @@ const MyClasses = () => {
 	const [selectedClass, setSelectedClass] = useState<Course | null>(null);
 
 	useEffect(() => {
+		refreshClasses();
+	}, []);
+
+	const refreshClasses = () => {
 		Api.Classes.getClasses().then((response) => {
 			setClasses(response);
 		}).catch((error) => {
 			console.log(error);
 			setClasses([]);
 		});
-	}, []);
+	};
+
 
 	const onDeleteRequested = (id: string) => {
 		setDeleteClassStatus({ isOpen: false, selectedClass: null });
@@ -105,6 +110,7 @@ const MyClasses = () => {
 		setTimeout(() => {
 			setFeedbackStatus({ isOpen: false, success: false });
 		}, 3000);
+		refreshClasses();
 	};
 
 

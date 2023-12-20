@@ -1,0 +1,1 @@
+export type AttendanceInProgressType = "qrCode" | "sessionCode";

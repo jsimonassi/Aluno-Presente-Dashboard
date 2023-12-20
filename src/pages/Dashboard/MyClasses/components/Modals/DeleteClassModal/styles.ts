@@ -87,7 +87,7 @@ export const ModalBody = styled.div`
 	}
 
 	p {
-		color: ${props => props.theme.secondaryText};
+		color: ${props => props.theme.primary};
 		font-family: "Light";
 		text-align: center;
 	}
