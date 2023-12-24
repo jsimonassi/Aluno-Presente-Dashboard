@@ -21,6 +21,16 @@ const MY_CLASSES = {
 		SAVE: "Salvar",
 
 		MANDATORY_FIELD: "Campo obrigatório",
+		CREATING_CLASS: "Criando turma...",
+		SUCCESSFULLY_CREATED: "Turma criada com sucesso!",
+		ERROR: "Erro ao criar turma. Tente novamente!",
+	},
+
+	EDIT_CLASS_MODAL: {
+		TITLE: "Editar turma",
+		EDITING_CLASS: "Editando turma...",
+		SUCCESSFULLY_EDITED: "Turma editada com sucesso!",
+		ERROR: "Erro ao editar turma. Tente novamente!",
 	},
 
 	MANAGE_CLASS: {

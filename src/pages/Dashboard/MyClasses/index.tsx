@@ -6,7 +6,7 @@ import emptyClassImg from "../../../assets/images/emptyClassImg.svg";
 import plusIcon from "../../../assets/images/plusIcon.svg";
 import MESSAGES from "../../../constants/messages";
 import { MainButton } from "../../../components/Buttons";
-import { ClassCard, DeleteClassModal, ManageClassPage, NewClassModal } from "./components";
+import { ClassCard, DeleteClassModal, EditClassModal, ManageClassPage, NewClassModal } from "./components";
 import { FeedbackModal } from "../../../components/Modals";
 import { Feedback } from "../../../types/Feedback";
 import Api from "../../../services/api";
@@ -16,6 +16,7 @@ const MyClasses = () => {
 
 	const [classes, setClasses] = useState<Course[] | null>(null);
 	const [newClassModalOpen, setNewClassModalOpen] = useState<boolean>(false);
+	const [editClassModalStatus, setEditClassModalStatus] = useState<{ isOpen: boolean, selectedClass: Course | null }>({isOpen: false, selectedClass: null});
 	const [deleteClassStatus, setDeleteClassStatus] = useState<{ isOpen: boolean, selectedClass: Course | null }>({ isOpen: false, selectedClass: null });
 	const [feedbackStatus, setFeedbackStatus] = useState<Feedback>({ isOpen: false, success: false });
 	const [selectedClass, setSelectedClass] = useState<Course | null>(null);
@@ -43,6 +44,35 @@ const MyClasses = () => {
 		}).catch(() => {
 			toast.error(MESSAGES.MY_CLASSES.DELETE_CLASS_MODAL.ERROR);
 		}).finally(() => {
+			toast.dismiss(toastReference);
+		});
+	};
+
+	const onCreateRequested = (newClass: Course) => {
+		setNewClassModalOpen(false);
+		const toastReference = toast.loading(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.CREATING_CLASS);
+		Api.Classes.addClass(newClass).then(() => {
+			toast.success(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.SUCCESSFULLY_CREATED);
+			refreshClasses();
+		}).catch((error) => {
+			console.log(error);
+			toast.error(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.ERROR);
+		}).finally(()=> {
+			toast.dismiss(toastReference);
+		});
+
+	};
+
+	const onEditRequested = (editedClass: Course) => {
+		setEditClassModalStatus({ isOpen: false, selectedClass: null });
+		const toastReference = toast.loading(MESSAGES.MY_CLASSES.EDIT_CLASS_MODAL.EDITING_CLASS);
+		Api.Classes.editClass(editedClass).then(() => {
+			toast.success(MESSAGES.MY_CLASSES.EDIT_CLASS_MODAL.SUCCESSFULLY_EDITED);
+			refreshClasses();
+		}).catch((error) => {
+			console.log(error);
+			toast.error(MESSAGES.MY_CLASSES.EDIT_CLASS_MODAL.ERROR);
+		}).finally(()=> {
 			toast.dismiss(toastReference);
 		});
 	};
@@ -83,12 +113,12 @@ const MyClasses = () => {
 				<AllClassContainer>
 					<ContentContainer>
 						{classes.map((currentClass) => (
-							<ClassCard 
-								currentClass={currentClass} 
-								key={currentClass.id} 
+							<ClassCard
+								currentClass={currentClass}
+								key={currentClass.id}
 								onClassSelected={() => setSelectedClass(currentClass)}
 								onDeleteRequested={() => setDeleteClassStatus({ isOpen: true, selectedClass: currentClass })}
-								onEditRequested={() => null}
+								onEditRequested={() => setEditClassModalStatus({ isOpen: true, selectedClass: currentClass })}
 							/>
 						))}
 					</ContentContainer>
@@ -105,7 +135,6 @@ const MyClasses = () => {
 	};
 
 	const onFeedbackReceived = (feedbackStatus: Feedback) => {
-		setNewClassModalOpen(false);
 		setFeedbackStatus(feedbackStatus);
 		setTimeout(() => {
 			setFeedbackStatus({ isOpen: false, success: false });
@@ -114,18 +143,28 @@ const MyClasses = () => {
 	};
 
 
-	if(selectedClass !== null){
-		return <ManageClassPage selectedClass={selectedClass} onBack={() => setSelectedClass(null)}/>;
+	if (selectedClass !== null) {
+		return <ManageClassPage selectedClass={selectedClass} onBack={() => setSelectedClass(null)} />;
 	}
 
-	return (	
+	return (
 		<Container>
 			<FeedbackModal isOpen={feedbackStatus.isOpen} success={feedbackStatus.success} />
-			<NewClassModal isOpen={newClassModalOpen} onCancel={() => setNewClassModalOpen(false)} onFeedback={(newClass) => onFeedbackReceived(newClass)} />
-			<DeleteClassModal 
-				isOpen={deleteClassStatus.isOpen} 
-				onCancel={() => setDeleteClassStatus({isOpen: false, selectedClass: null})} 
-				selectedClass={deleteClassStatus.selectedClass} 
+			<NewClassModal
+				isOpen={newClassModalOpen}
+				onCancel={() => setNewClassModalOpen(false)}
+				onCreateRequested={onCreateRequested}
+			/>
+			<EditClassModal
+				isOpen={editClassModalStatus.isOpen}
+				onCancel={() => setEditClassModalStatus({ isOpen: false, selectedClass: null })}
+				currentClass={editClassModalStatus.selectedClass}
+				onEditRequested={onEditRequested}
+			/>
+			<DeleteClassModal
+				isOpen={deleteClassStatus.isOpen}
+				onCancel={() => setDeleteClassStatus({ isOpen: false, selectedClass: null })}
+				selectedClass={deleteClassStatus.selectedClass}
 				onDeleteRequested={onDeleteRequested}
 			/>
 			{getContent()}

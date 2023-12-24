@@ -1,6 +1,6 @@
 import { Course } from "../../../types/Course";
 import { __ApiClient } from "..";
-import { fromApiClassTimeToApp, fromAppClassTimeToApi } from "./parser";
+import { fromApiClassTimeToApp } from "./parser";
 
 const Classes = {
 	getClasses: () => {
@@ -15,9 +15,7 @@ const Classes = {
 	},
 	addClass: (course: Course) => {
 		return new Promise<Course>((resolve, reject) => {
-			// const body = {...course, daysOfWeeks: fromAppClassTimeToApi(course.daysOfWeeks)};
-			const body = {...course, daysOfWeeks: null};
-			console.log("Opa", body);
+			const body = { ...course, daysOfWeeks: null };
 			__ApiClient.post("/courses", body)
 				.then((response) => {
 					resolve(response.data);
@@ -27,8 +25,20 @@ const Classes = {
 				});
 		});
 	},
+	editClass: (course: Course) => {
+		return new Promise<Course>((resolve, reject) => {
+			const body = { ...course, daysOfWeeks: null };
+			__ApiClient.put(`/courses/${course.id}`, body)
+				.then((response) => {
+					resolve(response.data);
+				}).catch((error) => {
+					console.log(error);
+					reject(error);
+				});
+		});
+	},
 	deleteClass: (id: string) => {
-		return new Promise<void>((resolve,reject) => {
+		return new Promise<void>((resolve, reject) => {
 			__ApiClient.delete("/courses/" + id)
 				.then(() => {
 					resolve();

@@ -13,22 +13,14 @@ import { DAYS_OF_WEEK } from "../../../../../../constants/dates";
 import moment from "moment";
 import Api from "../../../../../../services/api";
 
-const newClassInitialState = {
-	id: "",
-	name: "",
-	daysOfWeeks: [],
-	period: undefined,
-	about: ""
-};
-
-interface NewClassModalProps {
+interface EditClassModalProps {
 	isOpen: boolean;
 	onCancel: () => void;
-	onCreateRequested: (course: Course) => void;
+	currentClass: Course | null;
+	onEditRequested: (course: Course) => void;
 }
 
-
-const NewClassModal = (props: NewClassModalProps) => {
+const EditClassModal = (props: EditClassModalProps) => {
 
 	const [availablePeriods, setAvailablePeriods] = useState<string[]>([]);
 	const [classDays, setClassDays] = useState<ClassTime[]>([{
@@ -36,13 +28,13 @@ const NewClassModal = (props: NewClassModalProps) => {
 		momentEnd: moment().set({ hour: 9, minute: 0, second: 0 })
 	}]);
 	const timesRef = React.createRef<HTMLDivElement>();
-	const [newClass, setNewClass] = useState<Course>({ id: "", name: "", daysOfWeeks: classDays, period: undefined, about: "" });
+	const [editingClass, setEditingClass] = useState<Course>(props.currentClass ?? {} as Course);
 	const [nameError, setNameError] = useState<string>("");
 	const [aboutError, setAboutError] = useState<string>("");
 	const [periodError, setPeriodError] = useState<string>("");
 
 	useEffect(() => {
-		setNewClass(newClassInitialState);
+		setEditingClass(props.currentClass ?? {} as Course);
 		setNameError("");
 		setAboutError("");
 		setPeriodError("");
@@ -59,23 +51,23 @@ const NewClassModal = (props: NewClassModalProps) => {
 			});
 	}, []);
 
-	const handleNewClass = () => {
+	const handleEditClass = () => {
 		let allRight = true;
-		if (newClass.name === "") {
+		if (editingClass.name === "") {
 			allRight = false;
 			setNameError(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.MANDATORY_FIELD);
 		} else {
 			setNameError("");
 		}
 
-		if(newClass.period === undefined){
+		if(editingClass.period === undefined){
 			allRight = false;
 			setPeriodError(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.MANDATORY_FIELD);
 		}else {
 			setPeriodError("");
 		}
 
-		if(newClass.about === ""){
+		if(editingClass.about === ""){
 			allRight = false;
 			setAboutError(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.MANDATORY_FIELD);
 		} else {
@@ -87,8 +79,8 @@ const NewClassModal = (props: NewClassModalProps) => {
 				day.start = day.momentStart.format(Helpers.DateHelpers.APP_DATE_FORMAT);
 				day.end = day.momentEnd.format(Helpers.DateHelpers.APP_DATE_FORMAT);
 			});
-			newClass.daysOfWeeks = classDays;
-			props.onCreateRequested(newClass);
+			editingClass.daysOfWeeks = classDays;
+			props.onEditRequested(editingClass);
 		}
 	};
 
@@ -109,7 +101,7 @@ const NewClassModal = (props: NewClassModalProps) => {
 		<ModalContainer isOpen={props.isOpen} >
 			<ModalContent >
 				<ModalHeader >
-					<h1>{MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.TITLE}</h1>
+					<h1>{MESSAGES.MY_CLASSES.EDIT_CLASS_MODAL.TITLE}</h1>
 					<div>
 						<img src={closeIcon} alt="Close" onClick={() => { props.onCancel(); }} />
 					</div>
@@ -119,16 +111,16 @@ const NewClassModal = (props: NewClassModalProps) => {
 						<MainInput
 							type="text"
 							title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.COURSE}
-							value={newClass.name ?? ""}
+							value={editingClass.name ?? ""}
 							placeholder={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.COURSE_PLACEHOLDER}
-							onChange={(newValue) => setNewClass({ ...newClass, name: newValue })}
+							onChange={(newValue) => setEditingClass({ ...editingClass, name: newValue })}
 							errorText={nameError}
 							inputStyle={{ borderRadius: "16px", marginRight: "8px" }}
 						/>
 						<Dropdown
 							items={availablePeriods}
-							onChange={(selectedValue) =>  setNewClass({ ...newClass, period: selectedValue })}
-							selected={newClass.period}
+							onChange={(selectedValue) =>  setEditingClass({ ...editingClass, period: selectedValue })}
+							selected={editingClass.period}
 							title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.PERIOD}
 							containerItemsStyle={{ width: "30%" }}
 							style={{ marginBottom: "10px" }}
@@ -199,16 +191,16 @@ const NewClassModal = (props: NewClassModalProps) => {
 						<MainInput
 							type="text"
 							title={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.ABOUT}
-							value={newClass.about ?? ""}
+							value={editingClass.about ?? ""}
 							placeholder={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.ABOUT_PLACEHOLDER}
-							onChange={(newValue) => setNewClass({ ...newClass, about: newValue })}
+							onChange={(newValue) => setEditingClass({ ...editingClass, about: newValue })}
 							errorText={aboutError}
 							inputStyle={{ borderRadius: "16px", marginRight: "8px" }}
 							rowsNumber={4}
 						/>
 					</RowContainer>
 					<ModalFooter >
-						<MainButton enabled onClick={() => handleNewClass()} text={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.SAVE} />
+						<MainButton enabled onClick={() => handleEditClass()} text={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.SAVE} />
 					</ModalFooter>
 				</ModalBody>
 			</ModalContent>
@@ -216,4 +208,4 @@ const NewClassModal = (props: NewClassModalProps) => {
 	);
 };
 
-export default NewClassModal;
+export default EditClassModal;
