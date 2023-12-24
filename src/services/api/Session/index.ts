@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import { SessionAuthConfig, TokenRequestConfig, TokenSession } from "../../../types/Session";
-import { __ApiClient } from "..";
+import { __ApiResourceClient } from "..";
 import { User } from "../../../types/User";
 
 
@@ -33,7 +33,7 @@ const Session = {
 	},
 	getLoggedUser: () => {
 		return new Promise<User>((resolve, reject) => {
-			__ApiClient.get<User>("/users").then((response) => {
+			__ApiResourceClient.get<User>("/users").then((response) => {
 				resolve(response.data);
 			}).catch((error) => {
 				reject(error);

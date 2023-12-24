@@ -47,6 +47,11 @@ const MY_CLASSES = {
 		FREQUENCY: "Frequência",
 		FREQUENCY_DESCRIPTION: "A frequência da turma é de ",
 
+		ADDING_STUDENT: "Adicionando aluno...",
+		ADDED_STUDENT: "Aluno adicionado com sucesso!",
+		ERROR_ADDING_STUDENT: "Erro ao adicionar aluno. Tente novamente!",
+		ADDING_STUDENTS: "Adicionando alunos...",
+
 		ADD_FROM_XLSX_MODAL: {
 			TITLE: "Importar alunos",
 			TABLE: "Planilha de alunos:",

@@ -1,11 +1,11 @@
 import { Course } from "../../../types/Course";
-import { __ApiClient } from "..";
+import { __ApiResourceClient } from "..";
 import { fromApiClassTimeToApp } from "./parser";
 
 const Classes = {
 	getClasses: () => {
 		return new Promise<Course[]>((resolve) => {
-			__ApiClient.get("/courses/owner").then((response) => {
+			__ApiResourceClient.get("/courses/owner").then((response) => {
 				response.data.forEach((course) => {
 					course.daysOfWeeks = fromApiClassTimeToApp(course.daysOfWeeks);
 				});
@@ -16,7 +16,7 @@ const Classes = {
 	addClass: (course: Course) => {
 		return new Promise<Course>((resolve, reject) => {
 			const body = { ...course, daysOfWeeks: null };
-			__ApiClient.post("/courses", body)
+			__ApiResourceClient.post("/courses", body)
 				.then((response) => {
 					resolve(response.data);
 				}).catch((error) => {
@@ -28,7 +28,7 @@ const Classes = {
 	editClass: (course: Course) => {
 		return new Promise<Course>((resolve, reject) => {
 			const body = { ...course, daysOfWeeks: null };
-			__ApiClient.put(`/courses/${course.id}`, body)
+			__ApiResourceClient.put(`/courses/${course.id}`, body)
 				.then((response) => {
 					resolve(response.data);
 				}).catch((error) => {
@@ -39,7 +39,7 @@ const Classes = {
 	},
 	deleteClass: (id: string) => {
 		return new Promise<void>((resolve, reject) => {
-			__ApiClient.delete("/courses/" + id)
+			__ApiResourceClient.delete("/courses/" + id)
 				.then(() => {
 					resolve();
 				}).catch((error) => {

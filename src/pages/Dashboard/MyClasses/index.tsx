@@ -134,15 +134,6 @@ const MyClasses = () => {
 		}
 	};
 
-	const onFeedbackReceived = (feedbackStatus: Feedback) => {
-		setFeedbackStatus(feedbackStatus);
-		setTimeout(() => {
-			setFeedbackStatus({ isOpen: false, success: false });
-		}, 3000);
-		refreshClasses();
-	};
-
-
 	if (selectedClass !== null) {
 		return <ManageClassPage selectedClass={selectedClass} onBack={() => setSelectedClass(null)} />;
 	}

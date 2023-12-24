@@ -7,7 +7,6 @@ import MESSAGES from "../../../../../../constants/messages";
 import closeIcon from "../../../../../../assets/images/closeIcon.svg";
 import bluePlusIcon from "../../../../../../assets/images/bluePlusIcon.svg";
 import trashIcon from "../../../../../../assets/images/trashIcon.svg";
-import { Feedback } from "../../../../../../types/Feedback";
 import { Helpers } from "../../../../../../helpers";
 import { DAYS_OF_WEEK } from "../../../../../../constants/dates";
 import moment from "moment";

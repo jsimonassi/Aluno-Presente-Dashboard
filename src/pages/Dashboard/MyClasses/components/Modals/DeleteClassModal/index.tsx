@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, RowContainer } from "./styles";
+import { ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader } from "./styles";
 import { MainButton, OutlineButton } from "../../../../../../components/Buttons";
 import MESSAGES from "../../../../../../constants/messages";
 import closeIcon from "../../../../../../assets/images/closeIcon.svg";
