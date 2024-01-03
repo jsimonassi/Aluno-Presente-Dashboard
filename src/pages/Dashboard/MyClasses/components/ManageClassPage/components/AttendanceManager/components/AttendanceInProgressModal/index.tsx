@@ -1,10 +1,13 @@
-import React from "react";
-import { ModalContainer, ModalContent, ModalHeader } from "./styles";
+import React, { useEffect, useState } from "react";
+import { ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, QrCodeContainer, StudentItem, StudentsListContainer } from "./styles";
 import closeIcon from "../../../../../../../../../assets/images/closeIcon.svg";
 import MESSAGES from "../../../../../../../../../constants/messages";
 import { AttendanceInProgressType } from "../../shared/types";
 import { MainButton } from "../../../../../../../../../components/Buttons";
-
+import { useSession } from "../../../../../../../../../contexts/Session";
+import moment from "moment";
+import { QRCodeSVG } from "qrcode.react";
+import { MainLoader } from "../../../../../../../../../components/Loaders";
 
 interface NewAttendanceModalProps {
 	isOpen: boolean;
@@ -13,48 +16,90 @@ interface NewAttendanceModalProps {
 	courseId: string;
 }
 
+interface WsStartRequest {
+	courseId: string;
+	date: string;
+	type: "START" | "STOP";
+}
+
 const AttendanceInProgressModal = (props: NewAttendanceModalProps) => {
-	// // const cookies = new Cookies();
-	// const { currentSession } = useSession();
-	// // cookies.set("token", currentSession?.accessToken, { path: "/" });
 
-	// const url = "wss://resource-server-89f6660ebc95.herokuapp.com/v1/api/attendences/ws/courses/65837c4462983963a1f5f7ac/dates/2000-10-31T02:31:00.001-03:00";
+	const { currentSession } = useSession();
+	const url = "wss://resource-server-89f6660ebc95.herokuapp.com/v1/api/attendances/ws?token=" + currentSession?.accessToken;
+	let ws: null | WebSocket = null;
+	const date = moment().format();
+	const [currentCodeValue, setCurrentCodeValue] = useState<string>("");
 
-	// function setCookie(exdays) {
-	// 	const d = new Date();
-	// 	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-	// 	const expires = "expires=" + d.toUTCString();
-	// 	const text = `xablau=${encodeURIComponent(currentSession?.accessToken ?? "")}; domain=.herokuapp.com; path=/; samesite=None;`;
-	// 	console.log(text);
-	// 	document.cookie = text;
-	// }
-	
+	useEffect(() => {
+		if(props.isOpen) {
+			ws = new WebSocket(url);
 
-	// useEffect(() => {
+			ws.onopen = function () {
+				console.log("Connection Established");
+				handleStartAttendance();
+			};
+		
+			ws.onmessage = function (event) {
+				console.log("Cod: ", event.data);
+				setCurrentCodeValue(event.data);
+			};
+		
+			ws.onerror = function (event) {
+				console.log("Error:  ", event);
+			};
+		
+			ws.onclose = function (event) {
+				console.log("Close: ", event.reason);
+			};
+		}else{
+			if(ws){
+				ws.close();
+			}
+			setCurrentCodeValue("");
+		}
+	}, [props.isOpen]);
 
-	// 	setCookie(3);
+	const handleStartAttendance = () => {
+		const request: WsStartRequest = {
+			courseId: props.courseId,
+			date: date,
+			type: "START"
+		};
+		console.log("sending ", request);
+		if(ws && ws.readyState === 1){
+			ws.send(JSON.stringify(request));
+		}		
+	};
 
-	// 	const ws = new WebSocket(url);
+	const handleStopAttendance = () => {
+		const request: WsStartRequest = {
+			courseId: props.courseId,
+			date: date,
+			type: "STOP"
+		};
+		console.log("sending ", request);
+		if(ws && ws.readyState === 1){
+			ws.send(JSON.stringify(request));
+		}
+		props.onCancel();
+	};
 
-	// 	ws.onmessage = function (event) {
-	// 		const json = JSON.parse(event.data);
-	// 		try {
-	// 			console.log(json);
-	// 		} catch (err) {
-	// 			console.log(err);
-	// 		}
-	// 	};
 
-	// 	ws.onerror = function (event) {
-	// 		console.log(event);
-	// 	};
+	const getCode = () => {
+		if (currentCodeValue === "") {
+			return <MainLoader />;
+		}
 
-	// 	ws.onclose = function (event) {
-	// 		console.log(event);
-	// 	};
+		if (props.attendanceType === "qrCode") {
+			return (
+				<QrCodeContainer>
+					<QRCodeSVG value={currentCodeValue} width={180} height={180} />
+				</QrCodeContainer>
+			);
+		}
 
-	// }, []);
-
+		return <h1>ABC123</h1>;
+	};
 
 	return (
 		<ModalContainer isOpen={props.isOpen} >
@@ -62,10 +107,30 @@ const AttendanceInProgressModal = (props: NewAttendanceModalProps) => {
 				<ModalHeader >
 					<h1>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.TITLE}</h1>
 					<div>
-						<img src={closeIcon} alt="Close" onClick={() => { props.onCancel(); }} />
+						<img src={closeIcon} alt="Close" onClick={handleStopAttendance} />
 					</div>
-					<MainButton onClick={() => null} text="Send" enabled />
 				</ModalHeader>
+				<ModalBody>
+					
+					{getCode()}
+
+					<p>{props.attendanceType === "qrCode" ? MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.QR_CODE_TIP : MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.CODE_TIP}</p>
+					<h4>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.REGISTERED_STUDENTS}</h4>
+					<StudentsListContainer>
+						{
+							Array.from({ length: 10 }).map((_, index) => (
+								<StudentItem key={index} index={index}>
+									Nome do aluno
+								</StudentItem>
+							))
+						}
+					</StudentsListContainer>
+				</ModalBody>
+
+				<ModalFooter>
+					<MainButton onClick={handleStopAttendance} text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.STOP_ATTENDANCE} enabled />
+
+				</ModalFooter>
 			</ModalContent>
 		</ModalContainer>
 	);

@@ -94,7 +94,11 @@ const MY_CLASSES = {
 		QR_CODE_TITLE: "Validação por QRCode (Recomendado)",
 		QR_CODE_DESCRIPTION: "Um QR code é gerado e atualizado a cada 5 segundos. O professor deve apresentar a página com o QR code a turma. O aluno faz a validação da chamada lendo o QR code pelo aplicativo Aluno Presente.  É a opção mais segura devido a atualização do QR code, garantindo que apenas alunos em sala possam validar a presença.",
 		SESSION_CODE_TITLE: "Validação por código de sessão",
-		SESSION_CODE_DESCRIPTION: "Um código curto é gerado. O professor deve apresentar o código aos alunos. O aluno informa o código no aplicativo Aluno Presente e faz a validação da presença."
+		SESSION_CODE_DESCRIPTION: "Um código curto é gerado. O professor deve apresentar o código aos alunos. O aluno informa o código no aplicativo Aluno Presente e faz a validação da presença.",
+		STOP_ATTENDANCE: "Encerrar chamada",
+		QR_CODE_TIP: "Mostre o QR code ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
+		CODE_TIP: "Mostre o código ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
+		REGISTERED_STUDENTS: "Alunos registrados:",
 	},
 
 	DELETE_CLASS_MODAL: {
