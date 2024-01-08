@@ -23,7 +23,7 @@ const ClassCard = (props: ClassCardProps) => {
 				<Infos>
 					<h1>{props.currentClass.name}</h1>
 					{
-						props.currentClass.daysOfWeeks?.map((_, index) => (
+						props.currentClass.daysOfWeek?.map((_, index) => (
 							<span key={index}>{}</span>
 						))
 					}

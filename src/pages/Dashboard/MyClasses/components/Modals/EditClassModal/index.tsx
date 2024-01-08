@@ -78,7 +78,7 @@ const EditClassModal = (props: EditClassModalProps) => {
 				day.start = day.momentStart.format(Helpers.DateHelpers.APP_DATE_FORMAT);
 				day.end = day.momentEnd.format(Helpers.DateHelpers.APP_DATE_FORMAT);
 			});
-			editingClass.daysOfWeeks = classDays;
+			editingClass.daysOfWeek = classDays;
 			props.onEditRequested(editingClass);
 		}
 	};
