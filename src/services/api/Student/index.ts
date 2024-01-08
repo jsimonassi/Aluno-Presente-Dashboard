@@ -5,9 +5,9 @@ const Student = {
 	addSingleStudent: (student: StudentType, courseId: string) => {
 		return new Promise<void>((resolve, reject) => {
 			const parsedObj = {
-				"email": student.email,
-				"registration": student.registration,
-				"alias": student.name
+				email: student.email,
+				registration: student.registration,
+				alias: student.name
 			};
 			__ApiResourceClient.patch(`/courses/${courseId}/member`, parsedObj)
 				.then(() => resolve())
