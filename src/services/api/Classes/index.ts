@@ -7,7 +7,7 @@ const Classes = {
 		return new Promise<Course[]>((resolve) => {
 			__ApiResourceClient.get("/courses/owner").then((response) => {
 				response.data.forEach((course) => {
-					course.daysOfWeeks = fromApiClassTimeToApp(course.daysOfWeeks);
+					course.daysOfWeek = fromApiClassTimeToApp(course.daysOfWeek);
 				});
 				resolve(response.data);
 			});
@@ -15,8 +15,7 @@ const Classes = {
 	},
 	addClass: (course: Course) => {
 		return new Promise<Course>((resolve, reject) => {
-			const body = { ...course, daysOfWeeks: null };
-			__ApiResourceClient.post("/courses", body)
+			__ApiResourceClient.post("/courses", course)
 				.then((response) => {
 					resolve(response.data);
 				}).catch((error) => {
@@ -27,8 +26,7 @@ const Classes = {
 	},
 	editClass: (course: Course) => {
 		return new Promise<Course>((resolve, reject) => {
-			const body = { ...course, daysOfWeeks: null };
-			__ApiResourceClient.put(`/courses/${course.id}`, body)
+			__ApiResourceClient.put(`/courses/${course.id}`, course)
 				.then((response) => {
 					resolve(response.data);
 				}).catch((error) => {

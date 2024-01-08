@@ -15,7 +15,7 @@ import Api from "../../../../../../services/api";
 const newClassInitialState = {
 	id: "",
 	name: "",
-	daysOfWeeks: [],
+	daysOfWeek: [],
 	period: undefined,
 	about: ""
 };
@@ -35,7 +35,7 @@ const NewClassModal = (props: NewClassModalProps) => {
 		momentEnd: moment().set({ hour: 9, minute: 0, second: 0 })
 	}]);
 	const timesRef = React.createRef<HTMLDivElement>();
-	const [newClass, setNewClass] = useState<Course>({ id: "", name: "", daysOfWeeks: classDays, period: undefined, about: "" });
+	const [newClass, setNewClass] = useState<Course>({ id: "", name: "", daysOfWeek: classDays, period: undefined, about: "" });
 	const [nameError, setNameError] = useState<string>("");
 	const [aboutError, setAboutError] = useState<string>("");
 	const [periodError, setPeriodError] = useState<string>("");
@@ -86,7 +86,7 @@ const NewClassModal = (props: NewClassModalProps) => {
 				day.start = day.momentStart.format(Helpers.DateHelpers.APP_DATE_FORMAT);
 				day.end = day.momentEnd.format(Helpers.DateHelpers.APP_DATE_FORMAT);
 			});
-			newClass.daysOfWeeks = classDays;
+			newClass.daysOfWeek = classDays;
 			props.onCreateRequested(newClass);
 		}
 	};
