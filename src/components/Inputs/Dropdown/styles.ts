@@ -3,6 +3,7 @@ import { DEVICE } from "../../../constants/screenSize";
 
 interface ContainerProps {
     disabled?: boolean;
+    isError?: boolean;
 }
 
 export const StackContainer = styled.div<ContainerProps>`
@@ -32,6 +33,27 @@ export const StackContainer = styled.div<ContainerProps>`
         font-weight: 400;
         width: 100%;
     }
+
+    span {
+        color: ${props => props.theme.error};
+        font-size: 12px;
+        margin-left: 8px;
+        margin-top: 3px;
+        margin-bottom: 10px;
+        font-family: "Normal";
+    }
+`;
+
+interface pProps {
+    hasValue?: boolean;
+}
+
+export const ValueStyled = styled.p<pProps>`
+    color: ${props => props.theme.primary};
+    font-size: 16px;
+    font-weight: 400;
+    width: 100%;
+    opacity: ${props => props.hasValue  ? 1 : 0.5};
 `;
 
 export const Container = styled.div<ContainerProps>`
@@ -46,6 +68,7 @@ export const Container = styled.div<ContainerProps>`
     justify-content: space-between;
     flex-direction: row;
     background-color: ${props => props.theme.background};
+    border: ${props => props.isError ? `1px solid ${props.theme.error}` : "none"};
 `;
 
 export const Spacing = styled.div`

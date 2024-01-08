@@ -1,0 +1,3 @@
+export const EVENT = {
+	SESSION_EXPIRED: "SESSION_EXPIRED",
+};

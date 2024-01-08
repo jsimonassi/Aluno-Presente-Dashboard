@@ -1,6 +1,8 @@
 import axios from "axios";
 import qs from "qs";
 import { SessionAuthConfig, TokenRequestConfig, TokenSession } from "../../../types/Session";
+import { __ApiResourceClient } from "..";
+import { User } from "../../../types/User";
 
 
 const Session = {
@@ -24,6 +26,15 @@ const Session = {
 					scope: response.data.scope,
 					tokenType: response.data.token_type
 				} as TokenSession);
+			}).catch((error) => {
+				reject(error);
+			});
+		});
+	},
+	getLoggedUser: () => {
+		return new Promise<User>((resolve, reject) => {
+			__ApiResourceClient.get<User>("/users").then((response) => {
+				resolve(response.data);
 			}).catch((error) => {
 				reject(error);
 			});

@@ -24,7 +24,8 @@ export const StackContainer = styled.div<ITagInputProps>`
         color: ${props => props.theme.error};
         font-size: 12px;
         margin-left: 8px;
-        margin-top: 5px;
+        margin-top: -5px;
+        margin-bottom: 10px;
         font-family: "Normal";
     }
 `;
@@ -35,7 +36,7 @@ export const TextAreaStyled = styled.textarea<ITagInputProps>`
     height: ${props => props?.rowsNumber ? props.rowsNumber * 40 : 40}px;
     width: 100%;
     background-color: transparent;
-    border: ${props => props.isError ? `1px solid ${props.theme.primary}` : "none"};
+    border: ${props => props.isError ? `1px solid ${props.theme.error}` : "none"};
     outline: none;
     color: ${props => props.theme.primary};
     font-size: 16px;
@@ -45,6 +46,7 @@ export const TextAreaStyled = styled.textarea<ITagInputProps>`
     padding: 10px;
     resize: none;
     font-family: "Normal";
+    margin-bottom: 10px;
     ::placeholder {
         color: ${props => props.theme.primary};
         opacity: 0.5;

@@ -7,11 +7,11 @@ import moment from "moment";
 import { AVAILABLE_FREQUENCY_STATUS } from "../../../../../../../../../constants/frequency";
 
 
-interface FrequencyTableProps {
+interface AttendanceTableProps {
 	courseFrequency: CourseFrequency[]
 }
 
-const FrequencyTable = (props: FrequencyTableProps) => {
+const AttendanceTable = (props: AttendanceTableProps) => {
 
 	const dateHeaderItems = useMemo(() => {
 		return getPastClassesTimeByFrequency(props.courseFrequency);
@@ -53,4 +53,4 @@ const FrequencyTable = (props: FrequencyTableProps) => {
 	);
 };
 
-export default FrequencyTable;
+export default AttendanceTable;

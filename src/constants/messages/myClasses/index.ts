@@ -19,6 +19,18 @@ const MY_CLASSES = {
 		ABOUT_PLACEHOLDER: "A disciplina de inteligência artificial explica os fundamentos teórico-conceituais da inteligência artificial de modo abrangente, porém coerente; atravessa os paradigmas da inteligência artificial e introduzir noções das diversas técnicas utilizadas na área.",
 		NEW_TIME: "Novo horário",
 		SAVE: "Salvar",
+
+		MANDATORY_FIELD: "Campo obrigatório",
+		CREATING_CLASS: "Criando turma...",
+		SUCCESSFULLY_CREATED: "Turma criada com sucesso!",
+		ERROR: "Erro ao criar turma. Tente novamente!",
+	},
+
+	EDIT_CLASS_MODAL: {
+		TITLE: "Editar turma",
+		EDITING_CLASS: "Editando turma...",
+		SUCCESSFULLY_EDITED: "Turma editada com sucesso!",
+		ERROR: "Erro ao editar turma. Tente novamente!",
 	},
 
 	MANAGE_CLASS: {
@@ -34,6 +46,11 @@ const MY_CLASSES = {
 	
 		FREQUENCY: "Frequência",
 		FREQUENCY_DESCRIPTION: "A frequência da turma é de ",
+
+		ADDING_STUDENT: "Adicionando aluno...",
+		ADDED_STUDENT: "Aluno adicionado com sucesso!",
+		ERROR_ADDING_STUDENT: "Erro ao adicionar aluno. Tente novamente!",
+		ADDING_STUDENTS: "Adicionando alunos...",
 
 		ADD_FROM_XLSX_MODAL: {
 			TITLE: "Importar alunos",
@@ -77,7 +94,23 @@ const MY_CLASSES = {
 		QR_CODE_TITLE: "Validação por QRCode (Recomendado)",
 		QR_CODE_DESCRIPTION: "Um QR code é gerado e atualizado a cada 5 segundos. O professor deve apresentar a página com o QR code a turma. O aluno faz a validação da chamada lendo o QR code pelo aplicativo Aluno Presente.  É a opção mais segura devido a atualização do QR code, garantindo que apenas alunos em sala possam validar a presença.",
 		SESSION_CODE_TITLE: "Validação por código de sessão",
-		SESSION_CODE_DESCRIPTION: "Um código curto é gerado. O professor deve apresentar o código aos alunos. O aluno informa o código no aplicativo Aluno Presente e faz a validação da presença."
+		SESSION_CODE_DESCRIPTION: "Um código curto é gerado. O professor deve apresentar o código aos alunos. O aluno informa o código no aplicativo Aluno Presente e faz a validação da presença.",
+		STOP_ATTENDANCE: "Encerrar chamada",
+		QR_CODE_TIP: "Mostre o QR code ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
+		CODE_TIP: "Mostre o código ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
+		REGISTERED_STUDENTS: "Alunos registrados:",
+	},
+
+	DELETE_CLASS_MODAL: {
+		TITLE: "Excluir turma",
+		MESSAGE1: "Tem certeza que deseja excluir a turma?",
+		MESSAGE2: "Essa ação não pode ser desfeita.",
+		MESSAGE3: "Todo o histórico da turma e as presenças registradas serão perdidas.",
+		CANCEL_BTN: "Cancelar",
+		CONFIRM_BTN: "Confirmar",
+		DELETING: "Apagando...",
+		DELETED: "Turma excluída com sucesso!",
+		ERROR: "Erro ao excluir turma. Tente novamente!",
 	},
 };
 

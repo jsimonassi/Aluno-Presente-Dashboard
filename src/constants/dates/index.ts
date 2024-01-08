@@ -1,11 +1,11 @@
 export const DAYS_OF_WEEK = [
-	"Domingo",
 	"Segunda",
 	"Terça",
 	"Quarta",
 	"Quinta",
 	"Sexta",
-	"Sabado"
+	"Sabado",
+	"Domingo"
 ];
 
 export const MONTHS = [

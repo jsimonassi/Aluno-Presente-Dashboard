@@ -1,68 +1,50 @@
 import { Course } from "../../../types/Course";
+import { __ApiResourceClient } from "..";
+import { fromApiClassTimeToApp } from "./parser";
 
 const Classes = {
 	getClasses: () => {
 		return new Promise<Course[]>((resolve) => {
-			setTimeout(() => {
-				resolve([
-					{
-						id: 1,
-						courseName: "Engenharia de Software",
-						period: "2023.1",
-						daysOfWeek: [
-							{
-								startHour: 19,
-								startMinute: 0,
-								endHour: 22,
-								endMinute: 0,
-								dayOfWeek: 0
-							}
-						]
-					},
-					{
-						id: 2,
-						courseName: "Inteligência Artificial",
-						period: "2023.1",
-						daysOfWeek: [
-							{
-								startHour: 19,
-								startMinute: 0,
-								endHour: 22,
-								endMinute: 0,
-								dayOfWeek: 0
-							}
-						]
-					},
-					{
-						id: 3,
-						courseName: "Linguagens de Programação",
-						period: "2023.1",
-						daysOfWeek: [
-							{
-								startHour: 19,
-								startMinute: 0,
-								endHour: 22,
-								endMinute: 0,
-								dayOfWeek: 0
-							}
-						]
-					},
-					{
-						id: 4,
-						courseName: "Linguagens de Programação",
-						period: "2023.1",
-						daysOfWeek: [
-							{
-								startHour: 19,
-								startMinute: 0,
-								endHour: 22,
-								endMinute: 0,
-								dayOfWeek: 0
-							}
-						]
-					}
-				]);
-			}, 3000);
+			__ApiResourceClient.get("/courses/owner").then((response) => {
+				response.data.forEach((course) => {
+					course.daysOfWeeks = fromApiClassTimeToApp(course.daysOfWeeks);
+				});
+				resolve(response.data);
+			});
+		});
+	},
+	addClass: (course: Course) => {
+		return new Promise<Course>((resolve, reject) => {
+			const body = { ...course, daysOfWeeks: null };
+			__ApiResourceClient.post("/courses", body)
+				.then((response) => {
+					resolve(response.data);
+				}).catch((error) => {
+					console.log(error);
+					reject(error);
+				});
+		});
+	},
+	editClass: (course: Course) => {
+		return new Promise<Course>((resolve, reject) => {
+			const body = { ...course, daysOfWeeks: null };
+			__ApiResourceClient.put(`/courses/${course.id}`, body)
+				.then((response) => {
+					resolve(response.data);
+				}).catch((error) => {
+					console.log(error);
+					reject(error);
+				});
+		});
+	},
+	deleteClass: (id: string) => {
+		return new Promise<void>((resolve, reject) => {
+			__ApiResourceClient.delete("/courses/" + id)
+				.then(() => {
+					resolve();
+				}).catch((error) => {
+					reject(error);
+				});
 		});
 	}
 };

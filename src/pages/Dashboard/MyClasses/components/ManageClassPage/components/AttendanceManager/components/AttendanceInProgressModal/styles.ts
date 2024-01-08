@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { DEVICE } from "../../../../../constants/screenSize";
 
 interface ModalProps {
 	isOpen: boolean,
@@ -27,12 +26,19 @@ export const ModalContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 80%;
+	width: 70%;
 	background-color: ${props => props.theme.surface1};
 	border-radius: 24px;
 	padding: 20px;
 	box-sizing: border-box;
-    max-width: 1000px;
+    max-width: 700px;
+
+	> span {
+		color: ${props => props.theme.primary};
+		font-size: 12px;
+		font-family: "light";
+		margin-top: 24px;
+	}
 `;
 
 export const ModalHeader = styled.div`
@@ -64,86 +70,67 @@ export const ModalHeader = styled.div`
 export const ModalBody = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 100%;
-	margin-bottom: 30px;
-	margin-top: 20px;
-    max-height: 500px;
-
-	input {
-		margin-bottom: 10px;
-	}
-
-
-    @media ${DEVICE.TABLET} {
-        overflow-y: scroll;
-        padding-right: 10px;
-    }
-`;
-
-export const RowContainer = styled.div`
-	display: flex;
-	flex-direction: row;
 	align-items: center;
 	width: 100%;
+	margin-top: 20px;
 
-    @media ${DEVICE.TABLET} {
-        flex-direction: column;
-    }
-`;
+	p {
+		font-size: 14px;
+		font-family: "light";
+		text-align: center;
+		margin: 20px 0;
+		color: ${props => props.theme.primary};
+	}
 
-export const DaysScroll = styled.div`
-	display: flex;
-	flex-direction: column;
-	overflow-y: scroll;
-	max-height: 150px;
-	width: 100%;
-
-	@media ${DEVICE.TABLET} {
-        flex-direction: column;
-		max-height: max-content;
-    }
+	h4 {
+		color: ${props => props.theme.primary};
+		width: 100%;
+		margin-left: 30px;
+	}
 `;
 
 export const ModalFooter = styled.div`
 	display: flex;
+	flex-direction: row;
+	align-items: center;
 	justify-content: flex-end;
 	width: 100%;
-	align-items: center;
+	margin-top: 20px;
 
 	button {
-		width: 30%;
-		border-radius: 15px;
-		background-color: ${props => props.theme.primaryColor};
-        min-width: 200px;
+		max-width: 300px;
+		height: 55px;
+		border-radius: 24px;
 	}
-
-	p {
-		text-decoration: underline;
-		color: ${props => props.theme.textColor};
-		font-family: "normal";
-		font-size: 14px;
-
-		&:hover {
-			cursor: pointer;
-		}
-	}
-
 `;
 
-export const DeleteButtonContainer = styled.div`
+export const QrCodeContainer = styled.div`
+	border: 2px solid ${props => props.theme.primary};
+	padding: 10px;
+	border-radius: 16px;
+`;
+
+export const StudentsListContainer = styled.ul`
 	display: flex;
-	justify-content: center;
-	align-items: center;
-
-    background-color: ${props => props.theme.background};
-	width: 150px;
-	height: 45px;
-	border-radius: 15px;
+	flex-direction: column;
+	width: 100%;
 	margin-top: 10px;
-	margin-right: 8px;
-
-	&:hover {
-		opacity: 0.5;
-		cursor: pointer;
-	}
+	background-color: ${props => props.theme.surface2};
+	padding: 24px;
+	box-sizing: border-box;
+	border-radius: 16px;
+	height: 250px;
+	overflow-y: scroll;
 `;
+
+export const StudentItem = styled.li<StudentItemProps>`
+  	list-style-type: none;
+	background-color: ${props => props.index % 2 === 0 ? props.theme.surface1 : props.theme.surface2};
+	border-radius: 8px;
+	padding: 8px;
+	color: ${props => props.theme.primary};
+`;
+
+interface StudentItemProps {
+	index: number
+}

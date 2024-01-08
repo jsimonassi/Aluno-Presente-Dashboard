@@ -1,19 +1,20 @@
+import { Moment } from "moment";
 import { Student } from "./Student";
+import Periods from "../services/api/Periods";
 
 export interface Course {
-    id: number;
-    courseName: string;
+    id: string;
+    name: string;
     period?: string;
-    daysOfWeek?: ClassTime[];
+    daysOfWeeks: ClassTime[];
     about?: string;
 }
 
 export interface ClassTime {
-    startHour: number;
-    startMinute: number;
-    endHour: number;
-    endMinute: number;
-    dayOfWeek: number;
+    momentStart: Moment;
+    momentEnd: Moment;
+    start? : string;
+    end? : string;
 }
 
 export interface CourseFrequency extends Student {

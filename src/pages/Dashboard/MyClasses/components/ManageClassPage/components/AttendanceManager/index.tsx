@@ -1,12 +1,13 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ButtonGroup, Container, FooterContainer } from "./styles";
-import { FrequencyTable, NewFrequencyModal } from "./components";
-import { CourseFrequency } from "../../../../../../../types/Course";
+import { AttendanceInProgressModal, AttendanceTable, NewAttendanceModal } from "./components";
+import { Course, CourseFrequency } from "../../../../../../../types/Course";
 import DateNavigator from "../../../../../../../components/DateNavigator";
 import moment from "moment";
 import { filterFrequencyByMonth } from "./utils";
 import { MainButton, OutlineButton } from "../../../../../../../components/Buttons";
 import MESSAGES from "../../../../../../../constants/messages";
+import { AttendanceInProgressType } from "./shared/types";
 
 
 const mock =
@@ -101,18 +102,23 @@ const mock =
 		}
 	] as CourseFrequency[];
 
+interface AttendanceManagerProps {
+	currentClass: Course;
+}
 
-const FrequencyController = () => {
 
-	const [frequency, setFrequency] = useState<CourseFrequency[]>(mock); //TODO: Get frequency from API [CourseFrequency[]
+const AttendanceManager = (props: AttendanceManagerProps) => {
+
+	const [attendance, setAttendance] = useState<CourseFrequency[]>(mock); //TODO: Get frequency from API [CourseFrequency[]
 	const [currentDate, setCurrentDate] = useState<moment.Moment>(moment());
 	const monthFrequencies = useMemo(() => {
-		return filterFrequencyByMonth(frequency, currentDate.month());
+		return filterFrequencyByMonth(attendance, currentDate.month());
 	}, [currentDate]);
-	const [newFrequencyModalIsOpen, setNewFrequencyModalIsOpen] = useState<boolean>(false);
+	const [newAttendanceModalIsOpen, setNewAttendanceModalIsOpen] = useState<boolean>(false);
+	const [attendanceType, setAttendanceType] = useState<AttendanceInProgressType | null>(null);
 
 	useEffect(() => {
-		setFrequency(mock); //Replace with API call
+		setAttendance(mock); //Replace with API call
 	}, []);
 
 	const increaseMonth = () => {
@@ -125,19 +131,35 @@ const FrequencyController = () => {
 
 	return (
 		<Container>
-			<NewFrequencyModal isOpen={newFrequencyModalIsOpen} onCancel={() => setNewFrequencyModalIsOpen(false)}/>
-			<FrequencyTable courseFrequency={monthFrequencies} />
 
+			<AttendanceInProgressModal
+				isOpen={attendanceType !== null} 
+				attendanceType={attendanceType}
+				onCancel={() => setAttendanceType(null)}
+				courseId={props.currentClass.id}
+			/>
+			<NewAttendanceModal
+				isOpen={newAttendanceModalIsOpen}
+				onCancel={() => {
+					setNewAttendanceModalIsOpen(false);
+					setAttendanceType(null);
+				}}
+				onRequestStartAttendance={(type) => {
+					setNewAttendanceModalIsOpen(false);
+					setAttendanceType(type);
+				}}
+			/>
+			<AttendanceTable courseFrequency={monthFrequencies} />
 			<FooterContainer>
-				<DateNavigator currentDate={currentDate} onNextMonth={increaseMonth} onPreviousMonth={decreaseMonth}/>
+				<DateNavigator currentDate={currentDate} onNextMonth={increaseMonth} onPreviousMonth={decreaseMonth} />
 				<ButtonGroup>
-					<OutlineButton onClick={() => null} text={MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.EDIT_BTN} enabled/>
-					<OutlineButton onClick={() => null} text={MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.EXPORT_BTN} enabled/>
-					<MainButton onClick={() => setNewFrequencyModalIsOpen(!newFrequencyModalIsOpen)} text={MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.NEW_FREQUENCY} enabled/>
+					<OutlineButton onClick={() => null} text={MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.EDIT_BTN} enabled />
+					<OutlineButton onClick={() => null} text={MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.EXPORT_BTN} enabled />
+					<MainButton onClick={() => setNewAttendanceModalIsOpen(!newAttendanceModalIsOpen)} text={MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.NEW_FREQUENCY} enabled />
 				</ButtonGroup>
 			</FooterContainer>
 		</Container>
 	);
 };
 
-export default FrequencyController;
+export default AttendanceManager;
