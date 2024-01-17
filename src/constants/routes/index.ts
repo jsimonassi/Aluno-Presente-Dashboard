@@ -7,6 +7,7 @@ const ROUTES = {
 		OLD_CLASSES: "old",
 		ABOUT: "about",
 	},
+	ATTENDANCE_IN_PROGRESS: "attendance",
 	SETTING: "setting",
 	ERROR: "invalid-path",
 };

@@ -99,6 +99,8 @@ const MY_CLASSES = {
 		QR_CODE_TIP: "Mostre o QR code ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
 		CODE_TIP: "Mostre o código ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
 		REGISTERED_STUDENTS: "Alunos registrados:",
+		START_ATTENDANCE_ERROR: "Ocorreu um erro ao iniciar a chamada. Tente novamente!",
+		START_ATTENDANCE_REDIRECT_INFO: "Voê será redirecionado para a página inicial em ",
 	},
 
 	DELETE_CLASS_MODAL: {

@@ -11,7 +11,7 @@ import GlobalStyle from "../assets/styles/GlobalStyle";
 import CONSTANTS from "../constants";
 import PrivateRoute from "../services/auth/PrivateRoute";
 import Menu from "../components/Menu";
-import { About, ErrorPage, MyClasses, OldClasses, PostLogin } from "../pages";
+import { About, AttendanceInProgress, ErrorPage, MyClasses, OldClasses, PostLogin } from "../pages";
 
 const MainRoutes = () => {
 
@@ -29,6 +29,8 @@ const MainRoutes = () => {
 					<Route path={CONSTANTS.ROUTES.OPTIONS.OLD_CLASSES} element={<PrivateRoute> <OldClasses /> </PrivateRoute>} />
 					<Route path={CONSTANTS.ROUTES.OPTIONS.ABOUT} element={<PrivateRoute> <About /> </PrivateRoute>} />
 				</Route>
+
+				<Route path={CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS+"/:id"} element={<PrivateRoute> <AttendanceInProgress /> </PrivateRoute>}/>
 
 				<Route path="*" element={<ErrorPage/>} />
 				<Route path={ CONSTANTS.ROUTES.ERROR} element={<ErrorPage/>} />

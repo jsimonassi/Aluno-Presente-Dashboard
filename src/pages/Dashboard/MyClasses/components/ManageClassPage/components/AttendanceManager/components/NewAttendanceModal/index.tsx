@@ -3,7 +3,7 @@ import { ModalContainer, ModalContent, ModalHeader } from "./styles";
 import { BigButton } from "../../../../../../../../../components/Buttons";
 import closeIcon from "../../../../../../../../../assets/images/closeIcon.svg";
 import MESSAGES from "../../../../../../../../../constants/messages";
-import { AttendanceInProgressType } from "../../shared/types";
+import { AttendanceInProgressType } from "../../../../../../../../../types/Attendance";
 
 
 interface NewAttendanceModalProps {

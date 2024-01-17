@@ -1,13 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ButtonGroup, Container, FooterContainer } from "./styles";
-import { AttendanceInProgressModal, AttendanceTable, NewAttendanceModal } from "./components";
+import { AttendanceTable, NewAttendanceModal } from "./components";
 import { Course, CourseFrequency } from "../../../../../../../types/Course";
 import DateNavigator from "../../../../../../../components/DateNavigator";
 import moment from "moment";
 import { filterFrequencyByMonth } from "./utils";
 import { MainButton, OutlineButton } from "../../../../../../../components/Buttons";
 import MESSAGES from "../../../../../../../constants/messages";
-import { AttendanceInProgressType } from "./shared/types";
+import { AttendanceInProgress } from "../../../../../../../types/Attendance";
+import { Helpers } from "../../../../../../../helpers";
+import { Storage } from "../../../../../../../services";
+import CONSTANTS from "../../../../../../../constants";
 
 
 const mock =
@@ -115,7 +118,6 @@ const AttendanceManager = (props: AttendanceManagerProps) => {
 		return filterFrequencyByMonth(attendance, currentDate.month());
 	}, [currentDate]);
 	const [newAttendanceModalIsOpen, setNewAttendanceModalIsOpen] = useState<boolean>(false);
-	const [attendanceType, setAttendanceType] = useState<AttendanceInProgressType | null>(null);
 
 	useEffect(() => {
 		setAttendance(mock); //Replace with API call
@@ -131,22 +133,25 @@ const AttendanceManager = (props: AttendanceManagerProps) => {
 
 	return (
 		<Container>
-
-			<AttendanceInProgressModal
-				isOpen={attendanceType !== null} 
-				attendanceType={attendanceType}
-				onCancel={() => setAttendanceType(null)}
-				courseId={props.currentClass.id}
-			/>
 			<NewAttendanceModal
 				isOpen={newAttendanceModalIsOpen}
 				onCancel={() => {
 					setNewAttendanceModalIsOpen(false);
-					setAttendanceType(null);
 				}}
 				onRequestStartAttendance={(type) => {
 					setNewAttendanceModalIsOpen(false);
-					setAttendanceType(type);
+					const attendanceInProgress: AttendanceInProgress = {
+						courseId: props.currentClass.id,
+						type: type,
+						date: moment().format(),
+						status: "requested",
+						id: Helpers.CodeGenerator.generateRandomId32()
+					};
+					Storage.LocalStorage.storeLocalData(attendanceInProgress.id, JSON.stringify(attendanceInProgress));
+					window.open("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS + "/" + attendanceInProgress.id, "_blank");
+					//Através da cache as informações são passadas para a página e a chamada é iniciada via WS.
+					//Aba atual é para home
+					window.open("/", "_self");
 				}}
 			/>
 			<AttendanceTable courseFrequency={monthFrequencies} />
