@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { DEVICE } from "../../../constants/screenSize";
 
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    /* background-color: ${props => props.theme.surface1}; */
     background-color: ${props => props.theme.surface1};
     border-radius: 32px;
     padding: 32px;
@@ -37,10 +39,18 @@ export const EmptyContainer = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-around;
+    grid-gap: 5px;
     flex-wrap: wrap;
-    /* justify-content: space-evenly; */
-    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 30px;
+
+    @media ${DEVICE.DESKTOP} {
+        grid-template-columns: auto;
+    }
 `;
 
 export const AllClassContainer = styled.div`
