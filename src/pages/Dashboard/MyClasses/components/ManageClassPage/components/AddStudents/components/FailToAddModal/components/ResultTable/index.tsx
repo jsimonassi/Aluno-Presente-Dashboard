@@ -1,36 +1,33 @@
 import React from "react";
 import MESSAGES from "../../../../../../../../../../../constants/messages";
 import { TableContainer, TableHeaderStyled } from "./styles";
-import { Student } from "../../../../../../../../../../../types/Student";
 import { TableItem } from "./components";
+import { FailAddedStudent } from "../../../../../../../../../../../types/api/Student";
 
 interface ResultTableProps {
-	foundStudents: Student[] | null;
+	studentsWithFail: FailAddedStudent[] | null;
 }
 
 const ResultTable = (props: ResultTableProps) => {
 
-	const getTableContent = () => {
-		if (!props.foundStudents) {
-			return (<p>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.NULL_LIST}</p>);
-		}
+	console.log(props.studentsWithFail);
 
-		if (props.foundStudents.length === 0) {
-			return (<p>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.EMPTY_LIST}</p>);
+	const getTableContent = () => {
+		if (!props.studentsWithFail || props.studentsWithFail.length === 0) {
+			return null;
 		}
 
 		return (
 			<table cellSpacing={0} cellPadding={0}>
 				<thead>
 					<TableHeaderStyled >
-						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.NAME}</th>
-						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.EMAIL}</th>
-						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.NUMBER}</th>
+						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.FAIL_TO_ADD_MODAL.NAME}</th>
+						<th>{MESSAGES.MY_CLASSES.MANAGE_CLASS.FAIL_TO_ADD_MODAL.REASON}</th>
 					</TableHeaderStyled>
 				</thead>
 				<tbody>
 					{
-						props.foundStudents?.map((currentStudent, index) => (
+						props.studentsWithFail?.map((currentStudent, index) => (
 							<TableItem
 								key={index}
 								index={index}

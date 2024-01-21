@@ -5,11 +5,10 @@ import closeIcon from "../../../../../../../../../assets/images/closeIcon.svg";
 import MESSAGES from "../../../../../../../../../constants/messages";
 import { MainInput } from "../../../../../../../../../components/Inputs";
 import { Student } from "../../../../../../../../../types/Student";
-import { Feedback } from "../../../../../../../../../types/Feedback";
 
 interface AddFromManualModalProps {
 	isOpen: boolean;
-	onClose: (feedback: Feedback) => void;
+	onClose: () => void;
 	onAddStudentRequested: (newStudent: Student) => void;
 }
 
@@ -61,7 +60,7 @@ const AddFromManualModal = (props: AddFromManualModalProps) => {
 				<ModalHeader >
 					<h1>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_MANUAL_MODAL.TITLE}</h1>
 					<div>
-						<img src={closeIcon} alt="Close" onClick={() => { props.onClose({ isOpen: false, success: false }); }} />
+						<img src={closeIcon} alt="Close" onClick={() => { props.onClose(); }} />
 					</div>
 				</ModalHeader>
 				<ModalBody >

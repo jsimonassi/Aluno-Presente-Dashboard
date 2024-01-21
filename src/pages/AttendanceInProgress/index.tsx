@@ -24,26 +24,35 @@ const AttendanceInProgress = () => {
 	const url = "wss://resource-server-89f6660ebc95.herokuapp.com/v1/api/attendances/ws?token=" + currentSession?.accessToken;
 
 	const websocket = new WebSocket(url);
-    
-	websocket.onopen = () => {
-		console.log("Connection Established");
-		setIsConnected(true);
-	};
-		
-	websocket.onmessage = (event) => {
-		console.log("Cod: ", event.data);
-		setCurrentCodeValue(event.data);
-	};
-		
-	websocket.onerror = (event) => {
-		console.log("Error:  ", event);
-		setIsConnected(false);
-	};
-		
-	websocket.onclose = (event) => {
-		console.log("Close: ", event.reason);
-		setIsConnected(false);
-	};
+
+	useEffect(() => {
+		websocket.onopen = () => {
+			console.log("Connection Established");
+			setTimeout(() => {
+				setIsConnected(true);
+			}, 1000);
+		};
+			
+		websocket.onmessage = (event) => {
+			console.log("Cod: ", event.data);
+			setCurrentCodeValue(event.data);
+		};
+	
+		websocket.onerror = (event) => {
+			console.log("Error:  ", event);
+			setIsConnected(false);
+		};
+			
+		websocket.onclose = (event) => {
+			console.log("Close: ", event.reason);
+			setIsConnected(false);
+			window.open("/", "_self");
+		};
+
+		return () => {
+			websocket.close();
+		};
+	}, []);
 
 	useEffect(() => {
 		if (!cacheDataId) {
@@ -75,7 +84,7 @@ const AttendanceInProgress = () => {
 			date: attendanceSession.date,
 			type: "START"
 		};
-	
+		console.log("Solicitando início de chamada: ", request);
 		websocket.send(JSON.stringify(request));
 	}, [attendanceSession]);
 

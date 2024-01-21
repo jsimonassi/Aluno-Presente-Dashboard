@@ -43,12 +43,13 @@ const MY_CLASSES = {
 		MANUAL_ADD: "Adicionar alunos manualmente",
 		IMPORT_STUDENTS_DESCRIPTION: "Escolha esta opção se você possui uma planilha listando nome e e-mail dos alunos. O sistema irá identificar e cadastrar automaticamente todos os alunos em sua turma.",
 		MANUAL_ADD_DESCRIPTION: "Adicione manualmente a informação de novos alunos. O controle de presença só ficará válido para o aluno a partir da data de ingresso na disciplina. As aulas anteriores não terão falta ou presença a menos que o professor faça a edição.",
-	
+
 		FREQUENCY: "Frequência",
 		FREQUENCY_DESCRIPTION: "A frequência da turma é de ",
 
 		ADDING_STUDENT: "Adicionando aluno...",
 		ADDED_STUDENT: "Aluno adicionado com sucesso!",
+		STUDENTS_ADDED: "Alunos adicionados com sucesso!",
 		ERROR_ADDING_STUDENT: "Erro ao adicionar aluno. Tente novamente!",
 		ADDING_STUDENTS: "Adicionando alunos...",
 
@@ -78,7 +79,15 @@ const MY_CLASSES = {
 			CPF_PLACEHOLDER: "000.000.000-00",
 			NUMBER_PLACEHOLDER: "000000000",
 			MANDATORY_FIELD: "Campo obrigatório",
-		}
+		},
+
+		FAIL_TO_ADD_MODAL: {
+			TITLE: "Falha ao adicionar alunos",
+			MESSAGE: "Os seguintes alunos não foram adicionados:",
+			NAME: "Nome",
+			REASON: "Motivo",
+			OK_BTN: "Ok",
+		},
 	},
 
 	FREQUENCY_CONTROLLER: {

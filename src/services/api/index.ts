@@ -11,7 +11,7 @@ import CONSTANTS from "../../constants";
 
 export const __ApiResourceClient = axios.create({
 	baseURL: process.env.REACT_APP_RESOURCE_SERVER_BASE_URL + "/v1/api",
-	timeout: 5000,
+	timeout: 30000,
 	headers: {
 		"Content-Type": "application/json"
 	},

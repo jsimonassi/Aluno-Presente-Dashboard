@@ -7,6 +7,7 @@ export interface Course {
     period?: string;
     daysOfWeek: ClassTime[];
     about?: string;
+    members?: Student[];
 }
 
 export interface ClassTime {

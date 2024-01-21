@@ -25,7 +25,7 @@ const getStudentsFromXlsx = async (file: File | undefined): Promise<Student[]> =
 		const students: Student[] = matrixData.map((row) => {
 			return {
 				id: "",
-				ra: row[1],
+				registration: row[1],
 				name: row[2],
 				email: row[3],
 			};

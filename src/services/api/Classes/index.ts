@@ -8,6 +8,7 @@ const Classes = {
 			__ApiResourceClient.get("/courses/owner").then((response) => {
 				response.data.forEach((course) => {
 					course.daysOfWeek = fromApiClassTimeToApp(course.daysOfWeek);
+					course.members = course.members.map((member) => ({...member, name: member.alias}));
 				});
 				resolve(response.data);
 			});
