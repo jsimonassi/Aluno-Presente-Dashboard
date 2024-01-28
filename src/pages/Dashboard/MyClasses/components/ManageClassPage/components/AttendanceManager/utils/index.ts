@@ -11,6 +11,12 @@ export const getPastClassesTimeByFrequency = (frequency: CourseFrequency[]) => {
 			}
 		});
 	});
+	
+	uniqueDates.sort((a, b) => {
+		const dateA = new Date(a);
+		const dateB = new Date(b);
+		return dateA.getTime() - dateB.getTime();
+	});
 
 	return uniqueDates;
 };

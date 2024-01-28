@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ButtonGroup, Container, FooterContainer, LoaderContainer } from "./styles";
+import { ButtonGroup, Container, FooterContainer, LoaderContainer, TipContainer, TipItem } from "./styles";
 import { AttendanceTable, NewAttendanceModal } from "./components";
 import { Course, CourseFrequency } from "../../../../../../../types/Course";
 import DateNavigator from "../../../../../../../components/DateNavigator";
@@ -24,9 +24,9 @@ const AttendanceManager = (props: AttendanceManagerProps) => {
 	const [newAttendanceModalIsOpen, setNewAttendanceModalIsOpen] = useState<boolean>(false);
 
 	useEffect(() => {
+		setAttendance(null);
 		Api.Frequencies.getFrequencyByMonth(props.currentClass.id, currentDate.startOf("month").format(), currentDate.endOf("month").format())
 			.then((response) => {
-				console.log("Chegou isso: ", response);
 				setAttendance(response);
 			}).catch((error) => {
 				console.log(error);
@@ -71,6 +71,24 @@ const AttendanceManager = (props: AttendanceManagerProps) => {
 				:
 				<AttendanceTable courseFrequency={attendance ?? []} />
 			}
+			<TipContainer>
+				<TipItem>
+					<h4>P</h4>
+					<p>- {MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.PRESENT_TIP}</p>
+				</TipItem>
+				<TipItem useRed>
+					<h4>F</h4>
+					<p>- {MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.ABSENT_TIP}</p>
+				</TipItem>
+				<TipItem>
+					<h4>I</h4>
+					<p>- {MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.UNKNOWN_TIP}</p>
+				</TipItem>
+				<TipItem>
+					<h4>J</h4>
+					<p>- {MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.JUSTIFIED_TIP}</p>
+				</TipItem>
+			</TipContainer>
 			<FooterContainer>
 				<DateNavigator currentDate={currentDate} onNextMonth={increaseMonth} onPreviousMonth={decreaseMonth} />
 				<ButtonGroup>

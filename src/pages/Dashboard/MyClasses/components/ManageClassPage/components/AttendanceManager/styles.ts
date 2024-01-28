@@ -51,3 +51,32 @@ export const LoaderContainer = styled.div`
     justify-content: center;
     margin-top: 5%;
 `;
+
+export const TipContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 15px;
+`;
+
+export const TipItem = styled.div<TipProps>`
+    margin-left: 8px;
+    display: flex;
+    color: ${props => props.theme.primary};
+
+    h4 {
+        font-size: 16px;
+        color: ${props => props.useRed ? props.theme.error : props.theme.primary};
+        margin-left: 8px;
+        font-family: "Bold"
+    }
+
+    p {
+        margin-left: 8px;
+    }
+`;
+
+
+interface TipProps {
+    useRed?: boolean;
+}

@@ -95,6 +95,10 @@ const MY_CLASSES = {
 		EDIT_BTN: "Editar",
 		EXPORT_BTN: "Exportar",
 		NEW_FREQUENCY: "Nova chamada",
+		PRESENT_TIP: "Presente",
+		ABSENT_TIP: "Faltou",
+		JUSTIFIED_TIP: "Justificado",
+		UNKNOWN_TIP: "Indefinido",
 	},
 
 	NEW_FREQUENCY_MODAL: {

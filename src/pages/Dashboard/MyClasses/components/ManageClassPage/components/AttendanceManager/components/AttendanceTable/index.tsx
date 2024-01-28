@@ -47,10 +47,10 @@ const AttendanceTable = (props: AttendanceTableProps) => {
 							<RowStyled key={index} index={index}>
 								<RowItem isFirst>{formatStudentName(frequency.name)}</RowItem>
 								{
-									frequency.frequencies.map((item, index) => {
+									dateHeaderItems.map((headerDate, index) => {
 										return (
-											<RowItem key={index} value={AVAILABLE_FREQUENCY_STATUS[item.status].name}>
-												{AVAILABLE_FREQUENCY_STATUS[item.status].name}
+											<RowItem key={index} value={AVAILABLE_FREQUENCY_STATUS.get(frequency.frequencies.find(item => item.date === headerDate)?.status ?? 3)?.name}>
+												<h3>{AVAILABLE_FREQUENCY_STATUS.get(frequency.frequencies.find(item => item.date === headerDate)?.status ?? 3)?.name}</h3>
 											</RowItem>
 										);
 									})
