@@ -16,6 +16,8 @@ export const getPastClassesTimeByFrequency = (frequency: CourseFrequency[]) => {
 };
 
 export const filterFrequencyByMonth = (frequency: CourseFrequency[], momentMonth: number) => {
+	if(!frequency) return [];
+
 	const filteredFrequency = JSON.parse(JSON.stringify(frequency)) as CourseFrequency[];
 	return filteredFrequency.map(item => {
 		item.frequencies = item.frequencies.filter(frequency => {

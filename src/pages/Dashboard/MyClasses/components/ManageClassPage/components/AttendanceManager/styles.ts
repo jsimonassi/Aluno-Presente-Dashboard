@@ -43,3 +43,11 @@ export const ButtonGroup = styled.div`
         }
     }
 `;
+
+export const LoaderContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+`;

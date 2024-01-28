@@ -3,6 +3,7 @@ import Classes from "./Classes";
 import Session from "./Session";
 import Periods from "./Periods";
 import Student from "./Student";
+import Frequencies from "./Frequencies";
 import { LocalStorage } from "../storage";
 import { SESSION_CACHE_KEY } from "../../contexts/Session";
 import { TokenSession } from "../../types/Session";
@@ -40,7 +41,8 @@ export const Api = {
 	Classes,
 	Session,
 	Periods,
-	Student
+	Student,
+	Frequencies
 };
 
 export default Api;

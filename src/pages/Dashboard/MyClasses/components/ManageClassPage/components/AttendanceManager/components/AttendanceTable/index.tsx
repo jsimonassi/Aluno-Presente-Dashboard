@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { FrequencyDataStyled, TableHeaderStyled, TableRowStyled, TableStyled } from "./styles";
+import { DivTableContainer, HeaderContainer, HeaderItem, RowContainer, RowItem, RowStyled} from "./styles";
 import { CourseFrequency } from "../../../../../../../../../types/Course";
 import MESSAGES from "../../../../../../../../../constants/messages";
 import { getPastClassesTimeByFrequency } from "../../utils";
@@ -17,39 +17,50 @@ const AttendanceTable = (props: AttendanceTableProps) => {
 		return getPastClassesTimeByFrequency(props.courseFrequency);
 	}, [props.courseFrequency]);
 
+	const formatStudentName = (name: string) => {
+		if(name.length > 30) {
+			return name.substring(0, 30) + "...";
+		}
+
+		return name;
+	};
+
 	return (
-		<TableStyled cellSpacing={0} cellPadding={0}>
-			<thead>
-				<TableHeaderStyled >
-					<th>{MESSAGES.MY_CLASSES.FREQUENCY_CONTROLLER.STUDENTS}</th>
-					{dateHeaderItems?.map((currentDate, index) => (
-						<th key={index}>
-							<h5>{moment(currentDate).format("DD/MM")}</h5>
-							<p>{moment(currentDate).format("hh:mm")}</p>
-						</th>
-					))}
-				</TableHeaderStyled>
-			</thead>
-			<tbody>
+		<DivTableContainer>
+			<HeaderContainer itemCount={dateHeaderItems.length}>
+				<HeaderItem isFirst><h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.STUDENTS}</h3></HeaderItem>
 				{
-					props.courseFrequency?.map((currentStudent, index) => (
-						<TableRowStyled key={index} index={index} >
-							<FrequencyDataStyled value="">{currentStudent.name}</FrequencyDataStyled>
-							{dateHeaderItems?.map((currentDate, index) => {
-								const frequencyData = AVAILABLE_FREQUENCY_STATUS.get(currentStudent.frequencies.find((frequency) => moment(frequency.date).isSame(currentDate))?.status ?? -1)?.name ?? "";
-								return (
-									<FrequencyDataStyled key={index} value={frequencyData}>
-										{
-											frequencyData
-										}
-									</FrequencyDataStyled>
-								);
-							})}
-						</TableRowStyled>
-					))
+					dateHeaderItems.map((item, index) => {
+						return (
+							<HeaderItem key={index}>
+								<h3>{moment(item).format("DD/MM")}</h3>
+								<p>{moment(item).format("HH:mm")}</p>
+							</HeaderItem>
+						);
+					})
 				}
-			</tbody>
-		</TableStyled>
+			</HeaderContainer>
+			<RowContainer itemCount={dateHeaderItems.length}>
+				{
+					props.courseFrequency.map((frequency, index) => {
+						return (
+							<RowStyled key={index} index={index}>
+								<RowItem isFirst>{formatStudentName(frequency.name)}</RowItem>
+								{
+									frequency.frequencies.map((item, index) => {
+										return (
+											<RowItem key={index} value={AVAILABLE_FREQUENCY_STATUS[item.status].name}>
+												{AVAILABLE_FREQUENCY_STATUS[item.status].name}
+											</RowItem>
+										);
+									})
+								}
+							</RowStyled>
+						);
+					})
+				}
+			</RowContainer>
+		</DivTableContainer>
 	);
 };
 
