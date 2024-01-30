@@ -32,7 +32,6 @@ const MainRoutes = () => {
 
 				<Route path={CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS+"/:id"} element={<PrivateRoute> <AttendanceInProgress /> </PrivateRoute>}/>
 
-				<Route path="*" element={<ErrorPage/>} />
 				<Route path={ CONSTANTS.ROUTES.ERROR} element={<ErrorPage/>} />
 
 				<Route path="auth/*" element={<div/>}/>
