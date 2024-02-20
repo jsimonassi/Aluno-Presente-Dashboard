@@ -1,7 +1,8 @@
 import ErrorPage from "./Error";
 import { About, MyClasses, OldClasses } from "./Dashboard";
 import PostLogin from "./PostLogin";
-import AttendanceInProgress from "./AttendanceInProgress";
+import AttendanceInProgressQrCode from "./AttendanceInProgressQrCode";
+import AttendanceInProgressSessionCode from "./AttendanceInProgressSessionCode";
 
 export { 
 	ErrorPage, 
@@ -9,5 +10,6 @@ export {
 	MyClasses, 
 	OldClasses, 
 	PostLogin,
-	AttendanceInProgress
+	AttendanceInProgressQrCode,
+	AttendanceInProgressSessionCode
 };

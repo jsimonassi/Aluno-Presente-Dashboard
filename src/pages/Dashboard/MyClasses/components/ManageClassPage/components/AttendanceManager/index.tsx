@@ -55,10 +55,16 @@ const AttendanceManager = (props: AttendanceManagerProps) => {
 						type: type,
 						date: moment().format(),
 						status: "requested",
-						id: Helpers.CodeGenerator.generateRandomId32()
+						id: Helpers.CodeGenerator.generateRandomId32(),
+						useLocation: true //TODO: Get from btn
 					};
 					Storage.LocalStorage.storeLocalData(attendanceInProgress.id, JSON.stringify(attendanceInProgress));
-					window.open("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS + "/" + attendanceInProgress.id, "_blank");
+					//TODO: Redirect
+					if(type === "qrCode"){
+						window.open("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_QR_CODE + "/" + attendanceInProgress.id, "_blank");
+					}else{
+						window.open("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_SESSION_CODE + "/" + attendanceInProgress.id, "_blank");
+					}
 					//Através da cache as informações são passadas para a página e a chamada é iniciada via WS.
 					//Aba atual vai para home
 					window.open("/", "_self");

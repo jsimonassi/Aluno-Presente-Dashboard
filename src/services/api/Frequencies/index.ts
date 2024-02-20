@@ -17,6 +17,17 @@ const Frequencies = {
 				});
 		});
 	},
+	createFrequencyWithStaticCode: (courseId: string, date: string) => {
+		return new Promise<{code: string}>((resolve, reject) => {
+			__ApiResourceClient.post(`/frequencies/courses/${courseId}`, { date })
+				.then((response) => {
+					resolve({ code: response.data.code });
+				}).catch((error) => {
+					console.error(error);
+					reject(error);
+				});
+		});
+	}
 };
 
 export default Frequencies;

@@ -98,6 +98,7 @@ export const QrCodeContainer = styled.div`
 	border: 2px solid ${props => props.theme.primary};
 	padding: 10px;
 	border-radius: 16px;
+	margin-bottom: 16px;
 `;
 
 export const StudentsListContainer = styled.ul`
@@ -109,7 +110,7 @@ export const StudentsListContainer = styled.ul`
 	padding: 24px;
 	box-sizing: border-box;
 	border-radius: 16px;
-	height: 250px;
+	max-height: 250px;
 	overflow-y: scroll;
 `;
 

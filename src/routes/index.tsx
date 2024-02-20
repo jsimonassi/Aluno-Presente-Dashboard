@@ -11,7 +11,7 @@ import GlobalStyle from "../assets/styles/GlobalStyle";
 import CONSTANTS from "../constants";
 import PrivateRoute from "../services/auth/PrivateRoute";
 import Menu from "../components/Menu";
-import { About, AttendanceInProgress, ErrorPage, MyClasses, OldClasses, PostLogin } from "../pages";
+import { About, AttendanceInProgressQrCode, AttendanceInProgressSessionCode, ErrorPage, MyClasses, OldClasses, PostLogin } from "../pages";
 
 const MainRoutes = () => {
 
@@ -30,7 +30,8 @@ const MainRoutes = () => {
 					<Route path={CONSTANTS.ROUTES.OPTIONS.ABOUT} element={<PrivateRoute> <About /> </PrivateRoute>} />
 				</Route>
 
-				<Route path={CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS+"/:id"} element={<PrivateRoute> <AttendanceInProgress /> </PrivateRoute>}/>
+				<Route path={CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_QR_CODE+"/:id"} element={<PrivateRoute> <AttendanceInProgressQrCode /> </PrivateRoute>}/>
+				<Route path={CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_SESSION_CODE+"/:id"} element={<PrivateRoute> <AttendanceInProgressSessionCode /> </PrivateRoute>}/>
 
 				<Route path={ CONSTANTS.ROUTES.ERROR} element={<ErrorPage/>} />
 
