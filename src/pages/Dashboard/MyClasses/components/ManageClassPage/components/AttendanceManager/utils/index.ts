@@ -18,6 +18,13 @@ export const getPastClassesTimeByFrequency = (frequency: CourseFrequency[]) => {
 		return dateA.getTime() - dateB.getTime();
 	});
 
+	//To fix layout width
+	if(uniqueDates.length < 20) {
+		for(let i = 0; i < 20 - uniqueDates.length; i++) {
+			uniqueDates.push("");
+		}
+	}
+
 	return uniqueDates;
 };
 

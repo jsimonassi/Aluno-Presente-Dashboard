@@ -33,8 +33,8 @@ const AttendanceTable = (props: AttendanceTableProps) => {
 					dateHeaderItems.map((item, index) => {
 						return (
 							<HeaderItem key={index}>
-								<h3>{moment(item).format("DD/MM")}</h3>
-								<p>{moment(item).format("HH:mm")}</p>
+								<h3>{ item !== "" ? moment(item).format("DD/MM") : " "}</h3>
+								<p>{ item !== "" ? moment(item).format("HH:mm") : " "}</p>
 							</HeaderItem>
 						);
 					})
@@ -50,7 +50,7 @@ const AttendanceTable = (props: AttendanceTableProps) => {
 									dateHeaderItems.map((headerDate, index) => {
 										return (
 											<RowItem key={index} value={AVAILABLE_FREQUENCY_STATUS.get(frequency.frequencies.find(item => item.date === headerDate)?.status ?? 3)?.name}>
-												<h3>{AVAILABLE_FREQUENCY_STATUS.get(frequency.frequencies.find(item => item.date === headerDate)?.status ?? 3)?.name}</h3>
+												<h3>{ headerDate === "" ? " " : AVAILABLE_FREQUENCY_STATUS.get(frequency.frequencies.find(item => item.date === headerDate)?.status ?? 3)?.name}</h3>
 											</RowItem>
 										);
 									})
