@@ -32,13 +32,6 @@ export const ModalContent = styled.div`
 	padding: 20px;
 	box-sizing: border-box;
     max-width: 1000px;
-
-	> span {
-		color: ${props => props.theme.primary};
-		font-size: 12px;
-		font-family: "light";
-		margin-top: 24px;
-	}
 `;
 
 export const ModalHeader = styled.div`
@@ -47,7 +40,6 @@ export const ModalHeader = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	margin-bottom: 10px;
 
 	h1 {
 		font-size: 28px;
@@ -64,5 +56,78 @@ export const ModalHeader = styled.div`
 		&:hover {
 			cursor: pointer;
 		}
+	}
+`;
+
+export const ModalBody = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+	max-height: 500px;
+	overflow-y: auto;
+	overflow-x: hidden;
+
+	> span {
+		color: ${props => props.theme.primary};
+		font-size: 14px;
+		font-family: "light";
+		margin-top: 4px;
+		margin-left: 24px;
+		width: 100%;
+	}
+`;
+
+export const SelectContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	margin-top: 16px;
+	margin-left: 24px;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	input {
+		margin-right: 8px;
+	}
+
+	label {
+		font-size: 14px;
+		font-family: "normal";
+		color: ${props => props.theme.primary};
+
+		&:hover {
+		cursor: pointer;
+	}
+	}
+`;
+
+export const OptionLabel = styled.h3`
+	font-size: 16px;
+	width: 100%;
+	padding-left: 8px;
+	box-sizing: border-box;
+	font-family: "normal";
+	color: ${props => props.theme.primary};
+	margin-top: 16px;
+	margin-bottom: 8px;
+`;
+
+
+export const ModalFooter = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	width: 100%;
+	padding: 10px;
+
+	> button {
+		max-width: 250px;
+		border-radius: 16px;
 	}
 `;

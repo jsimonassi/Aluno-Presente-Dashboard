@@ -103,7 +103,8 @@ const MY_CLASSES = {
 
 	NEW_FREQUENCY_MODAL: {
 		TITLE: "Nova chamada",
-		OBS: "Em ambos os casos utilizaremos o GPS do aluno para validar sua posição e comparar com o endereço da instituição onde a disciplina está sendo ministrada.",
+		ENABLE_LOCATION: "Utilizar localização do aluno para validar a presença",
+		OBS: "Ao marcar essa opção, usaremos o GPS do aluno para validar sua posição e comparar com o endereço definido ao iniciar a frequência.",
 		QR_CODE_TITLE: "Validação por QRCode (Recomendado)",
 		QR_CODE_DESCRIPTION: "Um QR code é gerado e atualizado a cada 5 segundos. O professor deve apresentar a página com o QR code a turma. O aluno faz a validação da chamada lendo o QR code pelo aplicativo Aluno Presente.  É a opção mais segura devido a atualização do QR code, garantindo que apenas alunos em sala possam validar a presença.",
 		SESSION_CODE_TITLE: "Validação por código de sessão",
@@ -114,6 +115,9 @@ const MY_CLASSES = {
 		REGISTERED_STUDENTS: "Alunos registrados:",
 		START_ATTENDANCE_ERROR: "Ocorreu um erro ao iniciar a chamada. Tente novamente!",
 		START_ATTENDANCE_REDIRECT_INFO: "Fechar",
+		CHOOSE_OPTION: "Escolha uma opção:",
+		LOCATION: "Localização:",
+		START: "Iniciar chamada",
 	},
 
 	DELETE_CLASS_MODAL: {

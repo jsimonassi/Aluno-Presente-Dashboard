@@ -69,11 +69,13 @@ const AddStudents = (props: AddStudentsProps) => {
 			/>
 			<h1>{MESSAGES.MY_CLASSES.MANAGE_CLASS.SELECT_OPTION}</h1>
 			<BigButton 
+				boxStyle={{marginTop: "16px"}}
 				onClick={() => setAddFromXlsxModalIsOpen(true)} 
 				title={MESSAGES.MY_CLASSES.MANAGE_CLASS.IMPORT_STUDENTS} 
 				description={MESSAGES.MY_CLASSES.MANAGE_CLASS.IMPORT_STUDENTS_DESCRIPTION} 
 			/>
 			<BigButton 
+				boxStyle={{marginTop: "16px"}}
 				onClick={() => setAddFromManualModalIsOpen(true)} 
 				title={MESSAGES.MY_CLASSES.MANAGE_CLASS.MANUAL_ADD} 
 				description={MESSAGES.MY_CLASSES.MANAGE_CLASS.MANUAL_ADD_DESCRIPTION} 
