@@ -5,11 +5,17 @@ export interface AttendanceInProgress {
     status: AttendanceInProgressStatus;
     type: AttendanceInProgressType;
     useLocation: boolean;
+    location: LatLng | null;
 }
 
 export type AttendanceInProgressType = "qrCode" | "sessionCode";
 
 export type AttendanceInProgressStatus = "requested" | "started" | "finished";
+
+export interface LatLng {
+    lat: number;
+    lng: number;
+}
 
 export interface WebSocketStartRequest {
 	courseId: string;

@@ -3,14 +3,14 @@ import { ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, Opti
 import { BigButton, MainButton } from "../../../../../../../../../components/Buttons";
 import closeIcon from "../../../../../../../../../assets/images/closeIcon.svg";
 import MESSAGES from "../../../../../../../../../constants/messages";
-import { AttendanceInProgressType } from "../../../../../../../../../types/Attendance";
+import { AttendanceInProgressType, LatLng } from "../../../../../../../../../types/Attendance";
 import { LocationBox } from "../../../../../../../../../components/LocationBox";
 
 
 interface NewAttendanceModalProps {
 	isOpen: boolean;
 	onCancel: () => void;
-	onRequestStartAttendance: (type: AttendanceInProgressType) => void;
+	onRequestStartAttendance: (type: AttendanceInProgressType, useLocation: boolean, location: LatLng | null) => void;
 }
 
 const NewAttendanceModal = (props: NewAttendanceModalProps) => {
@@ -70,15 +70,15 @@ const NewAttendanceModal = (props: NewAttendanceModalProps) => {
 									enableLocation && (
 										<>
 											<OptionLabel>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.LOCATION}</OptionLabel>
-											<LocationBox 
-												onLocationSelected={(place) => {setSelectedLatLng(place);}} 
+											<LocationBox
+												onLocationSelected={(place) => { setSelectedLatLng(place); }}
 												onLocationReset={() => setSelectedLatLng(null)}
 											/>
 										</>
 									)
 								}
 								<SelectContainer ref={locationScrollRef} onClick={() => {
-									if(enableLocation){
+									if (enableLocation) {
 										setSelectedLatLng(null);
 									}
 
@@ -92,9 +92,13 @@ const NewAttendanceModal = (props: NewAttendanceModalProps) => {
 						)
 					}
 				</ModalBody>
-				{ selectedOption && (enableLocation && selectedLatLng) || !enableLocation ?
+				{selectedOption && (enableLocation && selectedLatLng) || !enableLocation ?
 					<ModalFooter>
-						<MainButton enabled onClick={() => null} text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.START} />
+						<MainButton
+							enabled
+							onClick={() => selectedOption && props.onRequestStartAttendance(selectedOption, enableLocation, selectedLatLng)}
+							text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.START}
+						/>
 					</ModalFooter>
 					: null
 				}

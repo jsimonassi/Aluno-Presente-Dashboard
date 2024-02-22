@@ -48,7 +48,7 @@ const AttendanceManager = (props: AttendanceManagerProps) => {
 				onCancel={() => {
 					setNewAttendanceModalIsOpen(false);
 				}}
-				onRequestStartAttendance={(type) => {
+				onRequestStartAttendance={(type, locationEnabled, location) => {
 					setNewAttendanceModalIsOpen(false);
 					const attendanceInProgress: AttendanceInProgress = {
 						courseId: props.currentClass.id,
@@ -56,7 +56,8 @@ const AttendanceManager = (props: AttendanceManagerProps) => {
 						date: moment().format(),
 						status: "requested",
 						id: Helpers.CodeGenerator.generateRandomId32(),
-						useLocation: true //TODO: Get from btn
+						useLocation: locationEnabled,
+						location: location
 					};
 					Storage.LocalStorage.storeLocalData(attendanceInProgress.id, JSON.stringify(attendanceInProgress));
 					//TODO: Redirect
