@@ -1,0 +1,5 @@
+Fluxo: Adicionar alunos
+
+1 - Solicitar adição de aluno (Com payload);
+2 - Receber ID (Processamento/progresso); 
+3 - Get a partir do id;

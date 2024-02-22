@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle<IBackgroundStyleProps>`
     /* width */
     ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
     }
 
     /* Track */

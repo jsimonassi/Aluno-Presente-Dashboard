@@ -5,17 +5,17 @@ import { Student } from "../../../../../../../../../../../types/Student";
 import { TableItem } from "./components";
 
 interface ResultTableProps {
-	finnedStudents: Student[] | null;
+	foundStudents: Student[] | null;
 }
 
 const ResultTable = (props: ResultTableProps) => {
 
 	const getTableContent = () => {
-		if (!props.finnedStudents) {
+		if (!props.foundStudents) {
 			return (<p>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.NULL_LIST}</p>);
 		}
 
-		if (props.finnedStudents.length === 0) {
+		if (props.foundStudents.length === 0) {
 			return (<p>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.EMPTY_LIST}</p>);
 		}
 
@@ -30,7 +30,7 @@ const ResultTable = (props: ResultTableProps) => {
 				</thead>
 				<tbody>
 					{
-						props.finnedStudents?.map((currentStudent, index) => (
+						props.foundStudents?.map((currentStudent, index) => (
 							<TableItem
 								key={index}
 								index={index}

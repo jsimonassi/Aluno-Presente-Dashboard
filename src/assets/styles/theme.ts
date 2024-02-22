@@ -5,6 +5,7 @@ export const LightTheme = {
 	background: "#EAEAEA",
 	surface1: "#FFFFFF",
 	surface2: "#D3D3D3",
+	surface3: "#EDEDED",
 	secondaryText: "#AFAFAF",
 	whiteText: "#FFFFFF",
 	error: "#BD1823",

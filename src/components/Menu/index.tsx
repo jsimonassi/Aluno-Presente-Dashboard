@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import { LocalStorage } from "../../services/storage";
 import { Content, MenuStyled } from "./styles";
@@ -51,19 +50,6 @@ const Menu = (props: MenuProps) => {
 	return (
 		<MenuStyled>
 			{getFixedComponents()}
-			<Toaster
-				toastOptions={{
-					style: {
-						fontFamily: "Light"
-					},
-					success: {
-						iconTheme: {
-							primary: "green",
-							secondary: "white",
-						},
-					},
-				}}
-			/>
 			<Content sidebarOpen={sidebarOpen} width={width}>
 				{props.renderAsPartial ? <Outlet /> : null}
 			</Content>

@@ -7,6 +7,8 @@ const ROUTES = {
 		OLD_CLASSES: "old",
 		ABOUT: "about",
 	},
+	ATTENDANCE_IN_PROGRESS_QR_CODE: "attendance-qr",
+	ATTENDANCE_IN_PROGRESS_SESSION_CODE: "attendance-session",
 	SETTING: "setting",
 	ERROR: "invalid-path",
 };

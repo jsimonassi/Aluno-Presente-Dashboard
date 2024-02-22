@@ -1,79 +1,85 @@
 import styled from "styled-components";
-import { AVAILABLE_FREQUENCY_STATUS } from "../../../../../../../../../constants/frequency";
-
-export const TableHeaderStyled = styled.tr`
-  
-	th {
-		font-size: 18px;
-		font-weight: 100;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-		padding: 10px;
-		font-family: "Bold";
-		color: ${props => props.theme.primary};
-
-		h5 {
-			font-size: 18px;
-			font-family: "Bold";
-		}
-
-		p {
-			font-size: 13px;
-			font-family: "Normal";
-			color: ${props => props.theme.secondaryText};
-			margin-top: -3px;
-		}
-
-	}
-`;
 
 
-interface TableRowStyledProps {
-	index: number;
-}
-
-export const TableRowStyled = styled.tr<TableRowStyledProps>`
-	background-color: ${props => props.index % 2 === 0 ? props.theme.background : props.theme.backgroundLight};
-	height: 30px;
-	text-align: center;
-`;
-
-interface FrequencyDataStyledProps {
-	value: string;
-}
-
-export const FrequencyDataStyled = styled.td<FrequencyDataStyledProps>`
-	color: ${props => props.value === AVAILABLE_FREQUENCY_STATUS.get(2)?.name ? props.theme.error : props.theme.primary};
-	font-family: "Bold";
-	min-width: 100px;
-`;
-
-
-export const TableStyled = styled.table`
+export const DivTableContainer = styled.div`
 	width: 100%;
+	height: 100%;
+	display: flex;
 	flex-direction: column;
 	overflow-x: scroll;
+`;
 
-	td:first-child {
-		text-align: left;
-		padding-left: 16px;
-		border-top-left-radius:11px;
-   		border-bottom-left-radius:11px;
-		font-family: "Light";
+export const HeaderContainer = styled.div<ContainersProps>`
+	height: 60px;
+	width: ${props => props.itemCount * 100 + 300}px;
+	display: flex;
+	flex-direction: row;
+	border-bottom: 1px solid ${props => props.theme.surface2};
+`;
+
+export const HeaderItem = styled.div <ItemProps>`
+	width: ${props => props.isFirst ? "300px" : "100px"};
+	display: flex;
+	justify-content: center;
+	align-items: ${props => props.isFirst ? "flex-start" : "center"};
+	flex-direction: column;
+	padding: 0px 10px;
+
+	h3 {
+		color: ${props => props.theme.primary};
+		font-size: 18px;
+		font-family: "bold"
 	}
 
-	th:first-child {
-		text-align: left;
-		padding-left: 16px;
-	}
-
-	td:last-child {
-   		border-bottom-right-radius:11px;
-   		border-top-right-radius:11px;
+	p {
+		color: ${props => props.theme.secondaryText};
+		font-family: "light";
+		font-size: 12px;
+		line-height: 12px;
 	}
 `;
 
+export const RowContainer = styled.div<ContainersProps>`
+	width: ${props => props.itemCount * 100 + 300}px;
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+`;
 
+export const RowStyled = styled.div<RowStyledProps>`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	background-color: ${props => props.index % 2 === 0 ? props.theme.surface1 : props.theme.surface2};
+	border-radius: 8px;
+`;
 
+export const RowItem = styled.div<ItemProps>`
+	width: ${props => props.isFirst ? "300px" : "100px"};
+	display: flex;
+	flex-direction: row;
+	justify-content: ${props => props.isFirst ? "flex-start" : "center"};
+	align-items: center;
+	padding: 0px 10px;
+	margin: 5px 0px;
 
+	
+	color: ${props => props.value === "F" ? props.theme.error : props.theme.primary};
+	font-size: 16px;
+	font-family: ${props => props.isFirst ? "light" : "bold"};
+	
+`;
+
+interface ItemProps {
+	isFirst?: boolean;
+	value?: string;
+}
+
+interface ContainersProps {
+	itemCount: number;
+}
+
+interface RowStyledProps {
+	index: number;
+}

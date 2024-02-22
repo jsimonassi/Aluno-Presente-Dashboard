@@ -4,12 +4,15 @@ import { fromApiClassTimeToApp } from "./parser";
 
 const Classes = {
 	getClasses: () => {
-		return new Promise<Course[]>((resolve) => {
+		return new Promise<Course[]>((resolve, reject) => {
 			__ApiResourceClient.get("/courses/owner").then((response) => {
 				response.data.forEach((course) => {
 					course.daysOfWeek = fromApiClassTimeToApp(course.daysOfWeek);
+					course.members = course.members.map((member) => ({...member, name: member.alias}));
 				});
 				resolve(response.data);
+			}).catch((error) => {
+				reject(error);
 			});
 		});
 	},

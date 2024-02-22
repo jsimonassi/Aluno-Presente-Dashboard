@@ -6,6 +6,7 @@ import { LocalStorage } from "../services/storage";
 import { Storage } from "../services";
 import { User } from "../types/User";
 import CONSTANTS from "../constants";
+import { NetHelpers } from "../helpers/NetHelpers";
 
 export const SESSION_CACHE_KEY = "currentSession";
 export const CURRENT_USER_CACHE_KEY = "currentUser";
@@ -94,10 +95,10 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 	const logout = () => {
 		return new Promise<void>((resolve) => {
 			//TODO: Add backend call, when available
-			setTimeout(() => {
-				__resetLocalSession();
-				resolve();
-			}, 2000);
+			NetHelpers.deleteAllCookies();
+			__resetLocalSession();
+			resolve();
+		
 		});
 	};
 

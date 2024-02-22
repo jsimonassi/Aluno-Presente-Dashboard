@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InputFileContainer, ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, ResultContainer } from "./styles";
 import { MainButton } from "../../../../../../../../../components/Buttons";
 import closeIcon from "../../../../../../../../../assets/images/closeIcon.svg";
@@ -12,18 +12,21 @@ import { Feedback } from "../../../../../../../../../types/Feedback";
 interface AddFromXlsxModalProps {
 	isOpen: boolean;
 	onClose: (feedback: Feedback) => void;
+	onAddStudentRequested: (newStudent: Student[]) => void;
 }
 
 const AddFromXlsxModal = (props: AddFromXlsxModalProps) => {
 
 	const [studentsList, setStudentsList] = useState<Student[] | null>(null);
 
+	useEffect(() => {
+		setStudentsList(null);
+	}, [props.isOpen]);
+
 	const handleAddStudents = async (file: File) => {
 		const studentsFound = await Helpers.XlsxManager.getStudentsFromXlsx(file);
 		setStudentsList(studentsFound);
 	};
-
-
 
 	return (
 		<ModalContainer isOpen={props.isOpen} >
@@ -44,11 +47,11 @@ const AddFromXlsxModal = (props: AddFromXlsxModalProps) => {
 					</InputFileContainer>
 					<ResultContainer>
 						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.FINNED_STUDENTS}</h3>
-						<ResultTable finnedStudents={studentsList} />
+						<ResultTable foundStudents={studentsList} />
 					</ResultContainer>
 					<small>{MESSAGES.MY_CLASSES.MANAGE_CLASS.ADD_FROM_XLSX_MODAL.OBS}</small>
 					<ModalFooter >
-						<MainButton enabled onClick={() => props.onClose({isOpen: true, success: false})} text={"Adicionar"} />
+						<MainButton enabled={studentsList !== null} onClick={() => studentsList && props.onAddStudentRequested(studentsList)} text={"Adicionar"} />
 					</ModalFooter>
 				</ModalBody>
 			</ModalContent>

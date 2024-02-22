@@ -3,6 +3,7 @@ import Classes from "./Classes";
 import Session from "./Session";
 import Periods from "./Periods";
 import Student from "./Student";
+import Frequencies from "./Frequencies";
 import { LocalStorage } from "../storage";
 import { SESSION_CACHE_KEY } from "../../contexts/Session";
 import { TokenSession } from "../../types/Session";
@@ -11,7 +12,7 @@ import CONSTANTS from "../../constants";
 
 export const __ApiResourceClient = axios.create({
 	baseURL: process.env.REACT_APP_RESOURCE_SERVER_BASE_URL + "/v1/api",
-	timeout: 5000,
+	timeout: 30000,
 	headers: {
 		"Content-Type": "application/json"
 	},
@@ -40,7 +41,8 @@ export const Api = {
 	Classes,
 	Session,
 	Periods,
-	Student
+	Student,
+	Frequencies
 };
 
 export default Api;

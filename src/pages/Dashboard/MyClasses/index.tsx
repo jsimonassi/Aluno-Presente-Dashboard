@@ -7,8 +7,6 @@ import plusIcon from "../../../assets/images/plusIcon.svg";
 import MESSAGES from "../../../constants/messages";
 import { MainButton } from "../../../components/Buttons";
 import { ClassCard, DeleteClassModal, EditClassModal, ManageClassPage, NewClassModal } from "./components";
-import { FeedbackModal } from "../../../components/Modals";
-import { Feedback } from "../../../types/Feedback";
 import Api from "../../../services/api";
 import toast from "react-hot-toast";
 
@@ -16,9 +14,8 @@ const MyClasses = () => {
 
 	const [classes, setClasses] = useState<Course[] | null>(null);
 	const [newClassModalOpen, setNewClassModalOpen] = useState<boolean>(false);
-	const [editClassModalStatus, setEditClassModalStatus] = useState<{ isOpen: boolean, selectedClass: Course | null }>({isOpen: false, selectedClass: null});
+	const [editClassModalStatus, setEditClassModalStatus] = useState<{ isOpen: boolean, selectedClass: Course | null }>({ isOpen: false, selectedClass: null });
 	const [deleteClassStatus, setDeleteClassStatus] = useState<{ isOpen: boolean, selectedClass: Course | null }>({ isOpen: false, selectedClass: null });
-	const [feedbackStatus, setFeedbackStatus] = useState<Feedback>({ isOpen: false, success: false });
 	const [selectedClass, setSelectedClass] = useState<Course | null>(null);
 
 	useEffect(() => {
@@ -57,7 +54,7 @@ const MyClasses = () => {
 		}).catch((error) => {
 			console.log(error);
 			toast.error(MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.ERROR);
-		}).finally(()=> {
+		}).finally(() => {
 			toast.dismiss(toastReference);
 		});
 
@@ -72,7 +69,7 @@ const MyClasses = () => {
 		}).catch((error) => {
 			console.log(error);
 			toast.error(MESSAGES.MY_CLASSES.EDIT_CLASS_MODAL.ERROR);
-		}).finally(()=> {
+		}).finally(() => {
 			toast.dismiss(toastReference);
 		});
 	};
@@ -98,13 +95,15 @@ const MyClasses = () => {
 	const getContent = () => {
 		if (classes === null) {
 			return (
-				<ContentContainer >
-					{
-						[...Array(4)].map((_, index) => (
-							<SvgLoader key={index} />
-						))
-					}
-				</ContentContainer>
+				<AllClassContainer>
+					<ContentContainer >
+						{
+							[...Array(4)].map((_, index) => (
+								<SvgLoader key={index} />
+							))
+						}
+					</ContentContainer>
+				</AllClassContainer>
 			);
 		} else if (classes.length === 0) {
 			return <EmptyClassListLayout />;
@@ -135,12 +134,15 @@ const MyClasses = () => {
 	};
 
 	if (selectedClass !== null) {
-		return <ManageClassPage selectedClass={selectedClass} onBack={() => setSelectedClass(null)} />;
+		return <ManageClassPage 
+			selectedClass={selectedClass} 
+			onBack={() => setSelectedClass(null)}
+			onRefreshClassRequested={() => refreshClasses()}
+		/>;
 	}
 
 	return (
 		<Container>
-			<FeedbackModal isOpen={feedbackStatus.isOpen} success={feedbackStatus.success} />
 			<NewClassModal
 				isOpen={newClassModalOpen}
 				onCancel={() => setNewClassModalOpen(false)}
