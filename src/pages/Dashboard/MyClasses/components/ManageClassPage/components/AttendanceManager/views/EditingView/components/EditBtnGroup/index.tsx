@@ -4,7 +4,7 @@ import { AVAILABLE_FREQUENCY_STATUS } from "../../../../../../../../../../../con
 
 interface EditBtnGroupProps {
     status: string | undefined;
-    onNewStatusSelected: (status: string) => void;
+    onNewStatusSelected: (status: number) => void;
 }
 
 const EditBtnGroup = (props: EditBtnGroupProps) => {
@@ -19,7 +19,7 @@ const EditBtnGroup = (props: EditBtnGroupProps) => {
 				<Item
 					selected={availableStatus.name === props.status}
 					key={availableStatus.id}
-					onClick={() => availableStatus.name !== props.status && props.onNewStatusSelected(availableStatus.name)}
+					onClick={() => availableStatus.name !== props.status && props.onNewStatusSelected(availableStatus.id)}
 				>
 					{availableStatus.name}
 				</Item>

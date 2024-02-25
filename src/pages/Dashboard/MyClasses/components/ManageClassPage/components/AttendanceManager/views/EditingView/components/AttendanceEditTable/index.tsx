@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { DivTableContainer, HeaderContainer, HeaderItem, RowContainer, RowItem, RowStyled} from "./styles";
 import { CourseAttendance } from "../../../../../../../../../../../types/Course";
 import MESSAGES from "../../../../../../../../../../../constants/messages";
@@ -57,8 +57,7 @@ const AttendanceEditTable = (props: AttendanceEditTableProps) => {
 													status={headerDate === "" ? undefined : statusName}
 													onNewStatusSelected={(newStatus) => {
 														const frequencyId = studentAttendance.frequencies.find(item => item.date === headerDate)?.id ?? "";
-														const newStatusValue = Array.from(AVAILABLE_FREQUENCY_STATUS.values()).findIndex(item => item.name === newStatus);
-														props.onEditFrequency(frequencyId, studentAttendance.id, newStatusValue);
+														props.onEditFrequency(frequencyId, studentAttendance.id, newStatus);
 													}}
 												/>
 											</RowItem>

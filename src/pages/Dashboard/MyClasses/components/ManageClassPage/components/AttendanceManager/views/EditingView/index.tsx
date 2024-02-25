@@ -1,32 +1,36 @@
-import React from "react";
-import { EditingInProgress } from "../../types";
+import React, { useMemo } from "react";
 import { ButtonGroup, Container, FooterContainer } from "./styles";
 import MESSAGES from "../../../../../../../../../constants/messages";
 import { MainButton, OutlineButton } from "../../../../../../../../../components/Buttons";
 import AttendanceEditTable from "./components/AttendanceEditTable";
 import { useAttendance } from "../../../../../../../../../contexts/Attendance";
-import toast from "react-hot-toast";
+import { Helpers } from "../../../../../../../../../helpers";
 
 interface EditingViewProps {
-    editingInProgress: EditingInProgress;
+    compositeKey: string;
     onStopEditing: () => void;
 }
 
 const EditingView = (props: EditingViewProps) => {
 
-	const { updateFrequency } = useAttendance();
-	const [editingInProgress, setEditingInProgress] = React.useState<EditingInProgress>(props.editingInProgress);
+	const { updateFrequency, attendanceData } = useAttendance();
+	const monthData = useMemo(() => {
+
+		if(!attendanceData || !attendanceData[props.compositeKey]) return [];
+
+		return attendanceData[props.compositeKey];
+	}, [attendanceData, props.compositeKey]);
 
 	const handleEditFrequency = (studentAttendanceId: string, memberId: string, newStatusValue: number) => {
-		updateFrequency(studentAttendanceId, memberId, props.editingInProgress.currentDate, newStatusValue)
-			.then((newAttendance) => newAttendance && setEditingInProgress({...editingInProgress, courseAttendance: newAttendance}))
-			.catch(() => toast.error(MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.ERROR_UPDATING_ATTENDANCE));
+		const updatedMonthData = Helpers.AttendanceHelper.generateNewAttendance(monthData, memberId, studentAttendanceId, newStatusValue);
+		//Requisição entra na fila. Caso exista um erro, a fila é limpa e se retorna ao estado anterior.
+		updateFrequency(studentAttendanceId, memberId, newStatusValue, updatedMonthData, props.compositeKey);
 	};
 
 	return (
 		<Container>
 			<AttendanceEditTable 
-				courseFrequency={editingInProgress.courseAttendance}
+				courseFrequency={monthData}
 				onEditFrequency={(studentAttendanceId, memberId, newStatusValue) => handleEditFrequency(studentAttendanceId, memberId, newStatusValue)}
 			/>
 			<FooterContainer>

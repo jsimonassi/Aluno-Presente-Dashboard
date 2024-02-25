@@ -30,11 +30,11 @@ const Frequencies = {
 	},
 	updateFrequency: (frequencyId: string, memberId: string, status: number) => {
 		return new Promise<void>((resolve, reject) => {
+			console.log("Atualizando frequência: ", frequencyId, memberId, status);
 			__ApiResourceClient.patch(`/attendances/frequencies/${frequencyId}/members/${memberId}`, { status })
 				.then(() => {
 					resolve();
 				}).catch((error) => {
-					console.error(error);
 					reject(error);
 				});
 		});

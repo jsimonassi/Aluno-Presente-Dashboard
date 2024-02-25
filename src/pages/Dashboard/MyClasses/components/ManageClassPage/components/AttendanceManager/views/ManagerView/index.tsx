@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ButtonGroup, Container, FooterContainer, LoaderContainer, TipContainer, TipItem } from "./styles";
 import { AttendanceTable, NewAttendanceModal } from "./components";
-import { Course, CourseAttendance } from "../../../../../../../../../types/Course";
+import { Course } from "../../../../../../../../../types/Course";
 import DateNavigator from "../../../../../../../../../components/DateNavigator";
 import moment from "moment";
 import { MainButton, OutlineButton } from "../../../../../../../../../components/Buttons";
@@ -13,24 +13,26 @@ import CONSTANTS from "../../../../../../../../../constants";
 import { MainLoader } from "../../../../../../../../../components/Loaders";
 import { useAttendance } from "../../../../../../../../../contexts/Attendance";
 import toast from "react-hot-toast";
-import { EditingInProgress } from "../../types";
 
 interface AttendanceManagerProps {
 	currentClass: Course;
-	onStartEditingAttendance: (editing: EditingInProgress) => void;
+	onSetEditingAttendance: (compositeKey: string) => void;
 }
 
 const ManagerView = (props: AttendanceManagerProps) => {
 
-	const attendanceContext = useAttendance();
-	const [attendance, setAttendance] = useState<CourseAttendance[] | null>(null);
+	const {attendanceData, getAttendanceByMonth, getCompositeKey} = useAttendance();
 	const [currentDate, setCurrentDate] = useState<moment.Moment>(moment());
 	const [newAttendanceModalIsOpen, setNewAttendanceModalIsOpen] = useState<boolean>(false);
+	const monthData = useMemo(() => {
+		if(attendanceData) {
+			return attendanceData[getCompositeKey(props.currentClass.id, currentDate.startOf("month").format())];
+		}
+		return null;
+	}, [attendanceData]);
 
 	useEffect(() => {
-		setAttendance(null);
-		attendanceContext.getAttendanceByMonth(props.currentClass.id, currentDate.startOf("month").format())
-			.then((response) => setAttendance(response))
+		getAttendanceByMonth(props.currentClass.id, currentDate.startOf("month").format())
 			.catch(() => toast.error(MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.ERROR_LOADING_ATTENDANCE));
 	}, [currentDate]);
 
@@ -73,12 +75,12 @@ const ManagerView = (props: AttendanceManagerProps) => {
 				onCancel={() => setNewAttendanceModalIsOpen(false)}
 				onRequestStartAttendance={(type, locationEnabled, location) => handleStartAttendance(type, locationEnabled, location)}
 			/>
-			{attendance == null ?
+			{monthData == null ?
 				<LoaderContainer>
 					<MainLoader />
 				</LoaderContainer>
 				:
-				<AttendanceTable courseFrequency={attendance ?? []} />
+				<AttendanceTable courseFrequency={monthData} />
 			}
 			<TipContainer>
 				<TipItem>
@@ -102,8 +104,8 @@ const ManagerView = (props: AttendanceManagerProps) => {
 				<DateNavigator currentDate={currentDate} onNextMonth={increaseMonth} onPreviousMonth={decreaseMonth} />
 				<ButtonGroup>
 					<OutlineButton
-						onClick={() => attendance &&
-							props.onStartEditingAttendance({ courseAttendance: attendance, currentDate: currentDate.startOf("month").format() })}
+						onClick={() => monthData &&
+							props.onSetEditingAttendance(getCompositeKey(props.currentClass.id, currentDate.startOf("month").format()))}
 						text={MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.EDIT_BTN}
 						enabled
 					/>

@@ -2,20 +2,19 @@ import React, { useState } from "react";
 import { Course } from "../../../../../../../types/Course";
 import ManagerView from "./views/ManagerView";
 import EditingView from "./views/EditingView";
-import { EditingInProgress } from "./types";
 
 interface AttendanceManagerProps {
 	currentClass: Course;
 }
 
 const AttendanceManager = (props: AttendanceManagerProps) => {
-	const [editingAttendance, setEditingAttendance] = useState<EditingInProgress | null>(null);
+	const [attendanceKeyInEditing, setAttendanceKeyInEditing] = useState<string | null>(null);
 
-	if(editingAttendance) {
+	if(attendanceKeyInEditing) {
 		return (
 			<EditingView 
-				editingInProgress={editingAttendance}
-				onStopEditing={() => setEditingAttendance(null)} 
+				compositeKey={attendanceKeyInEditing}
+				onStopEditing={() => setAttendanceKeyInEditing(null)} 
 			/>
 		);
 	}
@@ -23,7 +22,7 @@ const AttendanceManager = (props: AttendanceManagerProps) => {
 	return (
 		<ManagerView 
 			currentClass={props.currentClass} 
-			onStartEditingAttendance={(editing) => setEditingAttendance(editing)} 
+			onSetEditingAttendance={(compositeKey) => setAttendanceKeyInEditing(compositeKey)}
 		/>
 	);
 

@@ -26,8 +26,13 @@ export interface CourseAttendance extends Student {
     } []
 }
 
-export interface CacheByMonthCourseFrequency {
-    [startDate: string]: CourseAttendance[];
+export interface CacheByMonthCourseAttendance {
+    [compositeKeyDateCourseId: string]: CourseAttendance[];
+}
+
+export interface AttendanceUpdateQueueItem {
+    backupState: CacheByMonthCourseAttendance;
+    promise: Promise<void>;
 }
 
 enum FrequencyStatus {
