@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Course } from "../../../../../types/Course";
-import { AddStudents, ManageClassHeader, AttendanceManager, StudentsFrequency } from "./components";
+import { AddStudents, AttendanceManager, ManageClassHeader, StudentsFrequency } from "./components";
 import MESSAGES from "../../../../../constants/messages";
 
 interface ManageClassPageProps {

@@ -14,9 +14,9 @@ export const AVAILABLE_FREQUENCY_STATUS = new Map([
 		"name": "I",
 		"description": "Indefinido"
 	}],
-	[4, {
-		"id": 4,
-		"name": "J",
-		"description": "Justificado"
-	}]
+	// [4, {
+	// 	"id": 4,
+	// 	"name": "J",
+	// 	"description": "Justificado"
+	// }]
 ]);

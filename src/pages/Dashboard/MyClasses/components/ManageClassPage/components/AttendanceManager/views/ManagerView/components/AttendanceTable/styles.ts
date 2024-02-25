@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+const firstItemWidth = 350;
+const otherItemWidth = 110;
+
 
 export const DivTableContainer = styled.div`
 	width: 100%;
@@ -11,19 +14,22 @@ export const DivTableContainer = styled.div`
 
 export const HeaderContainer = styled.div<ContainersProps>`
 	height: 60px;
-	width: ${props => props.itemCount * 100 + 300}px;
+	width: ${props => props.itemCount * otherItemWidth + firstItemWidth}px;
 	display: flex;
 	flex-direction: row;
 	border-bottom: 1px solid ${props => props.theme.surface2};
 `;
 
 export const HeaderItem = styled.div <ItemProps>`
-	width: ${props => props.isFirst ? "300px" : "100px"};
+	width: ${props => props.isFirst ? firstItemWidth+"px" : otherItemWidth+"px"};
 	display: flex;
 	justify-content: center;
 	align-items: ${props => props.isFirst ? "flex-start" : "center"};
 	flex-direction: column;
 	padding: 0px 10px;
+	margin: 5px 1px;
+	box-sizing: border-box;
+	/* background-color: tomato; */
 
 	h3 {
 		color: ${props => props.theme.primary};
@@ -40,7 +46,7 @@ export const HeaderItem = styled.div <ItemProps>`
 `;
 
 export const RowContainer = styled.div<ContainersProps>`
-	width: ${props => props.itemCount * 100 + 300}px;
+	width: ${props => props.itemCount * otherItemWidth + firstItemWidth}px;
 	height: 500px;
 	display: flex;
 	flex-direction: column;
@@ -56,13 +62,15 @@ export const RowStyled = styled.div<RowStyledProps>`
 `;
 
 export const RowItem = styled.div<ItemProps>`
-	width: ${props => props.isFirst ? "300px" : "100px"};
+	width: ${props => props.isFirst ? firstItemWidth + "px" : otherItemWidth + "px"};
 	display: flex;
 	flex-direction: row;
 	justify-content: ${props => props.isFirst ? "flex-start" : "center"};
 	align-items: center;
 	padding: 0px 10px;
-	margin: 5px 0px;
+	margin: 5px 1px;
+	box-sizing: border-box;
+	/* background-color: blue; */
 
 	
 	color: ${props => props.value === "F" ? props.theme.error : props.theme.primary};

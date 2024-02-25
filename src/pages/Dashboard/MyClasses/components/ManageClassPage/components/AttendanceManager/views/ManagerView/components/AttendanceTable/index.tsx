@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
 import { DivTableContainer, HeaderContainer, HeaderItem, RowContainer, RowItem, RowStyled} from "./styles";
-import { CourseFrequency } from "../../../../../../../../../types/Course";
-import MESSAGES from "../../../../../../../../../constants/messages";
-import { getPastClassesTimeByFrequency } from "../../utils";
+import { CourseAttendance } from "../../../../../../../../../../../types/Course";
+import MESSAGES from "../../../../../../../../../../../constants/messages";
+import { getPastClassesTimeByFrequency } from "../../../../utils";
 import moment from "moment";
-import { AVAILABLE_FREQUENCY_STATUS } from "../../../../../../../../../constants/frequency";
+import { AVAILABLE_FREQUENCY_STATUS } from "../../../../../../../../../../../constants/frequency";
 
 
 interface AttendanceTableProps {
-	courseFrequency: CourseFrequency[]
+	courseFrequency: CourseAttendance[]
 }
 
 const AttendanceTable = (props: AttendanceTableProps) => {
@@ -48,9 +48,10 @@ const AttendanceTable = (props: AttendanceTableProps) => {
 								<RowItem isFirst>{formatStudentName(frequency.name)}</RowItem>
 								{
 									dateHeaderItems.map((headerDate, index) => {
+										const statusName = AVAILABLE_FREQUENCY_STATUS.get(frequency.frequencies.find(item => item.date === headerDate)?.status ?? 3)?.name;
 										return (
-											<RowItem key={index} value={AVAILABLE_FREQUENCY_STATUS.get(frequency.frequencies.find(item => item.date === headerDate)?.status ?? 3)?.name}>
-												<h3>{ headerDate === "" ? " " : AVAILABLE_FREQUENCY_STATUS.get(frequency.frequencies.find(item => item.date === headerDate)?.status ?? 3)?.name}</h3>
+											<RowItem key={index} value={statusName}>
+												<h3>{ headerDate === "" ? " " : statusName}</h3>
 											</RowItem>
 										);
 									})

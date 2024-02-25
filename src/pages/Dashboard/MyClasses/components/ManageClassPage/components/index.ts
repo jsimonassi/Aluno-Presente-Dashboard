@@ -1,13 +1,13 @@
 import ManageClassHeader from "./ManageClassHeader";
 import AddStudents from "./AddStudents";
-import AttendanceManager from "./AttendanceManager";
 import StudentsFrequency from "./StudentsFrequency";
+import AttendanceManager from "./AttendanceManager";
 import ClassLoader from "./ClassLoader";
 
 export {
 	ManageClassHeader,
 	AddStudents,
-	AttendanceManager,
 	StudentsFrequency,
+	AttendanceManager,
 	ClassLoader
 };

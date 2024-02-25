@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ModalBody, ModalContainer, ModalContent, ModalFooter, ModalHeader, OptionLabel, SelectContainer } from "./styles";
-import { BigButton, MainButton } from "../../../../../../../../../components/Buttons";
-import closeIcon from "../../../../../../../../../assets/images/closeIcon.svg";
-import MESSAGES from "../../../../../../../../../constants/messages";
-import { AttendanceInProgressType, LatLng } from "../../../../../../../../../types/Attendance";
-import { LocationBox } from "../../../../../../../../../components/LocationBox";
+import { BigButton, MainButton } from "../../../../../../../../../../../components/Buttons";
+import closeIcon from "../../../../../../../../../../../assets/images/closeIcon.svg";
+import MESSAGES from "../../../../../../../../../../../constants/messages";
+import { AttendanceInProgressType, LatLng } from "../../../../../../../../../../../types/Attendance";
+import { LocationBox } from "../../../../../../../../../../../components/LocationBox";
 
 
 interface NewAttendanceModalProps {

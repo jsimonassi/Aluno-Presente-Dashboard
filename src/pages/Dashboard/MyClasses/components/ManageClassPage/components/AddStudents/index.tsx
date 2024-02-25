@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import Api from "../../../../../../../services/api";
 import { Student } from "../../../../../../../types/Student";
 import { BatchAddResponseModel } from "../../../../../../../types/api/Student";
+import { useAttendance } from "../../../../../../../contexts/Attendance";
 
 interface AddStudentsProps {
 	courseId: string;
@@ -18,6 +19,7 @@ const AddStudents = (props: AddStudentsProps) => {
 	const [addFromXlsxModalIsOpen, setAddFromXlsxModalIsOpen] = useState(false);
 	const [addFromManualModalIsOpen, setAddFromManualModalIsOpen] = useState(false);
 	const [studentsWithFail, setStudentsWithFail] = useState<BatchAddResponseModel | null>(null);
+	const { invalidateAttendanceCache } = useAttendance();
 
 	const onAddSingleRequest = (newStudent: Student) => {
 		setAddFromManualModalIsOpen(false);
@@ -25,6 +27,7 @@ const AddStudents = (props: AddStudentsProps) => {
 		Api.Student.addSingleStudent(newStudent, props.courseId)
 			.then(() => {
 				toast.success(MESSAGES.MY_CLASSES.MANAGE_CLASS.ADDED_STUDENT, { id: toastRef });
+				invalidateAttendanceCache();
 				props.onRefreshClassRequested();
 			})
 			.catch(() => {
@@ -35,6 +38,7 @@ const AddStudents = (props: AddStudentsProps) => {
 	const onAddMultipleRequest = (newStudents: Student[]) => {
 		setAddFromXlsxModalIsOpen(false);
 		const toastRef = toast.loading(MESSAGES.MY_CLASSES.MANAGE_CLASS.ADDING_STUDENTS);
+		invalidateAttendanceCache();
 		Api.Student.addMultipleStudents(newStudents, props.courseId)
 			.then((apiResponse) => {
 				props.onRefreshClassRequested();

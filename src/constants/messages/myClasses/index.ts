@@ -90,7 +90,7 @@ const MY_CLASSES = {
 		},
 	},
 
-	FREQUENCY_CONTROLLER: {
+	ATTENDANCE_CONTROLLER: {
 		STUDENTS: "Alunos",
 		EDIT_BTN: "Editar",
 		EXPORT_BTN: "Exportar",
@@ -99,6 +99,11 @@ const MY_CLASSES = {
 		ABSENT_TIP: "Faltou",
 		JUSTIFIED_TIP: "Justificado",
 		UNKNOWN_TIP: "Indefinido",
+		ERROR_LOADING_ATTENDANCE: "Erro ao carregar chamada. Tente novamente!",
+		HELP: "Ajuda",
+		FINISH_EDITING: "Finalizar edição",
+		EDIT_TIP: "Obs: Suas alterações são salvas automaticamente.",
+		ERROR_UPDATING_ATTENDANCE: "Erro ao atualizar chamada. Tente novamente!",
 	},
 
 	NEW_FREQUENCY_MODAL: {
@@ -123,7 +128,7 @@ const MY_CLASSES = {
 	DELETE_CLASS_MODAL: {
 		TITLE: "Excluir turma",
 		MESSAGE1: "Tem certeza que deseja excluir a turma?",
-		MESSAGE2: "Essa ação não pode ser desfeita.",
+		MESSAGE2: "Essa ação não poderá ser desfeita.",
 		MESSAGE3: "Todo o histórico da turma e as presenças registradas serão perdidas.",
 		CANCEL_BTN: "Cancelar",
 		CONFIRM_BTN: "Confirmar",

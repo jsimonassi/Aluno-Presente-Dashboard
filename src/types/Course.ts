@@ -1,6 +1,7 @@
 import { Moment } from "moment";
 import { Student } from "./Student";
 
+
 export interface Course {
     id: string;
     name: string;
@@ -17,11 +18,16 @@ export interface ClassTime {
     end? : string;
 }
 
-export interface CourseFrequency extends Student {
+export interface CourseAttendance extends Student {
     frequencies: {
+        id: string,
         date: string,
         status: FrequencyStatus,
     } []
+}
+
+export interface CacheByMonthCourseFrequency {
+    [startDate: string]: CourseAttendance[];
 }
 
 enum FrequencyStatus {
