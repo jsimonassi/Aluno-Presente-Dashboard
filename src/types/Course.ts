@@ -32,7 +32,10 @@ export interface CacheByMonthCourseAttendance {
 
 export interface AttendanceUpdateQueueItem {
     backupState: CacheByMonthCourseAttendance;
-    promise: Promise<void>;
+    promise: (studentAttendanceId: string, memberId: string, newStatusValue: number) => Promise<void>;
+    studentAttendanceId: string,
+    memberId: string;
+    newStatusValue: number;
 }
 
 enum FrequencyStatus {

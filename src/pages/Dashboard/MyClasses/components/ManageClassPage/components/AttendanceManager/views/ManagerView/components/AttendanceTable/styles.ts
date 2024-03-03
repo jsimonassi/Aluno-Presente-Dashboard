@@ -76,7 +76,20 @@ export const RowItem = styled.div<ItemProps>`
 	color: ${props => props.value === "F" ? props.theme.error : props.theme.primary};
 	font-size: 16px;
 	font-family: ${props => props.isFirst ? "light" : "bold"};
-	
+
+	P {
+		font-size: 16px;
+		font-family: "light";
+		line-height: 16px;
+	}
+
+`;
+
+export const UnsubscribedText = styled.p`
+	color: ${props => props.theme.secondaryText};
+	font-family: "light";
+	font-size: 16px;
+	line-height: 16px;
 `;
 
 interface ItemProps {

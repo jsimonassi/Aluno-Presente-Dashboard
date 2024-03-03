@@ -33,8 +33,6 @@ const MainRoutes = () => {
 				<Route path={CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_QR_CODE+"/:id"} element={<PrivateRoute> <AttendanceInProgressQrCode /> </PrivateRoute>}/>
 				<Route path={CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_SESSION_CODE+"/:id"} element={<PrivateRoute> <AttendanceInProgressSessionCode /> </PrivateRoute>}/>
 
-				<Route path={ CONSTANTS.ROUTES.ERROR} element={<ErrorPage/>} />
-
 				<Route path="auth/*" element={<div/>}/>
 			</Routes>
 		</Router>

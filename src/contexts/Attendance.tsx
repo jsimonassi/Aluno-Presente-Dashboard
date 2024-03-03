@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { AttendanceUpdateQueueItem, CacheByMonthCourseAttendance, CourseAttendance } from "../types/Course";
 import Api from "../services/api";
 import moment from "moment";
@@ -79,7 +79,19 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 		data[compositeKey] = updatedMonthData;
 		setAttendanceData(data);
 		storeSessionData(CACHE_ATTENDANCE_BY_MONTH_KEY, JSON.stringify(data));
-		addToPromiseQueue({ backupState, promise: Api.Frequencies.updateFrequency(studentAttendanceId, memberId, newStatusValue) });
+		// addToPromiseQueue({ backupState, promise: Api.Frequencies.updateFrequency, studentAttendanceId, memberId, newStatusValue });
+		Api.Frequencies.updateFrequency(studentAttendanceId, memberId, newStatusValue)
+			.then(() => {
+				// setUpdatedQueue(previous => previous.slice(1));
+				console.log("Promise resolved");
+			}).catch((error) => {
+				// const backupState = queueItem.backupState;
+				setAttendanceData(backupState);
+				storeSessionData(CACHE_ATTENDANCE_BY_MONTH_KEY, JSON.stringify(backupState));
+				// setUpdatedQueue([]);
+				toast.error("Erro ao atualizar frequência. Tente novamente!");
+				console.log("Promise rejected", error);
+			});
 	};
 
 	const invalidateAttendanceCache = () => {
@@ -91,24 +103,21 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 	};
 
 	useEffect(() => {
-		//TODO: Preciso chamar apenas aqui e não na adição de novos itens.
-		console.log("Update queue effect: ", updateQueue.length);
-		if (updateQueue.length > 0) {
-			const queueItem = updateQueue[0];
-			queueItem.promise.then(() => {
-				setUpdatedQueue(previous => previous.slice(1));
-				console.log("Promise resolved");
-			}).catch((error) => {
-				//TODO: Não está caindo no catch. Verificar!
-				console.log("DEU ERROROOO: ", error);
-				const backupState = queueItem.backupState;
-				setAttendanceData(backupState);
-				storeSessionData(CACHE_ATTENDANCE_BY_MONTH_KEY, JSON.stringify(backupState));
-				setUpdatedQueue([]);
-				toast.error("Erro ao atualizar frequência. Tente novamente!");
-				console.log("Promise rejected");
-			});
-		}
+		// if (updateQueue.length > 0) {
+		// 	const queueItem = updateQueue[0];
+		// 	queueItem.promise(queueItem.studentAttendanceId, queueItem.memberId, queueItem.newStatusValue)
+		// 		.then(() => {
+		// 			setUpdatedQueue(previous => previous.slice(1));
+		// 			console.log("Promise resolved");
+		// 		}).catch((error) => {
+		// 			const backupState = queueItem.backupState;
+		// 			setAttendanceData(backupState);
+		// 			storeSessionData(CACHE_ATTENDANCE_BY_MONTH_KEY, JSON.stringify(backupState));
+		// 			setUpdatedQueue([]);
+		// 			toast.error("Erro ao atualizar frequência. Tente novamente!");
+		// 			console.log("Promise rejected", error);
+		// 		});
+		// }
 	}, [updateQueue]);
 
 	const getCompositeKey = (courseId: string, startDate: string) => {

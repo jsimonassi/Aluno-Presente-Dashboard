@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const firstItemWidth = 350;
-const otherItemWidth = 130;
+const otherItemWidth = 120;
 
 
 export const DivTableContainer = styled.div`
@@ -70,13 +70,16 @@ export const RowItem = styled.div<ItemProps>`
 	padding: 0px 10px;
 	margin: 5px 1px;
 	box-sizing: border-box;
-	/* background-color: blue; */
 
-	
 	color: ${props => props.value === "F" ? props.theme.error : props.theme.primary};
 	font-size: 16px;
 	font-family: ${props => props.isFirst ? "light" : "bold"};
-	
+
+	P {
+		font-size: 16px;
+		font-family: "light";
+		line-height: 16px;
+	}
 `;
 
 interface ItemProps {

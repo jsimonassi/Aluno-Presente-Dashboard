@@ -6,7 +6,7 @@ const Student = {
 	addSingleStudent: (student: StudentType, courseId: string) => {
 		return new Promise<void>((resolve, reject) => {
 			const parsedObj = {
-				email: student.email,
+				email: student.email?.toLowerCase(),
 				registration: student.registration,
 				alias: student.name
 			};

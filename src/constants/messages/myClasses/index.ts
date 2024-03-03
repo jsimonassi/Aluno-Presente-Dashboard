@@ -98,7 +98,7 @@ const MY_CLASSES = {
 		PRESENT_TIP: "Presente",
 		ABSENT_TIP: "Faltou",
 		JUSTIFIED_TIP: "Justificado",
-		UNKNOWN_TIP: "Indefinido",
+		UNSUBSCRIBED_TIP: "Alunos não estava inscrito na data",
 		ERROR_LOADING_ATTENDANCE: "Erro ao carregar chamada. Tente novamente!",
 		HELP: "Ajuda",
 		FINISH_EDITING: "Finalizar edição",
@@ -136,6 +136,16 @@ const MY_CLASSES = {
 		DELETED: "Turma excluída com sucesso!",
 		ERROR: "Erro ao excluir turma. Tente novamente!",
 	},
+
+	HELP_MODAL: {
+		HELP: "Ajuda ",
+		P_TITLE: "P (Presente): ",
+		P_DESCRIPTION: "Aluno estava presente na aula.",
+		F_TITLE: "F (Faltou): ",
+		F_DESCRIPTION: "Aluno faltou a aula.",
+		UNSUBSCRIBED_TITLE: "Não Inscrito: ",
+		UNSUBSCRIBED_DESCRIPTION: "Aluno não estava matriculado quando \na chamada foi realizada."
+	}
 };
 
 export default MY_CLASSES;

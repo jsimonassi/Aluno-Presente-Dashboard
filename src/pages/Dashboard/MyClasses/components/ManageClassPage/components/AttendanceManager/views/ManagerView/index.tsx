@@ -44,7 +44,7 @@ const ManagerView = (props: AttendanceManagerProps) => {
 		setCurrentDate(previousDate => previousDate.clone().subtract(1, "months"));
 	};
 
-	const handleStartAttendance = (type: "qrCode" | "sessionCode", locationEnabled: boolean, location: LatLng | null) => {
+	const handleStartAttendance = (type: "qrCode" | "sessionCode", location: LatLng | null) => {
 		setNewAttendanceModalIsOpen(false);
 		const attendanceInProgress: AttendanceInProgress = {
 			courseId: props.currentClass.id,
@@ -52,7 +52,6 @@ const ManagerView = (props: AttendanceManagerProps) => {
 			date: moment().format(),
 			status: "requested",
 			id: Helpers.CodeGenerator.generateRandomId32(),
-			useLocation: locationEnabled,
 			location: location
 		};
 		Storage.LocalStorage.storeLocalData(attendanceInProgress.id, JSON.stringify(attendanceInProgress));
@@ -73,7 +72,7 @@ const ManagerView = (props: AttendanceManagerProps) => {
 			<NewAttendanceModal
 				isOpen={newAttendanceModalIsOpen}
 				onCancel={() => setNewAttendanceModalIsOpen(false)}
-				onRequestStartAttendance={(type, locationEnabled, location) => handleStartAttendance(type, locationEnabled, location)}
+				onRequestStartAttendance={(type, location) => handleStartAttendance(type, location)}
 			/>
 			{monthData == null ?
 				<LoaderContainer>
@@ -91,14 +90,6 @@ const ManagerView = (props: AttendanceManagerProps) => {
 					<h4>F</h4>
 					<p>- {MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.ABSENT_TIP}</p>
 				</TipItem>
-				<TipItem>
-					<h4>I</h4>
-					<p>- {MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.UNKNOWN_TIP}</p>
-				</TipItem>
-				{/* <TipItem>
-					<h4>J</h4>
-					<p>- {MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.JUSTIFIED_TIP}</p>
-				</TipItem> */}
 			</TipContainer>
 			<FooterContainer>
 				<DateNavigator currentDate={currentDate} onNextMonth={increaseMonth} onPreviousMonth={decreaseMonth} />

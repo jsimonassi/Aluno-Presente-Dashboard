@@ -32,6 +32,7 @@ export const ButtonGroup = styled.div`
     flex-direction: row;
 
     button {
+        min-width: 150px;
         border-radius: 16px;
         padding: 16px;
         box-sizing: border-box;

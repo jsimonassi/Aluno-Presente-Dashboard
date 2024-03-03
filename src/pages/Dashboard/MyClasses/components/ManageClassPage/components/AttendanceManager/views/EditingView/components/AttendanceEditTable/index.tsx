@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { DivTableContainer, HeaderContainer, HeaderItem, RowContainer, RowItem, RowStyled} from "./styles";
+import { DivTableContainer, HeaderContainer, HeaderItem, RowContainer, RowItem, RowStyled } from "./styles";
 import { CourseAttendance } from "../../../../../../../../../../../types/Course";
 import MESSAGES from "../../../../../../../../../../../constants/messages";
 import { getPastClassesTimeByFrequency } from "../../../../utils";
@@ -20,7 +20,7 @@ const AttendanceEditTable = (props: AttendanceEditTableProps) => {
 
 	const formatStudentName = (name: string) => {
 
-		if(name.length > 35) {
+		if (name.length > 35) {
 			return name.substring(0, 35) + "...";
 		}
 
@@ -35,8 +35,8 @@ const AttendanceEditTable = (props: AttendanceEditTableProps) => {
 					dateHeaderItems.map((item, index) => {
 						return (
 							<HeaderItem key={index}>
-								<h3>{ item !== "" ? moment(item).format("DD/MM") : " "}</h3>
-								<p>{ item !== "" ? moment(item).format("HH:mm") : " "}</p>
+								<h3>{item !== "" ? moment(item).format("DD/MM") : " "}</h3>
+								<p>{item !== "" ? moment(item).format("HH:mm") : " "}</p>
 							</HeaderItem>
 						);
 					})
@@ -50,16 +50,22 @@ const AttendanceEditTable = (props: AttendanceEditTableProps) => {
 								<RowItem isFirst>{formatStudentName(studentAttendance.name)}</RowItem>
 								{
 									dateHeaderItems.map((headerDate, index) => {
-										const statusName = AVAILABLE_FREQUENCY_STATUS.get(studentAttendance.frequencies.find(item => item.date === headerDate)?.status ?? 3)?.name;
+										const statusName = AVAILABLE_FREQUENCY_STATUS.get(studentAttendance.frequencies.find(item => item.date === headerDate)?.status ?? -1)?.name;
 										return (
 											<RowItem key={index} value={statusName}>
-												<EditBtnGroup 
-													status={headerDate === "" ? undefined : statusName}
-													onNewStatusSelected={(newStatus) => {
-														const frequencyId = studentAttendance.frequencies.find(item => item.date === headerDate)?.id ?? "";
-														props.onEditFrequency(frequencyId, studentAttendance.id, newStatus);
-													}}
-												/>
+												{
+													statusName === undefined && headerDate !== "" ?
+														<p>Não inscrito</p>
+														:
+														<EditBtnGroup
+															status={headerDate === "" ? undefined : statusName}
+															onNewStatusSelected={(newStatus) => {
+																const frequencyId = studentAttendance.frequencies.find(item => item.date === headerDate)?.id ?? "";
+																props.onEditFrequency(frequencyId, studentAttendance.id, newStatus);
+															}}
+														/>
+												}
+
 											</RowItem>
 										);
 									})

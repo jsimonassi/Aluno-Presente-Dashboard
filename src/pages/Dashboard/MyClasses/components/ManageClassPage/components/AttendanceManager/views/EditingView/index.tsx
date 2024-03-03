@@ -1,22 +1,24 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { ButtonGroup, Container, FooterContainer } from "./styles";
 import MESSAGES from "../../../../../../../../../constants/messages";
 import { MainButton, OutlineButton } from "../../../../../../../../../components/Buttons";
 import AttendanceEditTable from "./components/AttendanceEditTable";
 import { useAttendance } from "../../../../../../../../../contexts/Attendance";
 import { Helpers } from "../../../../../../../../../helpers";
+import HelpModal from "./components/HelpModal";
 
 interface EditingViewProps {
-    compositeKey: string;
-    onStopEditing: () => void;
+	compositeKey: string;
+	onStopEditing: () => void;
 }
 
 const EditingView = (props: EditingViewProps) => {
 
 	const { updateFrequency, attendanceData } = useAttendance();
-	const monthData = useMemo(() => {
+	const [helpModalVisible, setHelpModalVisible] = useState<boolean>(false);
 
-		if(!attendanceData || !attendanceData[props.compositeKey]) return [];
+	const monthData = useMemo(() => {
+		if (!attendanceData || !attendanceData[props.compositeKey]) return [];
 
 		return attendanceData[props.compositeKey];
 	}, [attendanceData, props.compositeKey]);
@@ -29,7 +31,7 @@ const EditingView = (props: EditingViewProps) => {
 
 	return (
 		<Container>
-			<AttendanceEditTable 
+			<AttendanceEditTable
 				courseFrequency={monthData}
 				onEditFrequency={(studentAttendanceId, memberId, newStatusValue) => handleEditFrequency(studentAttendanceId, memberId, newStatusValue)}
 			/>
@@ -37,7 +39,7 @@ const EditingView = (props: EditingViewProps) => {
 				<p>{MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.EDIT_TIP}</p>
 				<ButtonGroup>
 					<OutlineButton
-						onClick={() => null}
+						onClick={() => setHelpModalVisible(true)}
 						text={MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.HELP}
 						enabled
 					/>
@@ -48,6 +50,10 @@ const EditingView = (props: EditingViewProps) => {
 					/>
 				</ButtonGroup>
 			</FooterContainer>
+			<HelpModal
+				isOpen={helpModalVisible}
+				onClose={() => setHelpModalVisible(false)}
+			/>
 		</Container>
 	);
 

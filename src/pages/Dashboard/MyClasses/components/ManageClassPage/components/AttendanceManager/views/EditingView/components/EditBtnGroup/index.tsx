@@ -21,7 +21,7 @@ const EditBtnGroup = (props: EditBtnGroupProps) => {
 					key={availableStatus.id}
 					onClick={() => availableStatus.name !== props.status && props.onNewStatusSelected(availableStatus.id)}
 				>
-					{availableStatus.name}
+					{availableStatus.name ?? "Não inscrito"}
 				</Item>
 			))}
 		</Container>

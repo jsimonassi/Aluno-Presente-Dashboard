@@ -10,7 +10,7 @@ import { LocationBox } from "../../../../../../../../../../../components/Locatio
 interface NewAttendanceModalProps {
 	isOpen: boolean;
 	onCancel: () => void;
-	onRequestStartAttendance: (type: AttendanceInProgressType, useLocation: boolean, location: LatLng | null) => void;
+	onRequestStartAttendance: (type: AttendanceInProgressType, location: LatLng | null) => void;
 }
 
 const NewAttendanceModal = (props: NewAttendanceModalProps) => {
@@ -19,6 +19,8 @@ const NewAttendanceModal = (props: NewAttendanceModalProps) => {
 	const [selectedLatLng, setSelectedLatLng] = useState<{ lat: number, lng: number } | null>(null);
 	const [selectedOption, setSelectedOption] = useState<AttendanceInProgressType | null>(null);
 	const locationScrollRef = useRef<HTMLDivElement | null>(null);
+
+	//TODO: Verificar a remoção do enableLocation
 
 	useEffect(() => {
 		resetStates();
@@ -96,7 +98,10 @@ const NewAttendanceModal = (props: NewAttendanceModalProps) => {
 					<ModalFooter>
 						<MainButton
 							enabled
-							onClick={() => selectedOption && props.onRequestStartAttendance(selectedOption, enableLocation, selectedLatLng)}
+							onClick={() =>
+								selectedOption &&
+								selectedLatLng?.lat &&
+								props.onRequestStartAttendance(selectedOption, { latitude: selectedLatLng.lat, longitude: selectedLatLng.lng })}
 							text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.START}
 						/>
 					</ModalFooter>
