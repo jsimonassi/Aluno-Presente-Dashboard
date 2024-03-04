@@ -46,12 +46,25 @@ const MY_CLASSES = {
 
 		FREQUENCY: "Frequência",
 		FREQUENCY_DESCRIPTION: "A frequência da turma é de ",
+		ERROR_LOADING_FREQUENCY: "Erro ao carregar frequência. Tente novamente!",
 
 		ADDING_STUDENT: "Adicionando aluno...",
 		ADDED_STUDENT: "Aluno adicionado com sucesso!",
 		STUDENTS_ADDED: "Alunos adicionados com sucesso!",
 		ERROR_ADDING_STUDENT: "Erro ao adicionar aluno. Tente novamente!",
 		ADDING_STUDENTS: "Adicionando alunos...",
+
+		CLASSROOM_FREQUENCY: {
+			NOTHING_TO_SHOW: "Não existem dados para essa turma.",
+			NOTHING_TO_SHOW_TIP: "Inicie uma nova chamada para visualizar a frequência.",
+			PRESENT_STUDENTS: "Número de presenças: ",
+			FAULT_STUDENTS: "Número de faltas: ",
+			TOTAL_CLASSES: "Total de aulas: ",
+			SEARCH_INTERVAL: "Intervalo de busca: ",
+			PERIOD: "Período: ",
+			LAST_UPDATE: "Última atualização: ",
+			REQUEST_UPDATE: "Atualizar",
+		},
 
 		ADD_FROM_XLSX_MODAL: {
 			TITLE: "Importar alunos",
@@ -90,7 +103,7 @@ const MY_CLASSES = {
 		},
 	},
 
-	FREQUENCY_CONTROLLER: {
+	ATTENDANCE_CONTROLLER: {
 		STUDENTS: "Alunos",
 		EDIT_BTN: "Editar",
 		EXPORT_BTN: "Exportar",
@@ -98,7 +111,12 @@ const MY_CLASSES = {
 		PRESENT_TIP: "Presente",
 		ABSENT_TIP: "Faltou",
 		JUSTIFIED_TIP: "Justificado",
-		UNKNOWN_TIP: "Indefinido",
+		UNSUBSCRIBED_TIP: "Alunos não estava inscrito na data",
+		ERROR_LOADING_ATTENDANCE: "Erro ao carregar chamada. Tente novamente!",
+		HELP: "Ajuda",
+		FINISH_EDITING: "Finalizar edição",
+		EDIT_TIP: "Obs: Suas alterações são salvas automaticamente.",
+		ERROR_UPDATING_ATTENDANCE: "Erro ao atualizar chamada. Tente novamente!",
 	},
 
 	NEW_FREQUENCY_MODAL: {
@@ -123,7 +141,7 @@ const MY_CLASSES = {
 	DELETE_CLASS_MODAL: {
 		TITLE: "Excluir turma",
 		MESSAGE1: "Tem certeza que deseja excluir a turma?",
-		MESSAGE2: "Essa ação não pode ser desfeita.",
+		MESSAGE2: "Essa ação não poderá ser desfeita.",
 		MESSAGE3: "Todo o histórico da turma e as presenças registradas serão perdidas.",
 		CANCEL_BTN: "Cancelar",
 		CONFIRM_BTN: "Confirmar",
@@ -131,6 +149,16 @@ const MY_CLASSES = {
 		DELETED: "Turma excluída com sucesso!",
 		ERROR: "Erro ao excluir turma. Tente novamente!",
 	},
+
+	HELP_MODAL: {
+		HELP: "Ajuda ",
+		P_TITLE: "P (Presente): ",
+		P_DESCRIPTION: "Aluno estava presente na aula.",
+		F_TITLE: "F (Faltou): ",
+		F_DESCRIPTION: "Aluno faltou a aula.",
+		UNSUBSCRIBED_TITLE: "Não Inscrito: ",
+		UNSUBSCRIBED_DESCRIPTION: "Aluno não estava matriculado quando \na chamada foi realizada."
+	}
 };
 
 export default MY_CLASSES;

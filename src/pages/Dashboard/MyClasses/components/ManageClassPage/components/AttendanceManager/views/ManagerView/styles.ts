@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { DEVICE } from "../../../../../../../constants/screenSize";
+import { DEVICE } from "../../../../../../../../../constants/screenSize";
 
 
 export const Container = styled.div`
     background-color: ${props => props.theme.surface1};
     width: 100%;
+    max-width: 2000px;
     display: flex;
     flex-direction: column;
     margin-top: 24px;
@@ -31,6 +32,7 @@ export const ButtonGroup = styled.div`
     flex-direction: row;
 
     button {
+        min-width: 150px;
         border-radius: 16px;
         padding: 16px;
         box-sizing: border-box;

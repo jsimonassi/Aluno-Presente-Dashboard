@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Course } from "../../../../../types/Course";
-import { AddStudents, ManageClassHeader, AttendanceManager, StudentsFrequency } from "./components";
+import { AddStudents, AttendanceManager, ManageClassHeader, StudentsFrequency } from "./components";
 import MESSAGES from "../../../../../constants/messages";
 
 interface ManageClassPageProps {
@@ -22,7 +22,7 @@ const ManageClassPage = (props: ManageClassPageProps) => {
 			return <AddStudents courseId={props.selectedClass.id} onRefreshClassRequested={props.onRefreshClassRequested} />;
 		case MESSAGES.MY_CLASSES.MANAGE_CLASS.AVAILABLE_OPTIONS[2]:
 		default:
-			return <StudentsFrequency />;
+			return <StudentsFrequency currentClass={props.selectedClass} />;
 		}
 	};
 	

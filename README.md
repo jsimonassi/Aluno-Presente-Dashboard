@@ -33,8 +33,8 @@ O projeto possui 3 ambientes de execução:
 
 Os ambientes de homologação e produção estão publicados e podem ser acessados nos seguintes links:
 
-- Homologação: https://aluno-presente-hml.vercel.app
-- Produção: https://aluno-presente.vercel.app
+- Homologação: https://alunopresente-hml.vercel.app
+- Produção: https://alunopresente.vercel.app
 
 ### Protótipo
 
@@ -42,7 +42,8 @@ O protótipo do portal do professor pode ser acessado no seguinte link: https://
 
 ### Desenvolvedor
 
-Desenvolvido por João Victor Simonassi como parte do projeto de conclusão do curso de Ciência da Computação da Universidade Federal Fluminense - UFF
+Desenvolvido por João Victor Simonassi como parte do trabalho final do curso de Ciência da Computação da Universidade Federal Fluminense - UFF.
+Orientador: Lauro Eduardo Kozovits.
 
 jsimonassi@id.uff.br
 

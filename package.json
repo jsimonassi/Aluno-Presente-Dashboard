@@ -16,6 +16,7 @@
     "axios": "^1.6.2",
     "base64-arraybuffer": "^1.0.2",
     "env-cmd": "^10.1.0",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "qrcode.react": "^3.1.0",
     "qs": "^6.11.2",
@@ -36,6 +37,7 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.3/xlsx-0.19.3.tgz"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/randomstring": "^1.1.8",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.42.1",

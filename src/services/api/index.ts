@@ -20,7 +20,6 @@ export const __ApiResourceClient = axios.create({
 
 __ApiResourceClient.interceptors.request.use((config) => {
 	const tokenData = LocalStorage.getLocalData(SESSION_CACHE_KEY);
-	console.log("Token Data", tokenData);
 	if(tokenData){
 		const token: TokenSession = JSON.parse(tokenData);
 		config.headers.Authorization = `Bearer ${token.accessToken}`;

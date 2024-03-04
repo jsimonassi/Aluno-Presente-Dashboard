@@ -52,7 +52,7 @@ const AttendanceInProgressQrCode = () => {
 				courseId: attendanceSession.courseId,
 				date: attendanceSession.date,
 				type: "START",
-				// useLocation: true
+				location: attendanceSession.location
 			} as WebSocketStartRequest;
 			console.log("Solicitando início de chamada: ", request);
 			sendJsonMessage(request);
@@ -100,7 +100,7 @@ const AttendanceInProgressQrCode = () => {
 			courseId: attendanceSession.courseId,
 			type: "STOP"
 		} as WebSocketStopRequest;
-		sendJsonMessage(JSON.stringify(request));
+		sendJsonMessage(request);
 	}, [attendanceSession]);
 
 
