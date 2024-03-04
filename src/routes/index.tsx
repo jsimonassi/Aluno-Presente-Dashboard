@@ -11,7 +11,7 @@ import GlobalStyle from "../assets/styles/GlobalStyle";
 import CONSTANTS from "../constants";
 import PrivateRoute from "../services/auth/PrivateRoute";
 import Menu from "../components/Menu";
-import { About, AttendanceInProgressQrCode, AttendanceInProgressSessionCode, ErrorPage, MyClasses, OldClasses, PostLogin } from "../pages";
+import { About, AttendanceInProgressQrCode, AttendanceInProgressSessionCode, MyClasses, OldClasses, PostLogin } from "../pages";
 
 const MainRoutes = () => {
 

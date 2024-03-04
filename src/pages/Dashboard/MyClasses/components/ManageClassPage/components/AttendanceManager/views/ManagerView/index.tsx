@@ -6,9 +6,7 @@ import DateNavigator from "../../../../../../../../../components/DateNavigator";
 import moment from "moment";
 import { MainButton, OutlineButton } from "../../../../../../../../../components/Buttons";
 import MESSAGES from "../../../../../../../../../constants/messages";
-import { AttendanceInProgress, LatLng } from "../../../../../../../../../types/Attendance";
-import { Helpers } from "../../../../../../../../../helpers";
-import { Storage } from "../../../../../../../../../services";
+import { LatLng } from "../../../../../../../../../types/Attendance";
 import CONSTANTS from "../../../../../../../../../constants";
 import { MainLoader } from "../../../../../../../../../components/Loaders";
 import { useAttendance } from "../../../../../../../../../contexts/Attendance";
@@ -21,7 +19,7 @@ interface AttendanceManagerProps {
 
 const ManagerView = (props: AttendanceManagerProps) => {
 
-	const {attendanceData, getAttendanceByMonth, getCompositeKey} = useAttendance();
+	const {attendanceData, getAttendanceByMonth, getCompositeKey, startAttendance} = useAttendance();
 	const [currentDate, setCurrentDate] = useState<moment.Moment>(moment());
 	const [newAttendanceModalIsOpen, setNewAttendanceModalIsOpen] = useState<boolean>(false);
 	const monthData = useMemo(() => {
@@ -46,15 +44,7 @@ const ManagerView = (props: AttendanceManagerProps) => {
 
 	const handleStartAttendance = (type: "qrCode" | "sessionCode", location: LatLng | null) => {
 		setNewAttendanceModalIsOpen(false);
-		const attendanceInProgress: AttendanceInProgress = {
-			courseId: props.currentClass.id,
-			type: type,
-			date: moment().format(),
-			status: "requested",
-			id: Helpers.CodeGenerator.generateRandomId32(),
-			location: location
-		};
-		Storage.LocalStorage.storeLocalData(attendanceInProgress.id, JSON.stringify(attendanceInProgress));
+		const attendanceInProgress = startAttendance(props.currentClass.id, type, location);
 
 		if (type === "qrCode") {
 			window.open("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_QR_CODE + "/" + attendanceInProgress.id, "_blank");

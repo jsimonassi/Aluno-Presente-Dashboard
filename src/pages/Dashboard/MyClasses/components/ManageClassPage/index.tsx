@@ -22,7 +22,7 @@ const ManageClassPage = (props: ManageClassPageProps) => {
 			return <AddStudents courseId={props.selectedClass.id} onRefreshClassRequested={props.onRefreshClassRequested} />;
 		case MESSAGES.MY_CLASSES.MANAGE_CLASS.AVAILABLE_OPTIONS[2]:
 		default:
-			return <StudentsFrequency />;
+			return <StudentsFrequency currentClass={props.selectedClass} />;
 		}
 	};
 	

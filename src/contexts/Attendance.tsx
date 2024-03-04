@@ -1,9 +1,13 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { AttendanceUpdateQueueItem, CacheByMonthCourseAttendance, CourseAttendance } from "../types/Course";
+import React, { createContext, useContext, useState } from "react";
+import { CacheByMonthCourseAttendance, CourseAttendance } from "../types/Course";
 import Api from "../services/api";
 import moment from "moment";
 import { getSessionData, removeSessionData, storeSessionData } from "../services/storage/sessionStorage";
 import toast from "react-hot-toast";
+import MESSAGES from "../constants/messages";
+import { AttendanceInProgress, LatLng } from "../types/Attendance";
+import { Helpers } from "../helpers";
+import { storeLocalData } from "../services/storage/localStorage";
 
 
 interface AttendanceContextData {
@@ -12,6 +16,7 @@ interface AttendanceContextData {
 	invalidateAttendanceCache: () => void;
 	updateFrequency: (studentAttendanceId: string, memberId: string, newStatusValue: number, updatedMonthData: CourseAttendance[], compositeKey: string) => void;
 	getCompositeKey: (courseId: string, startDate: string) => string;
+	startAttendance: (courseId: string, type: "qrCode" | "sessionCode", location: LatLng | null) => AttendanceInProgress;
 	attendanceData: CacheByMonthCourseAttendance | null;
 }
 
@@ -26,7 +31,6 @@ const CACHE_ATTENDANCE_BY_MONTH_KEY = "attendanceByMonthCache";
 const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => {
 
 	const [attendanceData, setAttendanceData] = useState<CacheByMonthCourseAttendance | null>(null);
-	const [updateQueue, setUpdatedQueue] = useState<AttendanceUpdateQueueItem[]>([]);
 
 	const recoverAttendanceCache = () => {
 		const cacheData = getSessionData(CACHE_ATTENDANCE_BY_MONTH_KEY);
@@ -46,7 +50,7 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 			}
 
 			const endDate = moment(startDate).endOf("month").format();
-			Api.Frequencies.getFrequencyByMonth(courseId, startDate, endDate)
+			Api.Frequencies.getFrequencyByDate(courseId, startDate, endDate)
 				.then((response) => {
 					let data = {};
 					if (attendanceData) {
@@ -70,6 +74,20 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 		});
 	};
 
+	const startAttendance = (courseId: string, type: "qrCode" | "sessionCode", location: LatLng | null) => {
+		const attendanceInProgress: AttendanceInProgress = {
+			courseId: courseId,
+			type: type,
+			date: moment().format(),
+			status: "requested",
+			id: Helpers.CodeGenerator.generateRandomId32(),
+			location: location
+		};
+		storeLocalData(attendanceInProgress.id, JSON.stringify(attendanceInProgress));
+		invalidateAttendanceCache();
+		return attendanceInProgress;
+	};
+
 	const updateFrequency = (studentAttendanceId: string, memberId: string, newStatusValue: number, updatedMonthData: CourseAttendance[], compositeKey: string) => {
 		const backupState = { ...attendanceData };
 		let data = {};
@@ -79,51 +97,22 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 		data[compositeKey] = updatedMonthData;
 		setAttendanceData(data);
 		storeSessionData(CACHE_ATTENDANCE_BY_MONTH_KEY, JSON.stringify(data));
-		// addToPromiseQueue({ backupState, promise: Api.Frequencies.updateFrequency, studentAttendanceId, memberId, newStatusValue });
 		Api.Frequencies.updateFrequency(studentAttendanceId, memberId, newStatusValue)
-			.then(() => {
-				// setUpdatedQueue(previous => previous.slice(1));
-				console.log("Promise resolved");
-			}).catch((error) => {
-				// const backupState = queueItem.backupState;
+			.catch(() => {
 				setAttendanceData(backupState);
 				storeSessionData(CACHE_ATTENDANCE_BY_MONTH_KEY, JSON.stringify(backupState));
-				// setUpdatedQueue([]);
-				toast.error("Erro ao atualizar frequência. Tente novamente!");
-				console.log("Promise rejected", error);
+				toast.error(MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.ERROR_UPDATING_ATTENDANCE);
 			});
 	};
 
 	const invalidateAttendanceCache = () => {
 		removeSessionData(CACHE_ATTENDANCE_BY_MONTH_KEY);
+		setAttendanceData(null);
 	};
-
-	const addToPromiseQueue = (queueItem: AttendanceUpdateQueueItem) => {
-		setUpdatedQueue(previous => [...previous, queueItem]);
-	};
-
-	useEffect(() => {
-		// if (updateQueue.length > 0) {
-		// 	const queueItem = updateQueue[0];
-		// 	queueItem.promise(queueItem.studentAttendanceId, queueItem.memberId, queueItem.newStatusValue)
-		// 		.then(() => {
-		// 			setUpdatedQueue(previous => previous.slice(1));
-		// 			console.log("Promise resolved");
-		// 		}).catch((error) => {
-		// 			const backupState = queueItem.backupState;
-		// 			setAttendanceData(backupState);
-		// 			storeSessionData(CACHE_ATTENDANCE_BY_MONTH_KEY, JSON.stringify(backupState));
-		// 			setUpdatedQueue([]);
-		// 			toast.error("Erro ao atualizar frequência. Tente novamente!");
-		// 			console.log("Promise rejected", error);
-		// 		});
-		// }
-	}, [updateQueue]);
 
 	const getCompositeKey = (courseId: string, startDate: string) => {
 		return courseId + "_" + startDate;
 	};
-
 
 	return (
 		<AttendanceContext.Provider
@@ -133,7 +122,8 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 				getAttendanceByMonth,
 				invalidateAttendanceCache,
 				updateFrequency,
-				getCompositeKey
+				getCompositeKey,
+				startAttendance
 			}}>
 			{children}
 		</AttendanceContext.Provider>

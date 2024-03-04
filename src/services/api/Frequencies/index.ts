@@ -3,7 +3,7 @@ import { __ApiResourceClient } from "..";
 import { CourseAttendance } from "../../../types/Course";
 
 const Frequencies = {
-	getFrequencyByMonth: (courseId: string, startDate: string, endDate: string) => {
+	getFrequencyByDate: (courseId: string, startDate: string, endDate: string) => {
 		return new Promise<CourseAttendance[]>((resolve) => {
 			__ApiResourceClient.get(`/frequencies/courses/${courseId}/owner?start=${startDate}&end=${endDate}`)
 				.then((response) => {

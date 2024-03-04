@@ -30,14 +30,6 @@ export interface CacheByMonthCourseAttendance {
     [compositeKeyDateCourseId: string]: CourseAttendance[];
 }
 
-export interface AttendanceUpdateQueueItem {
-    backupState: CacheByMonthCourseAttendance;
-    promise: (studentAttendanceId: string, memberId: string, newStatusValue: number) => Promise<void>;
-    studentAttendanceId: string,
-    memberId: string;
-    newStatusValue: number;
-}
-
 enum FrequencyStatus {
     PRESENT = 1,
     ABSENT = 2,

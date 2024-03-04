@@ -20,7 +20,6 @@ const NewAttendanceModal = (props: NewAttendanceModalProps) => {
 	const [selectedOption, setSelectedOption] = useState<AttendanceInProgressType | null>(null);
 	const locationScrollRef = useRef<HTMLDivElement | null>(null);
 
-	//TODO: Verificar a remoção do enableLocation
 
 	useEffect(() => {
 		resetStates();

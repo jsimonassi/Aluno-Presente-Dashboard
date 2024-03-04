@@ -25,7 +25,6 @@ const EditingView = (props: EditingViewProps) => {
 
 	const handleEditFrequency = (studentAttendanceId: string, memberId: string, newStatusValue: number) => {
 		const updatedMonthData = Helpers.AttendanceHelper.generateNewAttendance(monthData, memberId, studentAttendanceId, newStatusValue);
-		//Requisição entra na fila. Caso exista um erro, a fila é limpa e se retorna ao estado anterior.
 		updateFrequency(studentAttendanceId, memberId, newStatusValue, updatedMonthData, props.compositeKey);
 	};
 
