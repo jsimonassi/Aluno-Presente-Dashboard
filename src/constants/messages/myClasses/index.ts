@@ -43,14 +43,28 @@ const MY_CLASSES = {
 		MANUAL_ADD: "Adicionar alunos manualmente",
 		IMPORT_STUDENTS_DESCRIPTION: "Escolha esta opção se você possui uma planilha listando nome e e-mail dos alunos. O sistema irá identificar e cadastrar automaticamente todos os alunos em sua turma.",
 		MANUAL_ADD_DESCRIPTION: "Adicione manualmente a informação de novos alunos. O controle de presença só ficará válido para o aluno a partir da data de ingresso na disciplina. As aulas anteriores não terão falta ou presença a menos que o professor faça a edição.",
-	
+
 		FREQUENCY: "Frequência",
 		FREQUENCY_DESCRIPTION: "A frequência da turma é de ",
+		ERROR_LOADING_FREQUENCY: "Erro ao carregar frequência. Tente novamente!",
 
 		ADDING_STUDENT: "Adicionando aluno...",
 		ADDED_STUDENT: "Aluno adicionado com sucesso!",
+		STUDENTS_ADDED: "Alunos adicionados com sucesso!",
 		ERROR_ADDING_STUDENT: "Erro ao adicionar aluno. Tente novamente!",
 		ADDING_STUDENTS: "Adicionando alunos...",
+
+		CLASSROOM_FREQUENCY: {
+			NOTHING_TO_SHOW: "Não existem dados para essa turma.",
+			NOTHING_TO_SHOW_TIP: "Inicie uma nova chamada para visualizar a frequência.",
+			PRESENT_STUDENTS: "Número de presenças: ",
+			FAULT_STUDENTS: "Número de faltas: ",
+			TOTAL_CLASSES: "Total de aulas: ",
+			SEARCH_INTERVAL: "Intervalo de busca: ",
+			PERIOD: "Período: ",
+			LAST_UPDATE: "Última atualização: ",
+			REQUEST_UPDATE: "Atualizar",
+		},
 
 		ADD_FROM_XLSX_MODAL: {
 			TITLE: "Importar alunos",
@@ -78,19 +92,37 @@ const MY_CLASSES = {
 			CPF_PLACEHOLDER: "000.000.000-00",
 			NUMBER_PLACEHOLDER: "000000000",
 			MANDATORY_FIELD: "Campo obrigatório",
-		}
+		},
+
+		FAIL_TO_ADD_MODAL: {
+			TITLE: "Falha ao adicionar alunos",
+			MESSAGE: "Os seguintes alunos não foram adicionados:",
+			NAME: "Nome",
+			REASON: "Motivo",
+			OK_BTN: "Ok",
+		},
 	},
 
-	FREQUENCY_CONTROLLER: {
+	ATTENDANCE_CONTROLLER: {
 		STUDENTS: "Alunos",
 		EDIT_BTN: "Editar",
 		EXPORT_BTN: "Exportar",
 		NEW_FREQUENCY: "Nova chamada",
+		PRESENT_TIP: "Presente",
+		ABSENT_TIP: "Faltou",
+		JUSTIFIED_TIP: "Justificado",
+		UNSUBSCRIBED_TIP: "Alunos não estava inscrito na data",
+		ERROR_LOADING_ATTENDANCE: "Erro ao carregar chamada. Tente novamente!",
+		HELP: "Ajuda",
+		FINISH_EDITING: "Finalizar edição",
+		EDIT_TIP: "Obs: Suas alterações são salvas automaticamente.",
+		ERROR_UPDATING_ATTENDANCE: "Erro ao atualizar chamada. Tente novamente!",
 	},
 
 	NEW_FREQUENCY_MODAL: {
 		TITLE: "Nova chamada",
-		OBS: "Em ambos os casos utilizaremos o GPS do aluno para validar sua posição e comparar com o endereço da instituição onde a disciplina está sendo ministrada.",
+		ENABLE_LOCATION: "Utilizar localização do aluno para validar a presença",
+		OBS: "Ao marcar essa opção, usaremos o GPS do aluno para validar sua posição e comparar com o endereço definido ao iniciar a frequência.",
 		QR_CODE_TITLE: "Validação por QRCode (Recomendado)",
 		QR_CODE_DESCRIPTION: "Um QR code é gerado e atualizado a cada 5 segundos. O professor deve apresentar a página com o QR code a turma. O aluno faz a validação da chamada lendo o QR code pelo aplicativo Aluno Presente.  É a opção mais segura devido a atualização do QR code, garantindo que apenas alunos em sala possam validar a presença.",
 		SESSION_CODE_TITLE: "Validação por código de sessão",
@@ -99,12 +131,17 @@ const MY_CLASSES = {
 		QR_CODE_TIP: "Mostre o QR code ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
 		CODE_TIP: "Mostre o código ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
 		REGISTERED_STUDENTS: "Alunos registrados:",
+		START_ATTENDANCE_ERROR: "Ocorreu um erro ao iniciar a chamada. Tente novamente!",
+		START_ATTENDANCE_REDIRECT_INFO: "Fechar",
+		CHOOSE_OPTION: "Escolha uma opção:",
+		LOCATION: "Localização:",
+		START: "Iniciar chamada",
 	},
 
 	DELETE_CLASS_MODAL: {
 		TITLE: "Excluir turma",
 		MESSAGE1: "Tem certeza que deseja excluir a turma?",
-		MESSAGE2: "Essa ação não pode ser desfeita.",
+		MESSAGE2: "Essa ação não poderá ser desfeita.",
 		MESSAGE3: "Todo o histórico da turma e as presenças registradas serão perdidas.",
 		CANCEL_BTN: "Cancelar",
 		CONFIRM_BTN: "Confirmar",
@@ -112,6 +149,16 @@ const MY_CLASSES = {
 		DELETED: "Turma excluída com sucesso!",
 		ERROR: "Erro ao excluir turma. Tente novamente!",
 	},
+
+	HELP_MODAL: {
+		HELP: "Ajuda ",
+		P_TITLE: "P (Presente): ",
+		P_DESCRIPTION: "Aluno estava presente na aula.",
+		F_TITLE: "F (Faltou): ",
+		F_DESCRIPTION: "Aluno faltou a aula.",
+		UNSUBSCRIBED_TITLE: "Não Inscrito: ",
+		UNSUBSCRIBED_DESCRIPTION: "Aluno não estava matriculado quando \na chamada foi realizada."
+	}
 };
 
 export default MY_CLASSES;

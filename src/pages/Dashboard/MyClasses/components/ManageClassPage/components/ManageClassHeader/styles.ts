@@ -6,6 +6,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    max-width: 2000px;
     background-color: ${props => props.theme.surface1};
     border-radius: 32px;
     padding: 24px;

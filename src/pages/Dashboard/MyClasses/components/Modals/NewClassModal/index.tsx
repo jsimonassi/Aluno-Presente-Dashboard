@@ -206,10 +206,10 @@ const NewClassModal = (props: NewClassModalProps) => {
 							rowsNumber={4}
 						/>
 					</RowContainer>
-					<ModalFooter >
-						<MainButton enabled onClick={() => handleNewClass()} text={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.SAVE} />
-					</ModalFooter>
 				</ModalBody>
+				<ModalFooter >
+					<MainButton enabled onClick={() => handleNewClass()} text={MESSAGES.MY_CLASSES.NEW_CLASS_MODAL.SAVE} />
+				</ModalFooter>
 			</ModalContent>
 		</ModalContainer>
 	);

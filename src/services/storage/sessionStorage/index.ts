@@ -20,6 +20,14 @@ export const getSessionData = (key: string) => {
 	}
 };
 
+export const removeSessionData = (key: string) => {
+	try {
+		sessionStorage.removeItem(key);
+	} catch (e) {
+		console.log(e);
+	}
+};
+
 export const clearSessionStorage = () => {
 	try {
 		sessionStorage.clear();

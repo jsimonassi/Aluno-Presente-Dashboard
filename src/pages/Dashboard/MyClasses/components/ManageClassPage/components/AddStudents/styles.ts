@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     background-color: ${props => props.theme.surface1};
     width: 100%;
+    max-width: 2000px;
     display: flex;
     flex-direction: column;
     margin-top: 24px;

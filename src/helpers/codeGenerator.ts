@@ -18,8 +18,13 @@ const generateCodeChallenge = async (codeVerifier: string) => {
 		.replace(/=/g, "");
 };
 
+const generateRandomId32 = () => {
+	return randomstring.generate(32);
+};
+
 
 export const CodeGenerator = {
 	generateCodeVerifier,
-	generateCodeChallenge
+	generateCodeChallenge,
+	generateRandomId32
 };

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DEVICE } from "../../../../../../../../../../../constants/screenSize";
 
 interface ModalProps {
 	isOpen: boolean,
@@ -26,19 +27,11 @@ export const ModalContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 70%;
+	max-width: 600px;
 	background-color: ${props => props.theme.surface1};
 	border-radius: 24px;
 	padding: 20px;
 	box-sizing: border-box;
-    max-width: 700px;
-
-	> span {
-		color: ${props => props.theme.primary};
-		font-size: 12px;
-		font-family: "light";
-		margin-top: 24px;
-	}
 `;
 
 export const ModalHeader = styled.div`
@@ -70,67 +63,79 @@ export const ModalHeader = styled.div`
 export const ModalBody = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 	width: 100%;
+	margin-bottom: 30px;
 	margin-top: 20px;
 
-	p {
-		font-size: 14px;
-		font-family: "light";
-		text-align: center;
-		margin: 20px 0;
+	justify-content: center;
+	align-items: center;
+
+    @media ${DEVICE.TABLET} {
+        overflow-y: scroll;
+        padding-right: 10px;
+    }
+
+	h3 {
+		font-size: 24px;
+		font-family: "Medium";
 		color: ${props => props.theme.primary};
+		text-align: center;
+		margin-bottom: 28px;
+		background-color: ${props => props.theme.surface2};
+		border-radius: 16px;
+		padding: 10px;
 	}
 
-	h4 {
+	p {
 		color: ${props => props.theme.primary};
-		width: 100%;
-		margin-left: 30px;
+		font-family: "Light";
+		text-align: center;
+	}
+	
+	b {
+		font-family: "Bold"
 	}
 `;
 
-export const ModalFooter = styled.div`
+export const RowItem = styled.div`
+	display: flex;
+	flex-direction: row;
+	max-width: 500px;
+	text-align: start;
+	width: 95%;
+
+	b {
+		margin-right: 8px;
+		min-width: 100px;
+		white-space: nowrap;
+	}
+`;
+
+export const RowContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: flex-end;
 	width: 100%;
-	margin-top: 20px;
+
+    @media ${DEVICE.TABLET} {
+        flex-direction: column;
+    }
+`;
+
+
+export const ModalFooter = styled.div`
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	align-items: center;
+	margin-top: 30px;
 
 	button {
-		max-width: 300px;
-		height: 55px;
-		border-radius: 24px;
+		width: 30%;
+		border-radius: 15px;
+		background-color: ${props => props.theme.primaryColor};
+        min-width: 200px;
+		margin: 0;
 	}
-`;
 
-export const QrCodeContainer = styled.div`
-	border: 2px solid ${props => props.theme.primary};
-	padding: 10px;
-	border-radius: 16px;
 `;
-
-export const StudentsListContainer = styled.ul`
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	margin-top: 10px;
-	background-color: ${props => props.theme.surface2};
-	padding: 24px;
-	box-sizing: border-box;
-	border-radius: 16px;
-	height: 250px;
-	overflow-y: scroll;
-`;
-
-export const StudentItem = styled.li<StudentItemProps>`
-  	list-style-type: none;
-	background-color: ${props => props.index % 2 === 0 ? props.theme.surface1 : props.theme.surface2};
-	border-radius: 8px;
-	padding: 8px;
-	color: ${props => props.theme.primary};
-`;
-
-interface StudentItemProps {
-	index: number
-}

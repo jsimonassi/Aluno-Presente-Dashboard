@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DEVICE } from "../../../../../../../../../constants/screenSize";
 
 interface ModalProps {
 	isOpen: boolean,
@@ -26,19 +27,12 @@ export const ModalContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 60%;
+	width: 80%;
 	background-color: ${props => props.theme.surface1};
 	border-radius: 24px;
-	padding: 20px;
+	padding: 24px 24px 0px 24px;
 	box-sizing: border-box;
     max-width: 1000px;
-
-	> span {
-		color: ${props => props.theme.primary};
-		font-size: 12px;
-		font-family: "light";
-		margin-top: 24px;
-	}
 `;
 
 export const ModalHeader = styled.div`
@@ -66,3 +60,65 @@ export const ModalHeader = styled.div`
 		}
 	}
 `;
+
+export const ModalBody = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-bottom: 30px;
+	margin-top: 20px;
+    max-height: 500px;
+
+	input {
+		margin-bottom: 10px;
+	}
+
+	small {
+		margin-top: 20px;
+	}
+
+
+    @media ${DEVICE.TABLET} {
+        overflow-y: scroll;
+        padding-right: 10px;
+    }
+`;
+
+
+
+export const ModalFooter = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	align-items: center;
+	margin-bottom: 10px;
+
+	button {
+		width: 30%;
+		border-radius: 15px;
+		background-color: ${props => props.theme.primaryColor};
+        min-width: 200px;
+	}
+
+	p {
+		text-decoration: underline;
+		color: ${props => props.theme.textColor};
+		font-family: "normal";
+		font-size: 14px;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+`;
+
+export const TableContainer = styled.div`
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	width: 100%;
+	max-height: 400px;
+	margin-top: 20px;
+`;
+
+

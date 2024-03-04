@@ -1,6 +1,6 @@
-import { CourseFrequency } from "../../../../../../../../types/Course";
+import { CourseAttendance } from "../../../../../../../../types/Course";
 
-export const getPastClassesTimeByFrequency = (frequency: CourseFrequency[]) => {
+export const getPastClassesTimeByFrequency = (frequency: CourseAttendance[]) => {
 
 	const uniqueDates: string[] = [];
 
@@ -11,12 +11,27 @@ export const getPastClassesTimeByFrequency = (frequency: CourseFrequency[]) => {
 			}
 		});
 	});
+	
+	uniqueDates.sort((a, b) => {
+		const dateA = new Date(a);
+		const dateB = new Date(b);
+		return dateA.getTime() - dateB.getTime();
+	});
+
+	//To fix layout width
+	if(uniqueDates.length < 30) {
+		for(let i = 0; i < 30 - uniqueDates.length; i++) {
+			uniqueDates.push("");
+		}
+	}
 
 	return uniqueDates;
 };
 
-export const filterFrequencyByMonth = (frequency: CourseFrequency[], momentMonth: number) => {
-	const filteredFrequency = JSON.parse(JSON.stringify(frequency)) as CourseFrequency[];
+export const filterFrequencyByMonth = (frequency: CourseAttendance[], momentMonth: number) => {
+	if(!frequency) return [];
+
+	const filteredFrequency = JSON.parse(JSON.stringify(frequency)) as CourseAttendance[];
 	return filteredFrequency.map(item => {
 		item.frequencies = item.frequencies.filter(frequency => {
 			const date = new Date(frequency.date);

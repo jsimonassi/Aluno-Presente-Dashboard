@@ -68,6 +68,7 @@ export const ModalBody = styled.div`
 	margin-bottom: 30px;
 	margin-top: 20px;
     max-height: 500px;
+	overflow-y: auto;
 
 	input {
 		margin-bottom: 10px;
