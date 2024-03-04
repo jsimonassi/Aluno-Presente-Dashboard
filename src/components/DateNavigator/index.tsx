@@ -11,6 +11,8 @@ interface DateNavigatorProps {
     onNextMonth: () => void;
     onPreviousMonth: () => void;
     currentDate: moment.Moment;
+	firstMonthLimit?: moment.Moment;
+	endMonthLimit?: moment.Moment;
 }
 
 const DateNavigator = (props: DateNavigatorProps) => {
@@ -19,11 +21,11 @@ const DateNavigator = (props: DateNavigatorProps) => {
 
 	return (
 		<Container>
-			<IconContainer>
+			<IconContainer disabled={props.firstMonthLimit && props.currentDate.isSame(props.firstMonthLimit, "month")} >
 				<IoIosArrowBack onClick={props.onPreviousMonth} size={30} color={currentTheme.primary} />
 			</IconContainer>
 			<p>{MONTHS[props.currentDate.month()] + "/" + props.currentDate.year()}</p>
-			<IconContainer>
+			<IconContainer disabled={props.endMonthLimit && props.currentDate.isSame(props.endMonthLimit, "month")} >
 				<IoIosArrowForward onClick={props.onNextMonth} size={30} color={currentTheme.primary} />
 			</IconContainer>
 		</Container>

@@ -13,12 +13,18 @@ export const Container = styled.div`
     }
 `;
 
-export const IconContainer = styled.div`
+export const IconContainer = styled.div <DisableNavigationProps>`
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: ${props => props.disabled ? 0.5 : 1};
+    pointer-events: ${props => props.disabled ? "none" : "auto"};
 
     &:hover {
-        cursor: pointer;
+        cursor: ${props => props.disabled ? "not-allowed" : "pointer"};
     }
 `;
+
+interface DisableNavigationProps {
+    disabled?: boolean;
+}

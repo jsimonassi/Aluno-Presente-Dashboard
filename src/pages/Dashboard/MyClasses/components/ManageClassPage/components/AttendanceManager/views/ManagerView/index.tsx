@@ -82,7 +82,13 @@ const ManagerView = (props: AttendanceManagerProps) => {
 				</TipItem>
 			</TipContainer>
 			<FooterContainer>
-				<DateNavigator currentDate={currentDate} onNextMonth={increaseMonth} onPreviousMonth={decreaseMonth} />
+				<DateNavigator 
+					currentDate={currentDate} 
+					onNextMonth={increaseMonth} 
+					onPreviousMonth={decreaseMonth}
+					firstMonthLimit={ props.currentClass.createdAt ? moment(props.currentClass.createdAt) : undefined}
+					endMonthLimit={moment()}
+				/>
 				<ButtonGroup>
 					<OutlineButton
 						onClick={() => monthData &&
