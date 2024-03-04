@@ -46,12 +46,25 @@ const MY_CLASSES = {
 
 		FREQUENCY: "Frequência",
 		FREQUENCY_DESCRIPTION: "A frequência da turma é de ",
+		ERROR_LOADING_FREQUENCY: "Erro ao carregar frequência. Tente novamente!",
 
 		ADDING_STUDENT: "Adicionando aluno...",
 		ADDED_STUDENT: "Aluno adicionado com sucesso!",
 		STUDENTS_ADDED: "Alunos adicionados com sucesso!",
 		ERROR_ADDING_STUDENT: "Erro ao adicionar aluno. Tente novamente!",
 		ADDING_STUDENTS: "Adicionando alunos...",
+
+		CLASSROOM_FREQUENCY: {
+			NOTHING_TO_SHOW: "Não existem dados para essa turma.",
+			NOTHING_TO_SHOW_TIP: "Inicie uma nova chamada para visualizar a frequência.",
+			PRESENT_STUDENTS: "Número de presenças: ",
+			FAULT_STUDENTS: "Número de faltas: ",
+			TOTAL_CLASSES: "Total de aulas: ",
+			SEARCH_INTERVAL: "Intervalo de busca: ",
+			PERIOD: "Período: ",
+			LAST_UPDATE: "Última atualização: ",
+			REQUEST_UPDATE: "Atualizar",
+		},
 
 		ADD_FROM_XLSX_MODAL: {
 			TITLE: "Importar alunos",

@@ -43,7 +43,9 @@ const EditingView = (props: EditingViewProps) => {
 						enabled
 					/>
 					<MainButton
-						onClick={props.onStopEditing}
+						onClick={() => {
+							props.onStopEditing();
+						}}
 						text={MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.FINISH_EDITING}
 						enabled
 					/>

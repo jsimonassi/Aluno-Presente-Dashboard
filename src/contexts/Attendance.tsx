@@ -9,7 +9,6 @@ import { AttendanceInProgress, LatLng } from "../types/Attendance";
 import { Helpers } from "../helpers";
 import { storeLocalData } from "../services/storage/localStorage";
 
-
 interface AttendanceContextData {
 	recoverAttendanceCache: () => void;
 	getAttendanceByMonth: (courseId: string, startDate: string) => Promise<CourseAttendance[]>;
