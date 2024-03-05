@@ -10,6 +10,10 @@ export interface Course {
     about?: string;
     members?: Student[];
     createdAt?: string;
+    teacher?: {
+        email: string;
+        name: string;
+    }
 }
 
 export interface ClassTime {

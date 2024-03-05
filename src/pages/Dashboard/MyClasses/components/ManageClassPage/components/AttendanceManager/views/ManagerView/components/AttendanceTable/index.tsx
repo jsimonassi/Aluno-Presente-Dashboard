@@ -1,11 +1,10 @@
 import React, { useMemo } from "react";
-import { DivTableContainer, HeaderContainer, HeaderItem, RowContainer, RowItem, RowStyled, UnsubscribedText } from "./styles";
+import { DivTableContainer, HeaderContainer, HeaderItem, RowContainer, RowItem, RowStyled } from "./styles";
 import { CourseAttendance } from "../../../../../../../../../../../types/Course";
 import MESSAGES from "../../../../../../../../../../../constants/messages";
-import { getPastClassesTimeByFrequency } from "../../../../utils";
+import { getPastClassesTimeByFrequency } from "../../../../../../../../../../../utils";
 import moment from "moment";
 import { AVAILABLE_FREQUENCY_STATUS } from "../../../../../../../../../../../constants/frequency";
-import { MdUnsubscribe } from "react-icons/md";
 
 
 interface AttendanceTableProps {

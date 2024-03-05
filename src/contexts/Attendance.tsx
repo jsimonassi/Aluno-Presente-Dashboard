@@ -16,6 +16,7 @@ interface AttendanceContextData {
 	updateFrequency: (studentAttendanceId: string, memberId: string, newStatusValue: number, updatedMonthData: CourseAttendance[], compositeKey: string) => void;
 	getCompositeKey: (courseId: string, startDate: string) => string;
 	startAttendance: (courseId: string, type: "qrCode" | "sessionCode", location: LatLng | null) => AttendanceInProgress;
+	getPeriodAttendanceByDateWithoutCache: (courseId: string, startDate: string, endDate: string) => Promise<CourseAttendance[]>;
 	attendanceData: CacheByMonthCourseAttendance | null;
 }
 
@@ -73,6 +74,12 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 		});
 	};
 
+
+	const getPeriodAttendanceByDateWithoutCache = (courseId: string, startDate: string, endDate: string) => {
+		return Api.Frequencies.getFrequencyByDate(courseId, startDate, endDate);
+	};
+
+
 	const startAttendance = (courseId: string, type: "qrCode" | "sessionCode", location: LatLng | null) => {
 		const attendanceInProgress: AttendanceInProgress = {
 			courseId: courseId,
@@ -119,6 +126,7 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 				attendanceData,
 				recoverAttendanceCache,
 				getAttendanceByMonth,
+				getPeriodAttendanceByDateWithoutCache,
 				invalidateAttendanceCache,
 				updateFrequency,
 				getCompositeKey,

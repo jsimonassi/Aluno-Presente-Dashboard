@@ -117,6 +117,9 @@ const MY_CLASSES = {
 		FINISH_EDITING: "Finalizar edição",
 		EDIT_TIP: "Obs: Suas alterações são salvas automaticamente.",
 		ERROR_UPDATING_ATTENDANCE: "Erro ao atualizar chamada. Tente novamente!",
+		EXPORT_PROGRESS_DOWNLOADING: "Recuperando informações do período...",
+		EXPORT_PROGRESS_CREATING: "Gerando arquivo...",
+		EXPORT_ERROR: "Erro ao exportar chamada. Tente novamente!",
 	},
 
 	NEW_FREQUENCY_MODAL: {
