@@ -31,6 +31,23 @@ const StudentsFrequency = (props: StudentsFrequencyProps) => {
 		return props.currentClass.period.split(".")[1] === "1" ? moment().startOf("year").add(6, "months") : moment().endOf("year");
 	}, [props.currentClass.period]);
 
+	const chartData = useMemo(() => {
+		if (presentStudents === undefined || faultStudents === undefined) return [];
+		
+		if(presentStudents === 0 && faultStudents > 0) return [
+			{ x: "Faltas: " + faultStudents, y: faultStudents },
+		];
+
+		if(faultStudents === 0 && presentStudents > 0) return [
+			{ x: "Presença: " + presentStudents, y: presentStudents },
+		];
+
+		return [
+			{ x: "Presença: " + presentStudents, y: presentStudents },
+			{ x: "Faltas: " + faultStudents, y: faultStudents },
+		];
+	}, [presentStudents, faultStudents]);
+
 	useEffect(() => {
 		if (!props.currentClass.period || !startDate || !endDate) return;
 		Api.Frequencies.getFrequencyByDate(props.currentClass.id, startDate.format(), endDate.format())
@@ -73,15 +90,13 @@ const StudentsFrequency = (props: StudentsFrequencyProps) => {
 		return (
 			<>
 				<VictoryPie
-					style={{ parent: { maxWidth: "40%", minWidth: "300px" } }}
+					style={{ parent: { maxWidth: "40%", minWidth: "300px" }, labels: { fontSize: 20, fill: "white" }}}
 					colorScale={[currentTheme.primary, currentTheme.error]}
-					data={[
-						{ x: "Presença", y: presentStudents },
-						{ x: "Faltas", y: faultStudents },
-					]}
+					labelRadius={50}
+					data={chartData}
 				/>
 				<InfosContainer>
-					<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.FREQUENCY_DESCRIPTION + ((presentStudents + faultStudents) / faultStudents).toFixed(2)}%.</h3>
+					<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.FREQUENCY_DESCRIPTION + ((presentStudents * 100)/(presentStudents + faultStudents)).toFixed(0)}%</h3>
 					<InfoRow>
 						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.CLASSROOM_FREQUENCY.PRESENT_STUDENTS}</h3>
 						<p>{presentStudents}</p>
@@ -96,7 +111,7 @@ const StudentsFrequency = (props: StudentsFrequencyProps) => {
 					</InfoRow>
 					<InfoRow>
 						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.CLASSROOM_FREQUENCY.SEARCH_INTERVAL}</h3>
-						<p>Entre: {startDate?.format("DD/MM/YYYY")} e {endDate?.format("DD/MM/YYYY")}</p>
+						<p>{startDate?.format("DD/MM/YYYY")} a {endDate?.format("DD/MM/YYYY")}</p>
 					</InfoRow>
 					<InfoRow>
 						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.CLASSROOM_FREQUENCY.PERIOD}</h3>
