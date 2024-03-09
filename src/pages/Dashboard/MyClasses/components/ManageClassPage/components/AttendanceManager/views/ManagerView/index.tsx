@@ -12,6 +12,7 @@ import { MainLoader } from "../../../../../../../../../components/Loaders";
 import { useAttendance } from "../../../../../../../../../contexts/Attendance";
 import toast from "react-hot-toast";
 import { Helpers } from "../../../../../../../../../helpers";
+import { useNavigate } from "react-router-dom";
 
 interface AttendanceManagerProps {
 	currentClass: Course;
@@ -23,6 +24,8 @@ const ManagerView = (props: AttendanceManagerProps) => {
 	const { attendanceData, getAttendanceByMonth, getCompositeKey, startAttendance, getPeriodAttendanceByDateWithoutCache } = useAttendance();
 	const [currentDate, setCurrentDate] = useState<moment.Moment>(moment());
 	const [newAttendanceModalIsOpen, setNewAttendanceModalIsOpen] = useState<boolean>(false);
+	const navigate = useNavigate();
+
 	const monthData = useMemo(() => {
 		if (attendanceData) {
 			return attendanceData[getCompositeKey(props.currentClass.id, currentDate.startOf("month").format())];
@@ -48,13 +51,10 @@ const ManagerView = (props: AttendanceManagerProps) => {
 		const attendanceInProgress = startAttendance(props.currentClass.id, type, location);
 
 		if (type === "qrCode") {
-			window.open("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_QR_CODE + "/" + attendanceInProgress.id, "_blank");
+			navigate("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_QR_CODE + "/" + attendanceInProgress.id);
 		} else {
-			window.open("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_SESSION_CODE + "/" + attendanceInProgress.id, "_blank");
+			navigate("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_SESSION_CODE + "/" + attendanceInProgress.id);
 		}
-		//Através da cache as informações são passadas para a página e a chamada é iniciada via WS.
-		//Aba atual vai para home
-		window.open("/", "_self");
 	};
 
 	const handleExportAttendance = () => {

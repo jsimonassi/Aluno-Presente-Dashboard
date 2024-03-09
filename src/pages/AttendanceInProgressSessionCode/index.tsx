@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Body, Content, Footer, Header, PageBackground, StudentItem, StudentsListContainer } from "./styles";
+import { Body, Content, Footer, Header, LogoContainer, PageBackground, PageFooter, StudentItem, StudentsListContainer } from "./styles";
 
 import MESSAGES from "../../constants/messages";
 import { MainLoader } from "../../components/Loaders";
@@ -9,13 +9,14 @@ import { Storage } from "../../services";
 import { AttendanceInProgress as AttendanceInProgressType } from "../../types/Attendance";
 import { AttendanceErrorModal } from "./components";
 import Api from "../../services/api";
+import logo from "../../assets/images/whiteLogo.png";
+
 
 const AttendanceInProgressSessionCode = () => {
 
 	const [currentCodeValue, setCurrentCodeValue] = useState<string>("");
 	const [attendanceErrorModalVisible, setAttendanceErrorModalVisible] = useState<boolean>(false);
 	const [attendanceSession, setAttendanceSession] = useState<AttendanceInProgressType | null>(null);
-	const [registeredStudents, setRegisteredStudents] = useState<string[]>([]);
 	const [codeSessionFrequencyInProgress, setCodeSessionFrequencyInProgress] = useState<boolean>(false);
 
 	const cacheDataId = useParams<{ id: string }>().id;
@@ -35,7 +36,7 @@ const AttendanceInProgressSessionCode = () => {
 	}, []);
 
 	useEffect(() => {
-		if(attendanceSession){
+		if (attendanceSession) {
 			Api.Frequencies.createFrequencyWithStaticCode(attendanceSession.courseId, attendanceSession.date)
 				.then((response) => {
 					setCurrentCodeValue(response.code);
@@ -66,31 +67,24 @@ const AttendanceInProgressSessionCode = () => {
 				isOpen={attendanceErrorModalVisible}
 				onRedirectRequested={() => window.open("/", "_self")}
 			/>
+			<LogoContainer>
+				<img src={logo} alt="logo" />
+			</LogoContainer>
 			<Content >
 				<Header >
 					<h1>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.TITLE}</h1>
 				</Header>
 				<Body>
-
 					{getCode()}
-
-					<h4>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.REGISTERED_STUDENTS}</h4>
-					<StudentsListContainer>
-						{
-							registeredStudents.map((name, index) => (
-								<StudentItem key={index} index={index}>
-									{name}
-								</StudentItem>
-							))
-						}
-						{registeredStudents.length === 0 && <p>Mostre o código aos seus alunos para que eles registrem a presença.</p>}
-					</StudentsListContainer>
 				</Body>
-
 				<Footer>
 					<MainButton onClick={handleStopAttendance} text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.STOP_ATTENDANCE} enabled={codeSessionFrequencyInProgress} />
 				</Footer>
 			</Content>
+			<PageFooter>
+				<span>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_PAGE.TIPS}</span>
+				<a onClick={() => window.location.reload()}>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_PAGE.TIPS_REFRESH}.</a>
+			</PageFooter>
 		</PageBackground>
 	);
 };
