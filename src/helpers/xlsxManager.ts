@@ -98,6 +98,15 @@ const createAttendanceXlsx = async (attendance: CourseAttendance[], courseInfos:
 		//Estiliza a planilha
 
 		//Bg da imagem
+		for(let i = 1; i <= 4; i++) {
+			sheet.getCell(`A${i}`).style = {
+				fill: {
+					type: "pattern",
+					pattern:"solid",
+					fgColor:{argb:"FFFFFF"}
+				}
+			};
+		}
 		// for(let row = 1; row <= 4; row++) {
 		// 	for(const col of ["A", "B"]) {
 		// 		sheet.getCell(`${col}${row}`).style = {
