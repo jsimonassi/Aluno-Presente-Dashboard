@@ -33,7 +33,7 @@ export const LocationBox = ({ boxStyle, onLocationSelected, onLocationReset }: L
 		setSearchBoxA(ref);
 	};
 
-	const onUnmount = React.useCallback(function callback(map) {
+	const onUnmount = React.useCallback(function callback() {
 		setMap(null);
 	}, []);
 

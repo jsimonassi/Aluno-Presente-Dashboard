@@ -41,6 +41,6 @@ export const ModalContent = styled.div`
 		text-align: center;
 		font-weight: 500;
 		line-height: 30px;
-		font-family: "bold";
+		font-family: "Normal";
 	}
 `;

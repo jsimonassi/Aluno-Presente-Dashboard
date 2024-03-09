@@ -8,7 +8,7 @@ export const PageBackground = styled.div`
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-color: ${props => props.theme.primary};
+    background-color: ${props => props.theme.PageBackground};
 `;
 
 

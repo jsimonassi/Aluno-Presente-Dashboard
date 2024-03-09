@@ -1,4 +1,4 @@
-import { CourseAttendance } from "../../../../../../../../types/Course";
+import { CourseAttendance } from "../types/Course";
 
 export const getPastClassesTimeByFrequency = (frequency: CourseAttendance[]) => {
 

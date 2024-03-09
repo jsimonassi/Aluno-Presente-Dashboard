@@ -1,23 +1,27 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Body, Content, Footer, Header, PageBackground, StudentItem, StudentsListContainer } from "./styles";
+import { Body, Content, Footer, Header, PageBackground } from "./styles";
 
-import MESSAGES from "../../constants/messages";
-import { MainLoader } from "../../components/Loaders";
-import { MainButton } from "../../components/Buttons";
-import { useParams } from "react-router-dom";
-import { Storage } from "../../services";
-import { AttendanceInProgress as AttendanceInProgressType } from "../../types/Attendance";
-import { AttendanceErrorModal } from "./components";
-import Api from "../../services/api";
+import MESSAGES from "../../../../constants/messages";
+import { MainLoader } from "../../../../components/Loaders";
+import { MainButton } from "../../../../components/Buttons";
+import { useNavigate, useParams } from "react-router-dom";
+import { Storage } from "../../../../services";
+import { AttendanceInProgress as AttendanceInProgressType } from "../../../../types/Attendance";
+import { AttendanceErrorModal } from "../../components";
+import Api from "../../../../services/api";
+import { useAttendance } from "../../../../contexts/Attendance";
+import { AttendanceHeader } from "../../components/AttendanceHeader";
+import { AttendanceFooter } from "../../components/AttendanceFooter";
+
 
 const AttendanceInProgressSessionCode = () => {
 
 	const [currentCodeValue, setCurrentCodeValue] = useState<string>("");
 	const [attendanceErrorModalVisible, setAttendanceErrorModalVisible] = useState<boolean>(false);
 	const [attendanceSession, setAttendanceSession] = useState<AttendanceInProgressType | null>(null);
-	const [registeredStudents, setRegisteredStudents] = useState<string[]>([]);
 	const [codeSessionFrequencyInProgress, setCodeSessionFrequencyInProgress] = useState<boolean>(false);
-
+	const { cleanAttendance } = useAttendance();
+	const navigate = useNavigate();
 	const cacheDataId = useParams<{ id: string }>().id;
 
 	useEffect(() => {
@@ -35,7 +39,7 @@ const AttendanceInProgressSessionCode = () => {
 	}, []);
 
 	useEffect(() => {
-		if(attendanceSession){
+		if (attendanceSession) {
 			Api.Frequencies.createFrequencyWithStaticCode(attendanceSession.courseId, attendanceSession.date)
 				.then((response) => {
 					setCurrentCodeValue(response.code);
@@ -47,8 +51,10 @@ const AttendanceInProgressSessionCode = () => {
 	}, [attendanceSession]);
 
 	const handleStopAttendance = useCallback(() => {
-		if (!attendanceSession) return;
-
+		if (attendanceSession){
+			cleanAttendance(attendanceSession.id);
+		}
+		navigate("/");
 	}, [attendanceSession]);
 
 
@@ -66,31 +72,19 @@ const AttendanceInProgressSessionCode = () => {
 				isOpen={attendanceErrorModalVisible}
 				onRedirectRequested={() => window.open("/", "_self")}
 			/>
+			<AttendanceHeader />
 			<Content >
 				<Header >
 					<h1>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.TITLE}</h1>
 				</Header>
 				<Body>
-
 					{getCode()}
-
-					<h4>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.REGISTERED_STUDENTS}</h4>
-					<StudentsListContainer>
-						{
-							registeredStudents.map((name, index) => (
-								<StudentItem key={index} index={index}>
-									{name}
-								</StudentItem>
-							))
-						}
-						{registeredStudents.length === 0 && <p>Mostre o código aos seus alunos para que eles registrem a presença.</p>}
-					</StudentsListContainer>
 				</Body>
-
 				<Footer>
 					<MainButton onClick={handleStopAttendance} text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.STOP_ATTENDANCE} enabled={codeSessionFrequencyInProgress} />
 				</Footer>
 			</Content>
+			<AttendanceFooter />
 		</PageBackground>
 	);
 };
