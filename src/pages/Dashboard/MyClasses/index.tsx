@@ -25,6 +25,13 @@ const MyClasses = () => {
 	const refreshClasses = () => {
 		Api.Classes.getClasses().then((response) => {
 			setClasses(response);
+			if(selectedClass !== null) {
+				response.forEach((currentClass) => {
+					if(currentClass.id === selectedClass.id) {
+						setSelectedClass(currentClass);
+					}
+				});
+			}
 		}).catch((error) => {
 			console.log(error);
 			setClasses([]);

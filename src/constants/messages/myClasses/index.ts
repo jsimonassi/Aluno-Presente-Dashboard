@@ -64,6 +64,8 @@ const MY_CLASSES = {
 			PERIOD: "Período: ",
 			LAST_UPDATE: "Última atualização: ",
 			REQUEST_UPDATE: "Atualizar",
+			NO_STUDENTS: "Nenhum aluno encontrado.",
+			NO_STUDENTS_TIP: "Adicione alunos para começar a registrar a frequência.",
 		},
 
 		ADD_FROM_XLSX_MODAL: {
