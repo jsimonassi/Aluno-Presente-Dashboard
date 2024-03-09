@@ -28,7 +28,6 @@ export const ContentContainer = styled.div`
     align-items: center;
 
     h3 {
-        font-size: 28px;
         color: ${props => props.theme.primary};
     }
 
