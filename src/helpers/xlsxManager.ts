@@ -69,7 +69,7 @@ const createAttendanceXlsx = async (attendance: CourseAttendance[], courseInfos:
 			["Período", courseInfos.period],
 			["Data de criação", courseInfos.createdAt],
 			[],
-			["E-mail", "Nome do aluno", ...formattedHeaderItems]
+			["E-mail", "Matrícula",  "Nome do aluno", ...formattedHeaderItems]
 		];
 
 		attendance.forEach(studentAttendance => {
@@ -84,7 +84,7 @@ const createAttendanceXlsx = async (attendance: CourseAttendance[], courseInfos:
 				}
 				currentStudentAttendance.push(statusName);
 			});
-			data.push([studentAttendance.id, studentAttendance.name, ...currentStudentAttendance]);
+			data.push([studentAttendance.id, studentAttendance.registration ?? "", studentAttendance.name, ...currentStudentAttendance]);
 		});
 
 		data.forEach((row, rowIndex) => {
