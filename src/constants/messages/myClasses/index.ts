@@ -117,6 +117,9 @@ const MY_CLASSES = {
 		FINISH_EDITING: "Finalizar edição",
 		EDIT_TIP: "Obs: Suas alterações são salvas automaticamente.",
 		ERROR_UPDATING_ATTENDANCE: "Erro ao atualizar chamada. Tente novamente!",
+		EXPORT_PROGRESS_DOWNLOADING: "Recuperando informações do período...",
+		EXPORT_PROGRESS_CREATING: "Gerando arquivo...",
+		EXPORT_ERROR: "Erro ao exportar chamada. Tente novamente!",
 	},
 
 	NEW_FREQUENCY_MODAL: {
@@ -131,11 +134,16 @@ const MY_CLASSES = {
 		QR_CODE_TIP: "Mostre o QR code ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
 		CODE_TIP: "Mostre o código ao seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
 		REGISTERED_STUDENTS: "Alunos registrados:",
-		START_ATTENDANCE_ERROR: "Ocorreu um erro ao iniciar a chamada. Tente novamente!",
-		START_ATTENDANCE_REDIRECT_INFO: "Fechar",
+		START_ATTENDANCE_ERROR: "Ocorreu um erro ao iniciar a chamada.",
+		START_ATTENDANCE_REDIRECT_INFO: "Início",
 		CHOOSE_OPTION: "Escolha uma opção:",
 		LOCATION: "Localização:",
 		START: "Iniciar chamada",
+	},
+
+	NEW_FREQUENCY_PAGE: {
+		TIPS: "Enfrentando problemas? Experimente ",
+		TIPS_REFRESH: " atualizar a página",
 	},
 
 	DELETE_CLASS_MODAL: {

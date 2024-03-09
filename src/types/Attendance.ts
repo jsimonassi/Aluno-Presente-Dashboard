@@ -4,7 +4,7 @@ export interface AttendanceInProgress {
     courseId: string;
     status: AttendanceInProgressStatus;
     type: AttendanceInProgressType;
-    location: LatLng | null;
+    location?: LatLng | null;
 }
 
 export type AttendanceInProgressType = "qrCode" | "sessionCode";

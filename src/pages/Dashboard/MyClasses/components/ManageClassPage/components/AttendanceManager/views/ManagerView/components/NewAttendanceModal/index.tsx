@@ -97,10 +97,16 @@ const NewAttendanceModal = (props: NewAttendanceModalProps) => {
 					<ModalFooter>
 						<MainButton
 							enabled
-							onClick={() =>
-								selectedOption &&
-								selectedLatLng?.lat &&
-								props.onRequestStartAttendance(selectedOption, { latitude: selectedLatLng.lat, longitude: selectedLatLng.lng })}
+							onClick={() => {
+								if (!selectedOption) return;
+							
+								let location: LatLng | null = null;
+								if (enableLocation && selectedLatLng) {
+									location = { latitude: selectedLatLng.lat, longitude: selectedLatLng.lng };
+								}
+							
+								props.onRequestStartAttendance(selectedOption, location);
+							}}
 							text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.START}
 						/>
 					</ModalFooter>

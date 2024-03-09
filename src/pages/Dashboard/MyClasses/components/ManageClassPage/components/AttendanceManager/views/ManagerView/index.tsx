@@ -11,6 +11,8 @@ import CONSTANTS from "../../../../../../../../../constants";
 import { MainLoader } from "../../../../../../../../../components/Loaders";
 import { useAttendance } from "../../../../../../../../../contexts/Attendance";
 import toast from "react-hot-toast";
+import { Helpers } from "../../../../../../../../../helpers";
+import { useNavigate } from "react-router-dom";
 
 interface AttendanceManagerProps {
 	currentClass: Course;
@@ -19,11 +21,13 @@ interface AttendanceManagerProps {
 
 const ManagerView = (props: AttendanceManagerProps) => {
 
-	const {attendanceData, getAttendanceByMonth, getCompositeKey, startAttendance} = useAttendance();
+	const { attendanceData, getAttendanceByMonth, getCompositeKey, startAttendance, getPeriodAttendanceByDateWithoutCache } = useAttendance();
 	const [currentDate, setCurrentDate] = useState<moment.Moment>(moment());
 	const [newAttendanceModalIsOpen, setNewAttendanceModalIsOpen] = useState<boolean>(false);
+	const navigate = useNavigate();
+
 	const monthData = useMemo(() => {
-		if(attendanceData) {
+		if (attendanceData) {
 			return attendanceData[getCompositeKey(props.currentClass.id, currentDate.startOf("month").format())];
 		}
 		return null;
@@ -47,13 +51,28 @@ const ManagerView = (props: AttendanceManagerProps) => {
 		const attendanceInProgress = startAttendance(props.currentClass.id, type, location);
 
 		if (type === "qrCode") {
-			window.open("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_QR_CODE + "/" + attendanceInProgress.id, "_blank");
+			navigate("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_QR_CODE + "/" + attendanceInProgress.id);
 		} else {
-			window.open("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_SESSION_CODE + "/" + attendanceInProgress.id, "_blank");
+			navigate("/" + CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_SESSION_CODE + "/" + attendanceInProgress.id);
 		}
-		//Através da cache as informações são passadas para a página e a chamada é iniciada via WS.
-		//Aba atual vai para home
-		window.open("/", "_self");
+	};
+
+	const handleExportAttendance = () => {
+
+		if (!props.currentClass.period) return;
+
+		const toastRef = toast.loading(MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.EXPORT_PROGRESS_DOWNLOADING);
+		const startDate = props.currentClass.period.split(".")[1] === "1" ? moment().startOf("year") : moment().startOf("year").add(6, "months");
+		const endDate = props.currentClass.period.split(".")[1] === "1" ? moment().startOf("year").add(6, "months") : moment().endOf("year");
+
+		getPeriodAttendanceByDateWithoutCache(props.currentClass.id, startDate.format(), endDate.format())
+			.then((response) => {
+				toast.dismiss(toastRef);
+				Helpers.XlsxManager.createAttendanceXlsx(response, props.currentClass);
+			}).catch(() => {
+				toast.error(MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.EXPORT_ERROR);
+				toast.dismiss(toastRef);
+			});
 	};
 
 
@@ -82,7 +101,13 @@ const ManagerView = (props: AttendanceManagerProps) => {
 				</TipItem>
 			</TipContainer>
 			<FooterContainer>
-				<DateNavigator currentDate={currentDate} onNextMonth={increaseMonth} onPreviousMonth={decreaseMonth} />
+				<DateNavigator
+					currentDate={currentDate}
+					onNextMonth={increaseMonth}
+					onPreviousMonth={decreaseMonth}
+					firstMonthLimit={props.currentClass.createdAt ? moment(props.currentClass.createdAt) : undefined}
+					endMonthLimit={moment()}
+				/>
 				<ButtonGroup>
 					<OutlineButton
 						onClick={() => monthData &&
@@ -91,7 +116,7 @@ const ManagerView = (props: AttendanceManagerProps) => {
 						enabled
 					/>
 					<OutlineButton
-						onClick={() => null}
+						onClick={() => handleExportAttendance()}
 						text={MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.EXPORT_BTN}
 						enabled
 					/>
