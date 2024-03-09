@@ -21,7 +21,9 @@ Para executar o projeto é preciso ter as seguintes dependências instaladas:
 
 Para executar o projeto localmente com as envs de desenvolvimento é preciso executar o seguinte comando:
 
-```yarn start```
+     yarn install
+     &&
+     yarn start
 
 ### Ambientes de execução
 
@@ -42,7 +44,7 @@ O protótipo do portal do professor pode ser acessado no seguinte link: https://
 
 ### Desenvolvedor
 
-Desenvolvido por João Victor Simonassi como parte do trabalho final do curso de Ciência da Computação da Universidade Federal Fluminense - UFF.
+Desenvolvido por João Victor Simonassi e Lucas Lima como parte do trabalho final do curso de Ciência da Computação da Universidade Federal Fluminense - UFF.
 Orientador: Lauro Eduardo Kozovits.
 
 jsimonassi@id.uff.br
