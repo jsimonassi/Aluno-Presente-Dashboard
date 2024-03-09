@@ -6,6 +6,7 @@ import { getPastClassesTimeByFrequency } from "../utils";
 import moment from "moment";
 // import logo from "../assets/images/logoBlue.png";
 import { AVAILABLE_FREQUENCY_STATUS } from "../constants/frequency";
+import axios from "axios";
 
 /**
  * Le planilha no padrão da prograd e retorna uma lista de estudantes
@@ -49,12 +50,13 @@ const createAttendanceXlsx = async (attendance: CourseAttendance[], courseInfos:
 		const workbook = new ExcelJS.Workbook();
 		const sheet = workbook.addWorksheet("My Sheet");
 
-		// const logoImage = workbook.addImage({
-		// 	filename: "/public/logoBlue.png",
-		// 	extension: "png",
-		// });
+		const imageBuffer = await axios.get("https://alunopresente.vercel.app/logoBlue.png", { responseType: "arraybuffer" });
+		const imageId2 = workbook.addImage({
+			buffer: imageBuffer.data,
+			extension: "png",
+		});
 
-		// sheet.addImage(1, "A1:C4");
+		sheet.addImage(imageId2, "A1:A4");
 
 		const dateHeaderItems = getPastClassesTimeByFrequency(attendance);
 		const formattedHeaderItems = dateHeaderItems.map(date => {
@@ -69,7 +71,7 @@ const createAttendanceXlsx = async (attendance: CourseAttendance[], courseInfos:
 			["Período", courseInfos.period],
 			["Data de criação", courseInfos.createdAt],
 			[],
-			["E-mail", "Matrícula",  "Nome do aluno", ...formattedHeaderItems]
+			["E-mail", "Matrícula", "Nome do aluno", ...formattedHeaderItems]
 		];
 
 		attendance.forEach(studentAttendance => {
@@ -94,6 +96,20 @@ const createAttendanceXlsx = async (attendance: CourseAttendance[], courseInfos:
 		});
 
 		//Estiliza a planilha
+
+		//Bg da imagem
+		// for(let row = 1; row <= 4; row++) {
+		// 	for(const col of ["A", "B"]) {
+		// 		sheet.getCell(`${col}${row}`).style = {
+		// 			fill: {
+		// 				type: "pattern",
+		// 				pattern:"solid",
+		// 				fgColor:{argb:"FFFFFF"}
+		// 			}
+		// 		};
+		// 	}
+		// }
+
 		const header = sheet.getRow(10);
 		header.font = { bold: true };
 		header.fill = {
