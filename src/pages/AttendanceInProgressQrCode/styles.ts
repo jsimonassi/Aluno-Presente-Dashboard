@@ -8,7 +8,52 @@ export const PageBackground = styled.div`
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-color: ${props => props.theme.primary};
+    background-color: ${props => props.theme.background};
+`;
+
+export const LogoContainer = styled.div`
+	display: flex;
+	position: fixed;
+	justify-content: center;
+	top: 0;
+	width: 100%;
+	height: 70px;
+	justify-content: center;
+	align-items: center;
+	background-color: ${props => props.theme.primary};
+
+	img {
+		height: 50px;
+	}
+`;
+
+export const PageFooter = styled.div`
+	display: flex;
+	position: fixed;
+	justify-content: center;
+	align-items: center;
+	bottom: 0;
+	width: 100%;
+	height: 70px;
+	background-color: ${props => props.theme.primary};
+
+	span {
+		font-size: 16px;
+		color: ${props => props.theme.whiteText};
+		font-family: "light";
+		margin-right: 5px;
+	}
+
+	a {
+		font-size: 16px;
+		color: ${props => props.theme.whiteText};
+		font-family: "normal";
+		text-decoration: underline;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
 `;
 
 

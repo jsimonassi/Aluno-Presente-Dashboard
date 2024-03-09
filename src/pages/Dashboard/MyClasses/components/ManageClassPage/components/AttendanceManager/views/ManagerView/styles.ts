@@ -44,6 +44,10 @@ export const ButtonGroup = styled.div`
             margin: 32px 8px 0 8px;
         }
     }
+
+    @media ${DEVICE.TABLET} {
+        flex-direction: column;
+    }
 `;
 
 export const LoaderContainer = styled.div`

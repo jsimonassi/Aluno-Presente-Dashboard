@@ -141,6 +141,11 @@ const MY_CLASSES = {
 		START: "Iniciar chamada",
 	},
 
+	NEW_FREQUENCY_PAGE: {
+		TIPS: "Enfrentando problemas? Experimente ",
+		TIPS_REFRESH: " atualizar a página",
+	},
+
 	DELETE_CLASS_MODAL: {
 		TITLE: "Excluir turma",
 		MESSAGE1: "Tem certeza que deseja excluir a turma?",

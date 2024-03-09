@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Body, Content, Footer, Header, PageBackground, QrCodeContainer, StudentItem, StudentsListContainer } from "./styles";
+import { Body, Content, Footer, Header, LogoContainer, PageBackground, PageFooter, QrCodeContainer, StudentItem, StudentsListContainer } from "./styles";
 
 import MESSAGES from "../../constants/messages";
 import { MainLoader } from "../../components/Loaders";
@@ -11,6 +11,7 @@ import { AttendanceInProgress as AttendanceInProgressType, WebSocketStartRequest
 import { AttendanceErrorModal } from "./components";
 import { useSession } from "../../contexts/Session";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+import logo from "../../assets/images/whiteLogo.png";
 import toast from "react-hot-toast";
 
 const AttendanceInProgressQrCode = () => {
@@ -47,7 +48,7 @@ const AttendanceInProgressQrCode = () => {
 	}, []);
 
 	useEffect(() => {
-		if(attendanceSession && readyState === ReadyState.OPEN){
+		if (attendanceSession && readyState === ReadyState.OPEN) {
 			const request = {
 				courseId: attendanceSession.courseId,
 				date: attendanceSession.date,
@@ -73,7 +74,7 @@ const AttendanceInProgressQrCode = () => {
 
 	const onReceiveMessage = (event: MessageEvent) => {
 		console.log("Cod: ", event);
-		
+
 		//TODO: Add app deep link
 		const data: WebSocketResponse = JSON.parse(event.data);
 		switch (data.type) {
@@ -94,7 +95,7 @@ const AttendanceInProgressQrCode = () => {
 	};
 
 	const handleStopAttendance = useCallback(() => {
-		if(!attendanceSession) return;
+		if (!attendanceSession) return;
 
 		const request = {
 			courseId: attendanceSession.courseId,
@@ -109,7 +110,7 @@ const AttendanceInProgressQrCode = () => {
 			return <MainLoader />;
 		}
 
-	
+
 		return (
 			<QrCodeContainer>
 				<QRCodeSVG value={currentCodeValue} width={180} height={180} />
@@ -123,6 +124,9 @@ const AttendanceInProgressQrCode = () => {
 				isOpen={attendanceErrorModalVisible}
 				onRedirectRequested={() => window.open("/", "_self")}
 			/>
+			<LogoContainer>
+				<img src={logo} alt="logo" />
+			</LogoContainer>
 			<Content >
 				<Header >
 					<h1>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.TITLE}</h1>
@@ -148,6 +152,10 @@ const AttendanceInProgressQrCode = () => {
 					<MainButton onClick={handleStopAttendance} text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.STOP_ATTENDANCE} enabled={readyState === ReadyState.OPEN} />
 				</Footer>
 			</Content>
+			<PageFooter>
+				<span>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_PAGE.TIPS}</span>
+				<a onClick={() => window.location.reload()}>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_PAGE.TIPS_REFRESH}.</a>
+			</PageFooter>
 		</PageBackground>
 	);
 };

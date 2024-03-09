@@ -32,20 +32,17 @@ const StudentsFrequency = (props: StudentsFrequencyProps) => {
 	}, [props.currentClass.period]);
 
 	const chartData = useMemo(() => {
-		if (presentStudents === undefined || faultStudents === undefined) return [];
-		
-		if(presentStudents === 0 && faultStudents > 0) return [
-			{ x: "Faltas: " + faultStudents, y: faultStudents },
-		];
-
-		if(faultStudents === 0 && presentStudents > 0) return [
-			{ x: "Presença: " + presentStudents, y: presentStudents },
-		];
-
-		return [
-			{ x: "Presença: " + presentStudents, y: presentStudents },
-			{ x: "Faltas: " + faultStudents, y: faultStudents },
-		];
+		const data: any = [];
+	
+		if (presentStudents !== undefined && presentStudents > 0) {
+			data.push({ x: "Presença: " + presentStudents, y: presentStudents });
+		}
+	
+		if (faultStudents !== undefined && faultStudents > 0) {
+			data.push({ x: "Faltas: " + faultStudents, y: faultStudents });
+		}
+	
+		return data;
 	}, [presentStudents, faultStudents]);
 
 	useEffect(() => {
