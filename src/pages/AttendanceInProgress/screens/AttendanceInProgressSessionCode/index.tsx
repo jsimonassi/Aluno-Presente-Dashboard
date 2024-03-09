@@ -1,15 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Body, Content, Footer, Header, LogoContainer, PageBackground, PageFooter, StudentItem, StudentsListContainer } from "./styles";
+import { Body, Content, Footer, Header, PageBackground } from "./styles";
 
-import MESSAGES from "../../constants/messages";
-import { MainLoader } from "../../components/Loaders";
-import { MainButton } from "../../components/Buttons";
-import { useParams } from "react-router-dom";
-import { Storage } from "../../services";
-import { AttendanceInProgress as AttendanceInProgressType } from "../../types/Attendance";
-import { AttendanceErrorModal } from "./components";
-import Api from "../../services/api";
-import logo from "../../assets/images/whiteLogo.png";
+import MESSAGES from "../../../../constants/messages";
+import { MainLoader } from "../../../../components/Loaders";
+import { MainButton } from "../../../../components/Buttons";
+import { useNavigate, useParams } from "react-router-dom";
+import { Storage } from "../../../../services";
+import { AttendanceInProgress as AttendanceInProgressType } from "../../../../types/Attendance";
+import { AttendanceErrorModal } from "../../components";
+import Api from "../../../../services/api";
+import { useAttendance } from "../../../../contexts/Attendance";
+import { AttendanceHeader } from "../../components/AttendanceHeader";
+import { AttendanceFooter } from "../../components/AttendanceFooter";
 
 
 const AttendanceInProgressSessionCode = () => {
@@ -18,7 +20,8 @@ const AttendanceInProgressSessionCode = () => {
 	const [attendanceErrorModalVisible, setAttendanceErrorModalVisible] = useState<boolean>(false);
 	const [attendanceSession, setAttendanceSession] = useState<AttendanceInProgressType | null>(null);
 	const [codeSessionFrequencyInProgress, setCodeSessionFrequencyInProgress] = useState<boolean>(false);
-
+	const { cleanAttendance } = useAttendance();
+	const navigate = useNavigate();
 	const cacheDataId = useParams<{ id: string }>().id;
 
 	useEffect(() => {
@@ -48,8 +51,10 @@ const AttendanceInProgressSessionCode = () => {
 	}, [attendanceSession]);
 
 	const handleStopAttendance = useCallback(() => {
-		if (!attendanceSession) return;
-
+		if (attendanceSession){
+			cleanAttendance(attendanceSession.id);
+		}
+		navigate("/");
 	}, [attendanceSession]);
 
 
@@ -67,9 +72,7 @@ const AttendanceInProgressSessionCode = () => {
 				isOpen={attendanceErrorModalVisible}
 				onRedirectRequested={() => window.open("/", "_self")}
 			/>
-			<LogoContainer>
-				<img src={logo} alt="logo" />
-			</LogoContainer>
+			<AttendanceHeader />
 			<Content >
 				<Header >
 					<h1>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.TITLE}</h1>
@@ -81,10 +84,7 @@ const AttendanceInProgressSessionCode = () => {
 					<MainButton onClick={handleStopAttendance} text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.STOP_ATTENDANCE} enabled={codeSessionFrequencyInProgress} />
 				</Footer>
 			</Content>
-			<PageFooter>
-				<span>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_PAGE.TIPS}</span>
-				<a onClick={() => window.location.reload()}>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_PAGE.TIPS_REFRESH}.</a>
-			</PageFooter>
+			<AttendanceFooter />
 		</PageBackground>
 	);
 };

@@ -1,18 +1,20 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Body, Content, Footer, Header, LogoContainer, PageBackground, PageFooter, QrCodeContainer, StudentItem, StudentsListContainer } from "./styles";
+import { Body, Content, Footer, Header, PageBackground, QrCodeContainer, StudentItem, StudentsListContainer } from "./styles";
 
-import MESSAGES from "../../constants/messages";
-import { MainLoader } from "../../components/Loaders";
+import MESSAGES from "../../../../constants/messages";
+import { MainLoader } from "../../../../components/Loaders";
 import { QRCodeSVG } from "qrcode.react";
-import { MainButton } from "../../components/Buttons";
-import { useParams } from "react-router-dom";
-import { Storage } from "../../services";
-import { AttendanceInProgress as AttendanceInProgressType, WebSocketStartRequest, WebSocketResponse, WebSocketStopRequest } from "../../types/Attendance";
-import { AttendanceErrorModal } from "./components";
-import { useSession } from "../../contexts/Session";
+import { MainButton } from "../../../../components/Buttons";
+import { useNavigate, useParams } from "react-router-dom";
+import { Storage } from "../../../../services";
+import { AttendanceInProgress as AttendanceInProgressType, WebSocketStartRequest, WebSocketResponse, WebSocketStopRequest } from "../../../../types/Attendance";
+import { AttendanceErrorModal } from "../../components";
+import { useSession } from "../../../../contexts/Session";
 import useWebSocket, { ReadyState } from "react-use-websocket";
-import logo from "../../assets/images/whiteLogo.png";
 import toast from "react-hot-toast";
+import { useAttendance } from "../../../../contexts/Attendance";
+import { AttendanceHeader } from "../../components/AttendanceHeader";
+import { AttendanceFooter } from "../../components/AttendanceFooter";
 
 const AttendanceInProgressQrCode = () => {
 
@@ -20,11 +22,14 @@ const AttendanceInProgressQrCode = () => {
 	const [attendanceErrorModalVisible, setAttendanceErrorModalVisible] = useState<boolean>(false);
 	const [attendanceSession, setAttendanceSession] = useState<AttendanceInProgressType | null>(null);
 	const [registeredStudents, setRegisteredStudents] = useState<string[]>([]);
+	const timeoutCheckRef = React.useRef<NodeJS.Timeout | null>(null);
 
 	const { currentSession } = useSession();
+	const { cleanAttendance } = useAttendance();
+	const navigate = useNavigate();
 
 	const cacheDataId = useParams<{ id: string }>().id;
-	const url = "wss://resource-server-89f6660ebc95.herokuapp.com/v1/api/attendances/ws?token=" + currentSession?.accessToken;
+	const url = process.env.REACT_APP_WS_FULL_URL + "?token=" + currentSession?.accessToken;
 
 	const { sendJsonMessage, readyState } = useWebSocket(url, {
 		onOpen: (event) => handleConnectionOpened(event),
@@ -53,11 +58,24 @@ const AttendanceInProgressQrCode = () => {
 				courseId: attendanceSession.courseId,
 				date: attendanceSession.date,
 				type: "START",
-				location: attendanceSession.location
 			} as WebSocketStartRequest;
+			if (attendanceSession.location) {
+				request.location = attendanceSession.location;
+			}
 			console.log("Solicitando início de chamada: ", request);
 			sendJsonMessage(request);
 		}
+
+		timeoutCheckRef.current = setTimeout(() => {
+			setAttendanceErrorModalVisible(true);
+		}, 15000);
+
+		return () => {
+			if (timeoutCheckRef.current) {
+				clearTimeout(timeoutCheckRef.current);
+			}
+		};
+
 	}, [attendanceSession, readyState]);
 
 	const handleConnectionOpened = (event: Event) => {
@@ -75,14 +93,16 @@ const AttendanceInProgressQrCode = () => {
 	const onReceiveMessage = (event: MessageEvent) => {
 		console.log("Cod: ", event);
 
-		//TODO: Add app deep link
 		const data: WebSocketResponse = JSON.parse(event.data);
 		switch (data.type) {
 		case "CODE":
+			if (timeoutCheckRef.current) {
+				clearTimeout(timeoutCheckRef.current);
+				timeoutCheckRef.current = null;
+			}
 			setCurrentCodeValue(data.value);
 			break;
 		case "WARN":
-			console.log("Vou chamar o warn!!");
 			toast(data.value + "\n" + data.description, {
 				icon: "⚠️",
 				duration: 5000
@@ -95,13 +115,15 @@ const AttendanceInProgressQrCode = () => {
 	};
 
 	const handleStopAttendance = useCallback(() => {
-		if (!attendanceSession) return;
-
-		const request = {
-			courseId: attendanceSession.courseId,
-			type: "STOP"
-		} as WebSocketStopRequest;
-		sendJsonMessage(request);
+		if (attendanceSession) {
+			const request = {
+				courseId: attendanceSession.courseId,
+				type: "STOP"
+			} as WebSocketStopRequest;
+			sendJsonMessage(request);
+			cleanAttendance(attendanceSession.id);
+		}
+		navigate("/");
 	}, [attendanceSession]);
 
 
@@ -122,11 +144,9 @@ const AttendanceInProgressQrCode = () => {
 		<PageBackground  >
 			<AttendanceErrorModal
 				isOpen={attendanceErrorModalVisible}
-				onRedirectRequested={() => window.open("/", "_self")}
+				onRedirectRequested={() => navigate("/")}
 			/>
-			<LogoContainer>
-				<img src={logo} alt="logo" />
-			</LogoContainer>
+			<AttendanceHeader />
 			<Content >
 				<Header >
 					<h1>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.TITLE}</h1>
@@ -149,13 +169,14 @@ const AttendanceInProgressQrCode = () => {
 				</Body>
 
 				<Footer>
-					<MainButton onClick={handleStopAttendance} text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.STOP_ATTENDANCE} enabled={readyState === ReadyState.OPEN} />
+					<MainButton
+						onClick={handleStopAttendance}
+						text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.STOP_ATTENDANCE}
+						enabled
+					/>
 				</Footer>
 			</Content>
-			<PageFooter>
-				<span>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_PAGE.TIPS}</span>
-				<a onClick={() => window.location.reload()}>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_PAGE.TIPS_REFRESH}.</a>
-			</PageFooter>
+			<AttendanceFooter />
 		</PageBackground>
 	);
 };

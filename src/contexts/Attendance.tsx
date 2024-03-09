@@ -13,6 +13,7 @@ interface AttendanceContextData {
 	recoverAttendanceCache: () => void;
 	getAttendanceByMonth: (courseId: string, startDate: string) => Promise<CourseAttendance[]>;
 	invalidateAttendanceCache: () => void;
+	cleanAttendance: (attendanceInProgressId: string) => void;
 	updateFrequency: (studentAttendanceId: string, memberId: string, newStatusValue: number, updatedMonthData: CourseAttendance[], compositeKey: string) => void;
 	getCompositeKey: (courseId: string, startDate: string) => string;
 	startAttendance: (courseId: string, type: "qrCode" | "sessionCode", location: LatLng | null) => AttendanceInProgress;
@@ -94,6 +95,11 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 		return attendanceInProgress;
 	};
 
+	const cleanAttendance = (attendanceInProgressId: string) => {
+		removeSessionData(attendanceInProgressId);
+		invalidateAttendanceCache();
+	};
+
 	const updateFrequency = (studentAttendanceId: string, memberId: string, newStatusValue: number, updatedMonthData: CourseAttendance[], compositeKey: string) => {
 		const backupState = { ...attendanceData };
 		let data = {};
@@ -130,7 +136,8 @@ const AttendanceProvider: React.FC<AttendanceProviderProps> = ({ children }) => 
 				invalidateAttendanceCache,
 				updateFrequency,
 				getCompositeKey,
-				startAttendance
+				startAttendance,
+				cleanAttendance
 			}}>
 			{children}
 		</AttendanceContext.Provider>

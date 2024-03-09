@@ -32,6 +32,7 @@ const StudentsFrequency = (props: StudentsFrequencyProps) => {
 	}, [props.currentClass.period]);
 
 	const chartData = useMemo(() => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const data: any = [];
 	
 		if (presentStudents !== undefined && presentStudents > 0) {
