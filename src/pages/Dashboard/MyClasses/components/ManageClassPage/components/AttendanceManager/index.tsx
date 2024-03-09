@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Course } from "../../../../../../../types/Course";
 import ManagerView from "./views/ManagerView";
 import EditingView from "./views/EditingView";
+import { NoDataView } from "./views/NoDataView";
 
 interface AttendanceManagerProps {
 	currentClass: Course;
@@ -9,6 +10,14 @@ interface AttendanceManagerProps {
 
 const AttendanceManager = (props: AttendanceManagerProps) => {
 	const [attendanceKeyInEditing, setAttendanceKeyInEditing] = useState<string | null>(null);
+
+	console.log("AttendanceManager", props);
+
+	if(!props.currentClass.members || props.currentClass.members?.length <= 0) {
+		return (
+			<NoDataView />
+		);
+	}
 
 	if(attendanceKeyInEditing) {
 		return (
