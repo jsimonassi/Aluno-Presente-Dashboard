@@ -4,6 +4,7 @@ import HEADER from "./header";
 import MY_CLASSES from "./myClasses";
 import FEEDBACK_MESSAGES from "./feedback";
 import GENERAL from "./general";
+import EDIT_PROFILE from "./editProfile";
 
 
 const MESSAGES = {
@@ -12,7 +13,8 @@ const MESSAGES = {
 	HEADER,
 	MY_CLASSES,
 	FEEDBACK_MESSAGES,
-	GENERAL
+	GENERAL,
+	EDIT_PROFILE
 };
 
 export default MESSAGES;

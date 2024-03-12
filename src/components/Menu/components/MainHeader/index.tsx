@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { HeaderStyled } from "./styles";
 import ROUTES from "../../../../constants/routes";
@@ -8,6 +8,7 @@ import { useWindowDimensions } from "../../../../hooks";
 import CONSTANTS from "../../../../constants";
 import { useSession } from "../../../../contexts/Session";
 import { toast } from "react-hot-toast";
+import { ProfileEditModal } from "../../../Modals";
 
 interface Props {
     open: boolean;
@@ -21,6 +22,7 @@ const MainHeader = (props: Props) => {
 	const location = useLocation();
 	const {logout} = useSession();
 	const { width } = useWindowDimensions();
+	const [profileEditModalOpen, setProfileEditModalOpen] = useState(false);
 
 	const getPageTitle = () => {
 		const path = location.pathname;
@@ -45,6 +47,9 @@ const MainHeader = (props: Props) => {
 				toast.dismiss();
 			});
 			break;
+		case MESSAGES.HEADER.PROFILE_OPTION:
+			setProfileEditModalOpen(true);
+			break;
 		default:
 			console.log("Not implemented yet");
 		}
@@ -62,6 +67,7 @@ const MainHeader = (props: Props) => {
 				items={PROFILE_LIST}
 				onClick={onProfileClick}
 			/>
+			<ProfileEditModal isOpen={profileEditModalOpen} onClose={() => setProfileEditModalOpen(false)} />
 		</HeaderStyled>
 	);
 };

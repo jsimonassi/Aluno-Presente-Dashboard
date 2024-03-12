@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Container, DropdownItem, OpenContainer, SpacingContainer, StackContainer } from "./styles";
 import { IoIosArrowDown, IoIosArrowForward, IoIosArrowUp } from "react-icons/io";
 import { BiUserCircle } from "react-icons/bi";
-import { useUser } from "../../../../../../contexts/User";
 import { useAppTheme } from "../../../../../../contexts/Theme";
+import { useSession } from "../../../../../../contexts/Session";
 
 
 interface TextInputProps {
@@ -13,7 +13,7 @@ interface TextInputProps {
 const ProfileDropdown = (props: TextInputProps) => {
 
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const {loggedUser} = useUser();
+	const {currentUser} = useSession();
 	const {currentTheme} = useAppTheme();
 
 	const onProfileOptionClick = (option: string) => {
@@ -41,8 +41,8 @@ const ProfileDropdown = (props: TextInputProps) => {
 			{/* <EditPasswordModal isOpen={editPasswordModal} onCancel={() => setEditPasswordModal(false)} onEditPasswordRequested={onEditPasswordRequested} /> */}
 			<Container onClick={() => setIsOpen(!isOpen)} >
 				{
-					loggedUser.photo ?
-						<img src={loggedUser.photo} /> :
+					currentUser?.photo ?
+						<img src={currentUser.photo} /> :
 						<BiUserCircle color={currentTheme.primary} fontSize="3.2em" />
 				}
 				<div>

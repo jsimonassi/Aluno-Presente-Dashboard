@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Container, DropdownItem, OpenContainer, SpacingContainer, StackContainer } from "./styles";
 import { IoIosArrowDown, IoIosArrowForward, IoIosArrowUp } from "react-icons/io";
 import { BiUserCircle } from "react-icons/bi";
-import { useUser } from "../../../../../../contexts/User";
 import { useAppTheme } from "../../../../../../contexts/Theme";
+import { useSession } from "../../../../../../contexts/Session";
 
 
 interface ProfileProps {
@@ -14,15 +14,15 @@ interface ProfileProps {
 const ProfileDropdown = (props: ProfileProps) => {
 
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const {loggedUser} = useUser();
+	const {currentUser} = useSession();
 	const {currentTheme} = useAppTheme();
 
 	return (
 		<StackContainer onMouseLeave={() => setIsOpen(false)}>
 			<Container onClick={() => setIsOpen(!isOpen)} >
 				{
-					loggedUser.photo ?
-						<img src={loggedUser.photo} /> :
+					currentUser?.photo ?
+						<img src={currentUser.photo} /> :
 						<BiUserCircle color={currentTheme.primary} fontSize="3.2em" />
 				}
 				<div>

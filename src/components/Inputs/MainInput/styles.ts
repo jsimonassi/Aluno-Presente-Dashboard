@@ -35,7 +35,6 @@ export const TextAreaStyled = styled.textarea<ITagInputProps>`
     align-items: flex-start;
     height: ${props => props?.rowsNumber ? props.rowsNumber * 40 : 40}px;
     width: 100%;
-    background-color: transparent;
     border: ${props => props.isError ? `1px solid ${props.theme.error}` : "none"};
     outline: none;
     color: ${props => props.theme.primary};
@@ -64,12 +63,11 @@ export const InputStyled = styled.input<ITagInputProps>`
     align-items: flex-start;
     height: 45px;
     width: 100%;
-    background-color: transparent;
     border: ${props => props.isError ? `1px solid ${props.theme.error}` : "none"};
     outline: none;
     color: ${props => props.theme.primary};
     font-size: 16px;
-    background-color: ${props => props.theme.background};
+    background-color: ${props => props.disabled? props.theme.secondaryText : props.theme.background};
     border-radius: 32px;
     box-sizing: border-box;
     padding-left: 10px;
