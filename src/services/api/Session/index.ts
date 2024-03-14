@@ -39,6 +39,16 @@ const Session = {
 				reject(error);
 			});
 		});
+	},
+	updateLoggedUser: (newUser: User) => {
+		return new Promise<void>((resolve, reject) => {
+			__ApiResourceClient.patch("/users", newUser.info)
+				.then(() => {
+					resolve();
+				}).catch((error) => {
+					reject(error);
+				});
+		});
 	}
 };
 

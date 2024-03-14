@@ -1,5 +1,7 @@
 import FeedbackModal from "./FeedbackModal";
+import ProfileEditModal from "./ProfileEditModal";
 
 export {
-	FeedbackModal
+	FeedbackModal,
+	ProfileEditModal
 };

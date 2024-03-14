@@ -1,22 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Routes from "./routes";
 import { ThemeProvider } from "styled-components";
 import { useAppTheme } from "./contexts/Theme";
 import { Toaster } from "react-hot-toast";
-import { useUser } from "./contexts/User";
-import { useAttendance } from "./contexts/Attendance";
 
 function App() {
 
 	const {currentTheme} = useAppTheme();
-	const { loggedUser } = useUser();
-	const { recoverAttendanceCache } = useAttendance();
-
-	useEffect(() => {
-		if (loggedUser) {
-			recoverAttendanceCache();
-		}
-	}, [loggedUser]);
 
 	return (
 		<ThemeProvider theme={currentTheme}>

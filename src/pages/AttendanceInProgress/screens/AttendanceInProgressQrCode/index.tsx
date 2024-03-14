@@ -108,6 +108,11 @@ const AttendanceInProgressQrCode = () => {
 				duration: 5000
 			});
 			break;
+		case "MEMBER_INCLUDED":
+			setRegisteredStudents((prev) => {
+				return [...prev, data.value];
+			});
+			break;
 		default:
 			console.log("Unknown message: ", data);
 			break;
