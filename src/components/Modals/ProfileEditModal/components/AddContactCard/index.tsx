@@ -7,9 +7,9 @@ import { useAppTheme } from "../../../../../contexts/Theme";
 
 interface ContactCardProps {
 	onCancel: () => void;
-	availableType: { type: string, prettyName: string, placeholder: string }[];
-	newContact: { type: string, value: string };
-	onChange: (type: string, value: string) => void;
+	availableType: { id: number, prettyName: string, placeholder: string }[];
+	newContact: { id: number, value: string };
+	onChange: (id: number, value: string) => void;
 	errorText: string;
 }
 
@@ -21,13 +21,13 @@ const AddContactCard = (props: ContactCardProps) => {
 		<Container>
 			<InputGroup>
 				<MainInput
-					onChange={(newValue) => props.onChange(props.newContact.type, newValue)}
-					placeholder={props.availableType.find((type) => type.type === props.newContact.type)?.placeholder ?? ""}
+					onChange={(newValue) => props.onChange(props.newContact.id, newValue)}
+					placeholder={props.availableType.find((type) => type.id === props.newContact.id)?.placeholder ?? ""}
 					value={props.newContact.value}
 					type=""
 					errorText={props.errorText}
 					inputStyle={{backgroundColor: currentTheme.surface2, height: "40px", marginBottom: "5px", width: "90%", borderRadius: "16px"}}
-					title={props.availableType.find((type) => type.type === props.newContact.type)?.prettyName ?? ""}
+					title={props.availableType.find((type) => type.id === props.newContact.id)?.prettyName ?? ""}
 				/>
 				<CloseIconContainer onClick={props.onCancel}>
 					<CloseIcon />
@@ -36,7 +36,7 @@ const AddContactCard = (props: ContactCardProps) => {
 			<ButtonGroup>
 				{
 					props.availableType.map((type, index) => {
-						if (type.type === props.newContact.type) {
+						if (type.id === props.newContact.id) {
 							return <MainButton
 								enabled
 								key={index}
@@ -50,7 +50,7 @@ const AddContactCard = (props: ContactCardProps) => {
 								styles={{backgroundColor: "white"}}
 								key={index}
 								text={type.prettyName}
-								onClick={() => props.onChange(type.type, props.newContact.value)} />
+								onClick={() => props.onChange(type.id, props.newContact.value)} />
 						);
 					})
 				}

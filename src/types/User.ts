@@ -5,7 +5,7 @@ export interface User {
     info: {
         about: string;
         contacts: {
-            type: string;
+            id: number;
             value: string;
         }[];
     };

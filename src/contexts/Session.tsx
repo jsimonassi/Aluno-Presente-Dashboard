@@ -15,6 +15,7 @@ interface SessionContextData {
 	redirectToLogin: (redirectUrl: string) => void;
 	getAuthToken: (code: string, redirectUrl: string) => Promise<TokenSession>;
 	logout: () => Promise<void>;
+	updateUser: (newUser: User) => Promise<void>;
 	currentSession: TokenSession | null;
 	currentUser: User | null;
 }
@@ -84,6 +85,21 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 		}
 	};
 
+
+	const updateUser = (newUser: User) => {
+		return new Promise<void>((resolve, reject) => {
+			Api.Session.updateLoggedUser(newUser)
+				.then(() => {
+					setCurrentUser(newUser);
+					LocalStorage.storeLocalData(CURRENT_USER_CACHE_KEY, JSON.stringify(newUser));
+					resolve();
+				}).catch((error) => {
+					reject(error);
+				});
+		});
+	};
+
+
 	const __resetLocalSession = () => {
 		setCurrentSession(null);
 		setCurrentUser(null);
@@ -109,6 +125,7 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 				redirectToLogin,
 				getAuthToken,
 				logout,
+				updateUser,
 				currentSession,
 				currentUser
 			}}

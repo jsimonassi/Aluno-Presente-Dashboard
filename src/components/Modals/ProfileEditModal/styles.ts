@@ -142,3 +142,11 @@ export const NoneContactContainer = styled.div`
 	color: ${props => props.theme.primary};
 	height: 80px;
 `;
+
+export const ScrollContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-height: 200px;
+	overflow-y: auto;
+`;
