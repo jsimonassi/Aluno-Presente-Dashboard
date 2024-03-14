@@ -38,9 +38,9 @@ export const EmptyContainer = styled.div`
     }
 `;
 
-export const ContentContainer = styled.div`
+export const ContentContainer = styled.div<ClassCardContainerProps>`
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(${props => props.gridStyle}, auto);
     justify-content: space-around;
     grid-gap: 5px;
     flex-wrap: wrap;
@@ -59,3 +59,7 @@ export const AllClassContainer = styled.div`
     justify-content: center;
     align-items: center;
 `;
+
+interface ClassCardContainerProps {
+    gridStyle?: 1 | 2 | 3;
+}

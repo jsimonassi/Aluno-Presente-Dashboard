@@ -99,12 +99,12 @@ const ProfileEditModal = (props: FeedbackModalProps) => {
 	const handleUpdateUser = () => {
 		props.onClose();
 		if(editingUser && !lodash.isEqual(editingUser, currentUser)){
-			const toastRef = toast.loading("Atualizando");
+			const toastRef = toast.loading(MESSAGES.EDIT_PROFILE.UPDATING);
 			updateUser(editingUser)
 				.then(() => {
-					toast.success("Atualizado com sucesso!");
+					toast.success(MESSAGES.EDIT_PROFILE.UPDATE_SUCCESS);
 				}).catch(() => {
-					toast.error("Erro ao atualizar usuário. Tente novamente!");
+					toast.error(MESSAGES.EDIT_PROFILE.UPDATE_ERROR);
 				}).finally(() => {
 					toast.dismiss(toastRef);
 				});
