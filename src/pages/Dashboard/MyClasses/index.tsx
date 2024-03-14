@@ -99,11 +99,25 @@ const MyClasses = () => {
 		);
 	};
 
+	const getGridStyle = () => {
+		if(classes === null) {
+			return 2;
+		}
+
+		if(classes.length % 2 == 0) {
+			return 2;
+		} else if(classes.length % 3 == 0) {
+			return 3;
+		} else {
+			return 1;
+		}
+	};
+
 	const getContent = () => {
 		if (classes === null) {
 			return (
 				<AllClassContainer>
-					<ContentContainer >
+					<ContentContainer gridStyle={getGridStyle()}>
 						{
 							[...Array(4)].map((_, index) => (
 								<SvgLoader key={index} />
@@ -117,7 +131,7 @@ const MyClasses = () => {
 		} else {
 			return (
 				<AllClassContainer>
-					<ContentContainer>
+					<ContentContainer gridStyle={getGridStyle()}>
 						{classes.map((currentClass) => (
 							<ClassCard
 								currentClass={currentClass}

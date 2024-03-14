@@ -1,7 +1,6 @@
 import React from "react";
 import { CloseIconContainer, Container, InfosContainer } from "./styles";
 import { ReactComponent as CloseIcon } from "../../../../../assets/images/closeIcon.svg";
-import { useAppTheme } from "../../../../../contexts/Theme";
 
 interface ContactCardProps {
 	value: string;
