@@ -141,6 +141,7 @@ const MY_CLASSES = {
 		CHOOSE_OPTION: "Escolha uma opção:",
 		LOCATION: "Localização:",
 		START: "Iniciar chamada",
+		TIP: "Mostre o código aos seus alunos para que eles possam registrar a presença pelo app Aluno Presente.",
 	},
 
 	NEW_FREQUENCY_PAGE: {

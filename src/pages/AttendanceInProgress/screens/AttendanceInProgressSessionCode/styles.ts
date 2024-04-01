@@ -69,7 +69,8 @@ export const Body = styled.div`
 		font-family: "light";
 		text-align: center;
 		margin: 20px 0;
-		color: ${props => props.theme.primary};
+		width: 70%;
+		color: ${props => props.theme.secondaryText};
 	}
 
 	h4 {

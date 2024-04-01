@@ -12,6 +12,9 @@ import Api from "../../../../services/api";
 import { useAttendance } from "../../../../contexts/Attendance";
 import { AttendanceHeader } from "../../components/AttendanceHeader";
 import { AttendanceFooter } from "../../components/AttendanceFooter";
+import { StaticAttendanceInfos } from "../../../../types/api/Attendance";
+import toast from "react-hot-toast";
+import { CodeView } from "./components/CodeView";
 
 
 const AttendanceInProgressSessionCode = () => {
@@ -40,7 +43,19 @@ const AttendanceInProgressSessionCode = () => {
 
 	useEffect(() => {
 		if (attendanceSession) {
-			Api.Frequencies.createFrequencyWithStaticCode(attendanceSession.courseId, attendanceSession.date)
+			console.log("Infos que tenho: ", attendanceSession);
+			const staticInfos: StaticAttendanceInfos = {
+				courseId: attendanceSession.courseId,
+				date: attendanceSession.date,
+				type: "START",
+			};
+			
+			if(attendanceSession?.location){
+				staticInfos.latitude = attendanceSession.location.latitude;
+				staticInfos.longitude = attendanceSession.location.longitude;
+			}
+
+			Api.Frequencies.createFrequencyWithStaticCode(staticInfos)
 				.then((response) => {
 					setCurrentCodeValue(response.code);
 					setCodeSessionFrequencyInProgress(true);
@@ -51,10 +66,25 @@ const AttendanceInProgressSessionCode = () => {
 	}, [attendanceSession]);
 
 	const handleStopAttendance = useCallback(() => {
+		const toastRef = toast.loading(MESSAGES.GENERAL.SAVING);
 		if (attendanceSession){
-			cleanAttendance(attendanceSession.id);
+			const staticInfos: StaticAttendanceInfos = {
+				courseId: attendanceSession.courseId,
+				date: attendanceSession.date,
+				type: "STOP",
+			};
+			Api.Frequencies.createFrequencyWithStaticCode(staticInfos)
+				.then((response) => {
+					setCurrentCodeValue(response.code);
+					setCodeSessionFrequencyInProgress(true);
+				}).finally(() => {
+					cleanAttendance(attendanceSession.id);
+					toast.dismiss(toastRef);
+					navigate("/");
+				});
+		}else{
+			navigate("/");
 		}
-		navigate("/");
 	}, [attendanceSession]);
 
 
@@ -63,7 +93,7 @@ const AttendanceInProgressSessionCode = () => {
 			return <MainLoader />;
 		}
 
-		return <h1>{currentCodeValue}</h1>;
+		return <CodeView currentCodeValue={currentCodeValue} />;
 	};
 
 	return (
@@ -79,6 +109,7 @@ const AttendanceInProgressSessionCode = () => {
 				</Header>
 				<Body>
 					{getCode()}
+					<p>{MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.TIP}</p>
 				</Body>
 				<Footer>
 					<MainButton onClick={handleStopAttendance} text={MESSAGES.MY_CLASSES.NEW_FREQUENCY_MODAL.STOP_ATTENDANCE} enabled={codeSessionFrequencyInProgress} />

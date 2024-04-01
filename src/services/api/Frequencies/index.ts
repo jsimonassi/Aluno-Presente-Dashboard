@@ -1,6 +1,7 @@
 import moment from "moment";
 import { __ApiResourceClient } from "..";
 import { CourseAttendance } from "../../../types/Course";
+import { StaticAttendanceInfos } from "../../../types/api/Attendance";
 
 const Frequencies = {
 	getFrequencyByDate: (courseId: string, startDate: string, endDate: string) => {
@@ -17,9 +18,9 @@ const Frequencies = {
 				});
 		});
 	},
-	createFrequencyWithStaticCode: (courseId: string, date: string) => {
+	createFrequencyWithStaticCode: (attendanceInfos: StaticAttendanceInfos) => {
 		return new Promise<{code: string}>((resolve, reject) => {
-			__ApiResourceClient.post(`/frequencies/courses/${courseId}`, { date })
+			__ApiResourceClient.post(`/frequencies/courses/${attendanceInfos.courseId}/handler`, attendanceInfos)
 				.then((response) => {
 					resolve({ code: response.data.code });
 				}).catch((error) => {
