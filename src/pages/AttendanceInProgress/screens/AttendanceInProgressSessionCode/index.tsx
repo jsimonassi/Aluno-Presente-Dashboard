@@ -28,6 +28,22 @@ const AttendanceInProgressSessionCode = () => {
 	const cacheDataId = useParams<{ id: string }>().id;
 
 	useEffect(() => {
+		const handleTabClose = event => {
+			event.preventDefault();
+			return (event.returnValue = MESSAGES.GENERAL.ARE_YOU_SURE);
+		};
+
+		window.addEventListener("beforeunload", handleTabClose);
+
+		return () => {
+			if(codeSessionFrequencyInProgress){
+				handleStopAttendance();
+			}
+			window.removeEventListener("beforeunload", handleTabClose);
+		};
+	}, []);
+
+	useEffect(() => {
 		if (!cacheDataId) {
 			setAttendanceErrorModalVisible(true);
 			return;
@@ -43,14 +59,13 @@ const AttendanceInProgressSessionCode = () => {
 
 	useEffect(() => {
 		if (attendanceSession) {
-			console.log("Infos que tenho: ", attendanceSession);
 			const staticInfos: StaticAttendanceInfos = {
 				courseId: attendanceSession.courseId,
 				date: attendanceSession.date,
 				type: "START",
 			};
-			
-			if(attendanceSession?.location){
+
+			if (attendanceSession?.location) {
 				staticInfos.latitude = attendanceSession.location.latitude;
 				staticInfos.longitude = attendanceSession.location.longitude;
 			}
@@ -67,22 +82,22 @@ const AttendanceInProgressSessionCode = () => {
 
 	const handleStopAttendance = useCallback(() => {
 		const toastRef = toast.loading(MESSAGES.GENERAL.SAVING);
-		if (attendanceSession){
+		if (attendanceSession) {
 			const staticInfos: StaticAttendanceInfos = {
 				courseId: attendanceSession.courseId,
 				date: attendanceSession.date,
 				type: "STOP",
 			};
 			Api.Frequencies.createFrequencyWithStaticCode(staticInfos)
-				.then((response) => {
-					setCurrentCodeValue(response.code);
-					setCodeSessionFrequencyInProgress(true);
+				.then(() => {
+					setCurrentCodeValue("");
+					setCodeSessionFrequencyInProgress(false);
 				}).finally(() => {
 					cleanAttendance(attendanceSession.id);
 					toast.dismiss(toastRef);
 					navigate("/");
 				});
-		}else{
+		} else {
 			navigate("/");
 		}
 	}, [attendanceSession]);
