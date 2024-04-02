@@ -31,7 +31,7 @@ const ManagerView = (props: AttendanceManagerProps) => {
 			return attendanceData[getCompositeKey(props.currentClass.id, currentDate.startOf("month").format())];
 		}
 		return null;
-	}, [attendanceData]);
+	}, [attendanceData, currentDate]);
 
 	useEffect(() => {
 		getAttendanceByMonth(props.currentClass.id, currentDate.startOf("month").format())
