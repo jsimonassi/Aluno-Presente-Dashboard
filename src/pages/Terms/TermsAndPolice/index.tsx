@@ -11,7 +11,6 @@ const TermsAndPolice = () => {
 				<img src={whiteLogo} alt="Logo" />
 				<h1>Termos de Uso</h1>
 			</BannerContainer>
-			<h2>Bem-vindo ao Alunos Presente! </h2>
 			<p>Ao utilizar nossa aplicação, você concorda com os seguintes termos e condições:</p>
 			<p><b>Descrição do Serviço:</b> O Alunos Presente é uma aplicação desenvolvida para registrar a presença dos alunos na universidade. Ela permite aos professores e alunos registrar sua presença em aulas e atividades acadêmicas.</p>
 			<p><b>Informações Coletadas:</b> Para utilizar o Alunos Presente, coletamos informações como seu nome, e-mail, matrícula na universidade e nome do professor. Essas informações são necessárias para identificar os usuários e registrar sua presença de forma adequada.</p>

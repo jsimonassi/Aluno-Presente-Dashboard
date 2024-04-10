@@ -62,18 +62,6 @@ export const BannerContainer = styled.div`
     }
 
     @media ${DEVICE.DESKTOP} {
-        height: 150px;
-
-        img {
-            width: 7rem;
-            height: 4rem;
-        }
-
-        h1 {
-            font-size: 18px;
-            color: ${props => props.theme.surface1};
-            margin-left: 10px;
-            margin-top: 10px;
-        }
+        display: none;
     }
 `;
