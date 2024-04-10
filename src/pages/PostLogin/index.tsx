@@ -29,7 +29,8 @@ const PostLogin = () => {
 					const defaultRoute = "/" + ROUTES.DASHBOARD + "/" +ROUTES.OPTIONS.MY_CLASSES;
 					navigate(params.get("redirect_url") ?? defaultRoute, {replace: true});
 				}).catch(() => {
-					navigate("/");
+					// navigate("/");
+					alert("Erro ao tentar autenticar o usuário, tente novamente.");
 				});
 		}
 	}, []);

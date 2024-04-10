@@ -85,7 +85,6 @@ const AttendanceInProgressSessionCode = () => {
 		if (attendanceSession) {
 			const staticInfos: StaticAttendanceInfos = {
 				courseId: attendanceSession.courseId,
-				date: attendanceSession.date,
 				type: "STOP",
 			};
 			Api.Frequencies.createFrequencyWithStaticCode(staticInfos)
