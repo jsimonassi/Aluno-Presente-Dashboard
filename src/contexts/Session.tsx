@@ -14,7 +14,7 @@ export const CURRENT_USER_CACHE_KEY = "currentUser";
 interface SessionContextData {
 	redirectToLogin: (redirectUrl: string) => void;
 	getAuthToken: (code: string, redirectUrl: string) => Promise<TokenSession>;
-	logout: () => Promise<void>;
+	logout: () => void;
 	updateUser: (newUser: User) => Promise<void>;
 	currentSession: TokenSession | null;
 	currentUser: User | null;
@@ -109,13 +109,14 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 
 
 	const logout = () => {
-		return new Promise<void>((resolve) => {
-			//TODO: Add backend call, when available
-			NetHelpers.deleteAllCookies();
+		try{
 			__resetLocalSession();
-			resolve();
-		
-		});
+			NetHelpers.deleteAllCookies();
+			Api.Session.revokeToken(currentSession?.idToken ?? "");
+			return Promise.resolve();
+		}catch(error){
+			console.error("Error while revoking token", error);
+		}
 	};
 
 

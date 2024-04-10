@@ -9,7 +9,6 @@ interface PrivateRouteProps {
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 
 	const {currentSession} = useSession();
-
 	return currentSession?.accessToken ? <>{children}</> : <Navigate to={"/" + CONSTANTS.ROUTES.POST_LOGIN } replace/>;
 };
 

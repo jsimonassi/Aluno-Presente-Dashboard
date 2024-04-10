@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Container } from "./styles";
 import { MainLoader } from "../../components/Loaders";
@@ -19,20 +19,28 @@ const PostLogin = () => {
 	const navigate = useNavigate();
 	const params = new URLSearchParams(window.location.search);
 
-	useEffect(() => {
+	
+	const redirectOrGetTokenIfNeeded = useCallback(() => {
 		if(!params.get("code")) {
 			console.log("location", window.location);
 			session.redirectToLogin(window.location.origin + "/" + ROUTES.POST_LOGIN);
 		} else if(!session.currentSession?.accessToken) {
 			session.getAuthToken(params.get("code") ?? "", window.location.origin + "/" + ROUTES.POST_LOGIN)
 				.then(() => {
-					const defaultRoute = "/" + ROUTES.DASHBOARD + "/" +ROUTES.OPTIONS.MY_CLASSES;
-					navigate(params.get("redirect_url") ?? defaultRoute, {replace: true});
+					setTimeout(() => {
+						const defaultRoute = "/" + ROUTES.DASHBOARD + "/" +ROUTES.OPTIONS.MY_CLASSES;
+						navigate(params.get("redirect_url") ?? defaultRoute, {replace: true});
+					}, 1000);
 				}).catch(() => {
 					// navigate("/");
 					alert("Erro ao tentar autenticar o usuário, tente novamente.");
 				});
 		}
+	}, [params, session, navigate]);
+
+
+	useEffect(() => {
+		redirectOrGetTokenIfNeeded();
 	}, []);
 	
 
