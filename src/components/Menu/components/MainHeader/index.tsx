@@ -43,9 +43,7 @@ const MainHeader = (props: Props) => {
 		switch (option) {
 		case MESSAGES.HEADER.LOGOUT_OPTION:
 			toast.loading(MESSAGES.GENERAL.LOGOUT);
-			logout().finally(() => {
-				toast.dismiss();
-			});
+			logout();
 			break;
 		case MESSAGES.HEADER.PROFILE_OPTION:
 			setProfileEditModalOpen(true);
