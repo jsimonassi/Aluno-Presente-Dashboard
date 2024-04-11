@@ -50,8 +50,8 @@ const Session = {
 				});
 		});
 	},
-	revokeToken: (idToken: string) => {
-		const uri = process.env.REACT_APP_AUTH_SERVER_BASE_URL + "/v1/auth/connect/logout?id_token_hint=" + idToken;
+	revokeToken: (idToken: string, redirectUrl: string) => {
+		const uri = process.env.REACT_APP_AUTH_SERVER_BASE_URL + "/v1/auth/connect/logout?id_token_hint=" + idToken + "&post_logout_redirect_uri=" + redirectUrl;
 		window.location.href = uri;
 	}
 };
