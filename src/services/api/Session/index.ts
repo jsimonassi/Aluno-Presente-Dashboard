@@ -49,6 +49,10 @@ const Session = {
 					reject(error);
 				});
 		});
+	},
+	revokeToken: (idToken: string) => {
+		const uri = process.env.REACT_APP_AUTH_SERVER_BASE_URL + "/v1/auth/connect/logout?id_token_hint=" + idToken;
+		window.location.href = uri;
 	}
 };
 
