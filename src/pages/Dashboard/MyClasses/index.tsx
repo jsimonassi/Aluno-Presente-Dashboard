@@ -104,10 +104,8 @@ const MyClasses = () => {
 			return 2;
 		}
 
-		if(classes.length % 2 == 0) {
+		if(classes.length >= 2) {
 			return 2;
-		} else if(classes.length % 3 == 0) {
-			return 3;
 		} else {
 			return 1;
 		}
