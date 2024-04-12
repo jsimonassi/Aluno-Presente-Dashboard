@@ -19,6 +19,7 @@ export const EmptyContainer = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
+    margin-left: -14%;
 
     > img {
         max-width: 350px;
@@ -45,7 +46,7 @@ export const ContentContainer = styled.div<ClassCardContainerProps>`
     grid-gap: 5px;
     flex-wrap: wrap;
     width: 100%;
-    max-width: 500px;
+    max-width: 700px;
     margin-bottom: 30px;
 
     @media ${DEVICE.DESKTOP} {
