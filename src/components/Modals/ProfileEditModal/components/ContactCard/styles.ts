@@ -19,7 +19,7 @@ export const InfosContainer = styled.div`
     color: ${props => props.theme.primary};
 
     h2 {
-        font-size: 22px;
+        font-size: 18px;
     }
 
     p {
