@@ -19,7 +19,6 @@ export const EmptyContainer = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
-    margin-left: -14%;
 
     > img {
         max-width: 350px;
