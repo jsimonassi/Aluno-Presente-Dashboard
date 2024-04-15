@@ -9,7 +9,7 @@ const About = () => {
 		<Container>
 			<img src={logo} alt="Logo" />
 			<VersionContainer>
-				<p>Versão: 1.0</p>
+				<p>Versão: 1.3</p>
 				<p>Desenvolvido por João Victor Simonassi e Lucas Lima como parte do trabalho final do curso de Ciência da Computação da Universidade Federal Fluminense - UFF. Orientador: Lauro Eduardo Kozovits.</p>
 			</VersionContainer>
 			<DevsContainer>
