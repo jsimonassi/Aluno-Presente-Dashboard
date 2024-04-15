@@ -30,6 +30,8 @@ const MainHeader = (props: Props) => {
 			return MESSAGES.SIDEBAR.OPTIONS.MY_CLASSES;
 		} else if (path.includes(ROUTES.OPTIONS.OLD_CLASSES)) {
 			return MESSAGES.SIDEBAR.OPTIONS.OLD_CLASSES;
+		} else if (path.includes(ROUTES.OPTIONS.NOTIFICATIONS)) {
+			return MESSAGES.SIDEBAR.OPTIONS.NOTIFICATIONS;
 		} else {
 			return MESSAGES.SIDEBAR.OPTIONS.ABOUT;
 		}
