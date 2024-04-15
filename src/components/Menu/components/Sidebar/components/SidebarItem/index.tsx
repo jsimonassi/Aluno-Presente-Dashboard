@@ -9,6 +9,7 @@ interface Props {
     icon: IconType;
     selected?: boolean;
 	onClick: () => void;
+	notificationsCount?: number;
 }
 
 const SidebarItem = (props: Props) => {
@@ -18,6 +19,9 @@ const SidebarItem = (props: Props) => {
 			<div>
 				<props.icon fontSize="1.5em"/>
 				<span>{props.title}</span>
+				{
+					props.notificationsCount && <p>{props.notificationsCount}</p>
+				}
 			</div>
 			<IoIosArrowForward fontSize="1.5em"/>
 		</SidebarItemStyled>

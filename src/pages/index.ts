@@ -1,5 +1,5 @@
 import ErrorPage from "./Error";
-import { About, MyClasses, OldClasses } from "./Dashboard";
+import { About, MyClasses, OldClasses, Notifications } from "./Dashboard";
 import PostLogin from "./PostLogin";
 import AttendanceInProgressQrCode from "./AttendanceInProgress/screens/AttendanceInProgressQrCode";
 import AttendanceInProgressSessionCode from "./AttendanceInProgress/screens/AttendanceInProgressSessionCode";
@@ -12,6 +12,7 @@ export {
 	About, 
 	MyClasses, 
 	OldClasses, 
+	Notifications,
 	PostLogin,
 	AttendanceInProgressQrCode,
 	AttendanceInProgressSessionCode,

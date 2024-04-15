@@ -11,8 +11,6 @@ interface AttendanceManagerProps {
 const AttendanceManager = (props: AttendanceManagerProps) => {
 	const [attendanceKeyInEditing, setAttendanceKeyInEditing] = useState<string | null>(null);
 
-	console.log("AttendanceManager", props);
-
 	if(!props.currentClass.members || props.currentClass.members?.length <= 0) {
 		return (
 			<NoDataView />

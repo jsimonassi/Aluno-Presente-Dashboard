@@ -18,6 +18,8 @@ const MobileHeader = () => {
 		const path = location.pathname;
 		if (path.includes(ROUTES.OPTIONS.MY_CLASSES)) {
 			return MESSAGES.SIDEBAR.OPTIONS.MY_CLASSES;
+		} else if(path.includes(ROUTES.OPTIONS.NOTIFICATIONS)) {
+			return MESSAGES.SIDEBAR.OPTIONS.NOTIFICATIONS;
 		} else if (path.includes(ROUTES.OPTIONS.OLD_CLASSES)) {
 			return MESSAGES.SIDEBAR.OPTIONS.OLD_CLASSES;
 		} else {
@@ -39,7 +41,8 @@ const MobileHeader = () => {
 			</HeaderStyled>
 			<OptionList open={menuOpen}>
 				<p onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.MY_CLASSES)}> {MESSAGES.SIDEBAR.OPTIONS.MY_CLASSES}</p>
-				<p onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.OLD_CLASSES)}> {MESSAGES.SIDEBAR.OPTIONS.OLD_CLASSES}</p>
+				{/* <p onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.OLD_CLASSES)}> {MESSAGES.SIDEBAR.OPTIONS.OLD_CLASSES}</p> */}
+				<p onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.NOTIFICATIONS)}> {MESSAGES.SIDEBAR.OPTIONS.NOTIFICATIONS}</p>
 				<p onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.ABOUT)}> {MESSAGES.SIDEBAR.OPTIONS.ABOUT}</p>
 			</OptionList>
 		</StackContainer>

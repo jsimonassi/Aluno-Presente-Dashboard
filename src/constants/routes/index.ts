@@ -5,6 +5,7 @@ const ROUTES = {
 	OPTIONS: {
 		MY_CLASSES: "classes",
 		OLD_CLASSES: "old",
+		NOTIFICATIONS: "notifications",
 		ABOUT: "about",
 	},
 	ATTENDANCE_IN_PROGRESS_QR_CODE: "attendance-qr",

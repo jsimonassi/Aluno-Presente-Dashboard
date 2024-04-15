@@ -50,7 +50,7 @@ const MY_CLASSES = {
 
 		ADDING_STUDENT: "Adicionando aluno...",
 		ADDED_STUDENT: "Aluno adicionado com sucesso!",
-		STUDENTS_ADDED: "Alunos adicionados com sucesso!",
+		STUDENTS_ADDED: "Adição em andamento. Verifique o status na tela de notificações.",
 		ERROR_ADDING_STUDENT: "Erro ao adicionar aluno. Tente novamente!",
 		ADDING_STUDENTS: "Adicionando alunos...",
 
