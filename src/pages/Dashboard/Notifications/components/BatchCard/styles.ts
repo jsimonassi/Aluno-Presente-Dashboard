@@ -12,7 +12,7 @@ export const CardBackground = styled.div<ContainerProps>`
     margin-top: 5px;
     margin-bottom: 5px;
     border-radius: 16px;
-    background-color: ${props => props?.isNew ? props.theme.surface2 : props.theme.surface3};
+    background-color: ${props => props?.isNew ? props.theme.surface3 : props.theme.surface2};
     max-height: ${props => props.isOpen ? "1000px" : "75px"};
     transition: all 0.6s ease;
 `;
@@ -49,8 +49,21 @@ export const BatchInfos = styled.div`
         font-family: "Light";
     }
 
-    @media ${DEVICE.DESKTOP} {
+    h5 {
+        background-color: ${props => props.theme.primary};
+        border-radius: 4px;
+        color: ${props => props.theme.surface1};
+        padding: 4px;
+        box-sizing: border-box;
+        margin-left: 8px;
+    }
+
+    @media ${DEVICE.MOBILE} {
         font-size: 14px;
+
+        h5 {
+            display: none;
+        }
     }
 `;
 
@@ -96,6 +109,19 @@ export const StudentsInfoContainer = styled.div<ContainerProps>`
     overflow-y: scroll;
     transition: all 0.6s ease;
     align-items: center;
+
+    hr {
+        width: 90%;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    small {
+        color: ${props => props.theme.primary};
+        margin-top: 8px;
+        width: 88%;
+        text-align: left;
+    }
 `;
 
 export const StudentsListContainer = styled.div`
@@ -130,6 +156,7 @@ export const StudentName = styled.p<StudentNameProps>`
     border-radius: 8px;
     background-color: ${props => props.changeBackground ? props.theme.surface2 : props.theme.surface1};
     color: ${props => props.theme.primary};
+    text-align: ${props => props.isEmptyList ? "center" : "left"};
 `;
 
 interface ContainerProps {
@@ -139,4 +166,5 @@ interface ContainerProps {
 
 interface StudentNameProps {
     changeBackground: boolean;
+    isEmptyList?: boolean;
 }

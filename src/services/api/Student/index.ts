@@ -82,6 +82,14 @@ const Student = {
 				.then((response) => resolve(response.data))
 				.catch((error) => reject(error));
 		});
+	},
+
+	markBatchAsRead: (batchId: string) => {
+		return new Promise<void>((resolve, reject) => {
+			__ApiResourceClient.patch(`/batch-process/${batchId}/viewed`)
+				.then(() => resolve())
+				.catch((error) => reject(error));
+		});
 	}
 };
 

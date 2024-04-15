@@ -20,8 +20,7 @@ const SidebarItem = (props: Props) => {
 				<props.icon fontSize="1.5em"/>
 				<span>{props.title}</span>
 				{
-					props.notificationsCount && props.notificationsCount > 0 &&
-					<p>{props.notificationsCount}</p>
+					props.notificationsCount && <p>{props.notificationsCount}</p>
 				}
 			</div>
 			<IoIosArrowForward fontSize="1.5em"/>

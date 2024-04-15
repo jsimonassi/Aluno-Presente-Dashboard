@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DEVICE } from "../../../constants/screenSize";
 
 export const Container = styled.div`
     display: flex;
@@ -26,13 +27,33 @@ export const ScrollContainer = styled.div`
 export const FooterInfos = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 
     button {
         max-width: 200px;
         margin: 0;
+    }
+    
+    b {
+        font-size: 14px;
+        font-family: "bold";
+        color: ${props => props.theme.secondaryText};
+    }
+
+    p {
+        font-size: 14px;
+        font-family: "Light";
+        color: ${props => props.theme.secondaryText};
+    }
+
+    @media ${DEVICE.MOBILE} {
+        flex-direction: column-reverse;
+
+        p {
+            margin-top: 16px;
+        }
     }
 `;
 
