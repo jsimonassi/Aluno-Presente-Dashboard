@@ -13,6 +13,7 @@ import MESSAGES from "../../../../constants/messages";
 import { IoMdBook } from "react-icons/io";
 import { BiInfoSquare } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { useAddBatch } from "../../../../contexts/AddBatch";
 
 interface Props {
 	sideBarOpen: boolean;
@@ -23,6 +24,7 @@ const Sidebar = (props: Props) => {
 
 	const navigate = useNavigate();
 	const location = useLocation();
+	const { openBatchesCount } = useAddBatch();
 
 	const redirectTo = (route: string) => {
 		navigate(route);
@@ -60,7 +62,7 @@ const Sidebar = (props: Props) => {
 
 				<SidebarItem icon={IoMdBook} title={MESSAGES.SIDEBAR.OPTIONS.MY_CLASSES} selected={isSelected(CONSTANTS.ROUTES.OPTIONS.MY_CLASSES)} onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.MY_CLASSES)} />
 				{/* <SidebarItem icon={AiFillFolderOpen} title={MESSAGES.SIDEBAR.OPTIONS.OLD_CLASSES} selected={isSelected(CONSTANTS.ROUTES.OPTIONS.OLD_CLASSES)} onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.OLD_CLASSES)} /> */}
-				<SidebarItem icon={IoMdNotificationsOutline} title={MESSAGES.SIDEBAR.OPTIONS.NOTIFICATIONS} selected={isSelected(CONSTANTS.ROUTES.OPTIONS.NOTIFICATIONS)} onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.NOTIFICATIONS)} />
+				<SidebarItem icon={IoMdNotificationsOutline} title={MESSAGES.SIDEBAR.OPTIONS.NOTIFICATIONS} selected={isSelected(CONSTANTS.ROUTES.OPTIONS.NOTIFICATIONS)} onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.NOTIFICATIONS)} notificationsCount={openBatchesCount} />
 				<SidebarItem icon={BiInfoSquare} title={MESSAGES.SIDEBAR.OPTIONS.ABOUT} selected={isSelected(CONSTANTS.ROUTES.OPTIONS.ABOUT)} onClick={() => redirectTo(CONSTANTS.ROUTES.OPTIONS.ABOUT)} />
 
 				<CloseSidebarButton

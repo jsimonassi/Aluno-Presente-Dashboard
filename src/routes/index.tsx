@@ -11,7 +11,7 @@ import GlobalStyle from "../assets/styles/GlobalStyle";
 import CONSTANTS from "../constants";
 import PrivateRoute from "../services/auth/PrivateRoute";
 import Menu from "../components/Menu";
-import { About, AttendanceInProgressQrCode, AttendanceInProgressSessionCode, Consent, MyClasses, OldClasses, PostLogin, Privacy, TermsAndPolice } from "../pages";
+import { About, AttendanceInProgressQrCode, AttendanceInProgressSessionCode, Consent, MyClasses, Notifications, OldClasses, PostLogin, Privacy, TermsAndPolice } from "../pages";
 
 const MainRoutes = () => {
 
@@ -27,6 +27,7 @@ const MainRoutes = () => {
 				<Route path={CONSTANTS.ROUTES.DASHBOARD} element={<PrivateRoute> <Menu renderAsPartial={true} /> </PrivateRoute>}>
 					<Route path={CONSTANTS.ROUTES.OPTIONS.MY_CLASSES} element={<PrivateRoute> <MyClasses /> </PrivateRoute>} />
 					<Route path={CONSTANTS.ROUTES.OPTIONS.OLD_CLASSES} element={<PrivateRoute> <OldClasses /> </PrivateRoute>} />
+					<Route path={CONSTANTS.ROUTES.OPTIONS.NOTIFICATIONS} element={<PrivateRoute> <Notifications /> </PrivateRoute>} />
 					<Route path={CONSTANTS.ROUTES.OPTIONS.ABOUT} element={<PrivateRoute> <About /> </PrivateRoute>} />
 				</Route>
 
