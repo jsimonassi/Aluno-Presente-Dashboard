@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { createContext, useContext } from "react";
 import { Student } from "../types/Student";
 import Api from "../services/api";
@@ -10,14 +10,14 @@ interface AddBatchContextData {
 	openBatchesCount: number;
 	newBatchesCount: number;
 	lastUpdate: Date;
-    addStudentsByBatch: (students: Student[], classId: string) => Promise<void>;
+	addStudentsByBatch: (students: Student[], classId: string) => Promise<void>;
 	refreshAddBatchList: () => Promise<void>;
 	getFullBatchInfo: (batchId: string) => Promise<BatchProcess>;
-	markBatchAsRead: (batchId: string) => Promise<void>;
+	markBatchAsRead: (batch: BatchProcess) => Promise<void>;
 }
 
 interface AddBatchProviderProps {
-    children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 export const AddBatchContext = createContext({} as AddBatchContextData);
@@ -26,12 +26,12 @@ const AddBatchProvider: React.FC<AddBatchProviderProps> = ({ children }) => {
 
 	const [currentAddBatchList, setCurrentAddBatchList] = useState<BatchProcess[] | null>(null);
 	const openBatchesCount = useMemo(() => {
-		if(!currentAddBatchList) return 0;
+		if (!currentAddBatchList) return 0;
 		return currentAddBatchList.filter((batch) => !batch.isFinished).length;
 	}, [currentAddBatchList]);
 
 	const newBatchesCount = useMemo(() => {
-		if(!currentAddBatchList) return 0;
+		if (!currentAddBatchList) return 0;
 		return currentAddBatchList.filter((batch) => !batch.isViewed).length;
 	}, [currentAddBatchList]);
 	const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
@@ -45,6 +45,10 @@ const AddBatchProvider: React.FC<AddBatchProviderProps> = ({ children }) => {
 		return new Promise<void>((resolve, reject) => {
 			Api.Student.getAllAddBatchProcesses()
 				.then((batches) => {
+					const data = batches || [];
+					data.sort(
+						(a: BatchProcess, b: BatchProcess) => { return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); }
+					);
 					setCurrentAddBatchList(batches);
 					resolve();
 				})
@@ -58,7 +62,7 @@ const AddBatchProvider: React.FC<AddBatchProviderProps> = ({ children }) => {
 			Api.Student.addStudentsByBatch(students, classId)
 				.then((addedBatch) => {
 					const currentList = currentAddBatchList || [];
-					setCurrentAddBatchList([...currentList, addedBatch]);
+					setCurrentAddBatchList([addedBatch, ...currentList]);
 					resolve();
 				})
 				.catch((error) => reject(error));
@@ -81,23 +85,24 @@ const AddBatchProvider: React.FC<AddBatchProviderProps> = ({ children }) => {
 		});
 	};
 
-	const markBatchAsRead = (batchId: string) => {
+	const markBatchAsRead = useCallback((batch: BatchProcess) => {
 		return new Promise<void>((resolve, reject) => {
-			Api.Student.markBatchAsRead(batchId)
+			Api.Student.markBatchAsRead(batch.id)
 				.then(() => {
-					const currentList = currentAddBatchList || [];
-					const updatedBatches = currentList.map((batch) => {
-						if (batch.id === batchId) {
-							return { ...batch, isViewed: true };
-						}
-						return batch;
-					});
-					setCurrentAddBatchList(updatedBatches);
-					resolve();
-				})
-				.catch((error) => reject(error));
+					setTimeout(() => {
+						const currentList = currentAddBatchList || [];
+						const updatedBatches = currentList.map((currentBatch) => {
+							if (currentBatch.id === batch.id) {
+								return { ...batch, isViewed: true };
+							}
+							return currentBatch;
+						});
+						setCurrentAddBatchList(updatedBatches);
+						resolve();
+					}, 2000);
+				}).catch((error) => reject(error));
 		});
-	};
+	}, [currentAddBatchList]);
 
 	return (
 		<AddBatchContext.Provider

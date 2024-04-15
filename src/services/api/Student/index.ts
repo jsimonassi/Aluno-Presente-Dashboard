@@ -20,7 +20,7 @@ const Student = {
 				.then(() => resolve())
 				.catch((error) => reject(error));
 		});
-	}, 
+	},
 	/**
 	 * @deprecated use addStudentsByBatch instead
 	 * @param students list of students to be added
@@ -36,7 +36,7 @@ const Student = {
 					alias: student.name
 				};
 			});
-			__ApiResourceClient.patch(`/courses/${courseId}/member-batch`, {members: parsedObj})
+			__ApiResourceClient.patch(`/courses/${courseId}/member-batch`, { members: parsedObj })
 				.then((response) => resolve(response.data))
 				.catch((error) => reject(error));
 		});
@@ -55,7 +55,7 @@ const Student = {
 					alias: student.name
 				};
 			});
-			__ApiResourceClient.post(`/batch-process/${courseId}/add-members`, {members: parsedObj})
+			__ApiResourceClient.post(`/batch-process/${courseId}/add-members`, { members: parsedObj })
 				.then((response) => resolve(response.data))
 				.catch((error) => reject(error));
 		});
@@ -66,8 +66,10 @@ const Student = {
 	 */
 	getAllAddBatchProcesses: () => {
 		return new Promise<BatchProcess[]>((resolve, reject) => {
-			__ApiResourceClient.get("/batch-process", {params: {target: "ADD_MEMBER"}})
-				.then((response) => resolve(response.data))
+			__ApiResourceClient.get("/batch-process", { params: { target: "ADD_MEMBER" } })
+				.then((response) => {
+					resolve(response.data);
+				})
 				.catch((error) => reject(error));
 		});
 	},

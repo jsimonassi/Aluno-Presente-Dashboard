@@ -13,10 +13,9 @@ interface BatchCardProps {
     currentMainProcess: BatchProcess
 }
 
-export const BatchCard = ({ currentMainProcess }: BatchCardProps) => {
+export const BatchCard = ({ currentMainProcess: currentProcess }: BatchCardProps) => {
 
 	const [isOpen, setIsOpen] = useState(false);
-	const [currentProcess, setCurrentProcess] = useState<BatchProcess>(currentMainProcess);
 	const [isLoadingFullInfos, setIsLoadingFullInfos] = useState(false);
 	const { currentTheme } = useAppTheme();
 	const { getFullBatchInfo, markBatchAsRead } = useAddBatch();
@@ -25,8 +24,8 @@ export const BatchCard = ({ currentMainProcess }: BatchCardProps) => {
 		setIsLoadingFullInfos(true);
 		getFullBatchInfo(currentProcess.id)
 			.then((response) => {
-				setCurrentProcess(response);
-				markBatchAsRead(response.id);
+				if(response.isViewed || !response.isFinished) return;
+				markBatchAsRead(response);
 			}).finally(() => setIsLoadingFullInfos(false));
 	};
 

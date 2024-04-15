@@ -6,6 +6,7 @@ import { useAddBatch } from "../../../contexts/AddBatch";
 import { BatchCard } from "./components/BatchCard";
 import toast from "react-hot-toast";
 import moment from "moment";
+import { CardLoader } from "./components/CardLoader";
 
 const Notifications = () => {
 
@@ -21,8 +22,12 @@ const Notifications = () => {
 	return (
 		<Container>
 			<ScrollContainer>
-				{
-					currentAddBatchList && currentAddBatchList.map((batch) => {
+
+				{	currentAddBatchList === null ?
+					<>
+						<CardLoader />
+					</> :
+					currentAddBatchList.map((batch) => {
 						return (
 							<BatchCard key={batch.id} currentMainProcess={batch}/>
 						);

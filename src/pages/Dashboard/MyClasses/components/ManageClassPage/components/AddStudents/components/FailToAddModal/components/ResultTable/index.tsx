@@ -10,8 +10,6 @@ interface ResultTableProps {
 
 const ResultTable = (props: ResultTableProps) => {
 
-	console.log(props.studentsWithFail);
-
 	const getTableContent = () => {
 		if (!props.studentsWithFail || props.studentsWithFail.length === 0) {
 			return null;

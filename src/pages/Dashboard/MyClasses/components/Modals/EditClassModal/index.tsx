@@ -90,7 +90,6 @@ const EditClassModal = (props: EditClassModalProps) => {
 	};
 
 	const handleUpdateClassTime = (newTime: ClassTime, index: number) => {
-		console.log("Hora atual: ", newTime.momentStart.format(Helpers.DateHelpers.APP_DATE_FORMAT));
 		const oldList = [...classDays];
 		oldList[index] = newTime;
 		setClassDays(oldList);
