@@ -8,7 +8,6 @@ import { AddContactCard, ContactCard } from "./components";
 import { MainButton, OutlineButton } from "../../Buttons";
 import { AVAILABLE_CONTACT_TYPES } from "../../../constants/user";
 import toast from "react-hot-toast";
-import lodash from "lodash";
 
 interface FeedbackModalProps {
 	isOpen: boolean;
