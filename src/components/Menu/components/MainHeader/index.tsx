@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { HeaderStyled } from "./styles";
 import ROUTES from "../../../../constants/routes";
 import MESSAGES from "../../../../constants/messages";
-import { ConfigDropdown, ProfileDropdown } from "./components";
+import { ProfileDropdown } from "./components";
 import { useWindowDimensions } from "../../../../hooks";
 import CONSTANTS from "../../../../constants";
 import { useSession } from "../../../../contexts/Session";
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const PROFILE_LIST: string[] = [ MESSAGES.HEADER.PROFILE_OPTION, MESSAGES.HEADER.LOGOUT_OPTION];
-const CONFIG_LIST: string[] = [ MESSAGES.HEADER.COOKIES_OPTION ];
+// const CONFIG_LIST: string[] = [ MESSAGES.HEADER.COOKIES_OPTION ];
 
 const MainHeader = (props: Props) => {
 
@@ -37,9 +37,9 @@ const MainHeader = (props: Props) => {
 		}
 	};
 
-	const onConfigOptionClick = (option: string) => {
-		console.log("Config clicked", option);
-	};
+	// const onConfigOptionClick = (option: string) => {
+	// 	console.log("Config clicked", option);
+	// };
 
 	const onProfileClick = (option: string) => {
 		switch (option) {
@@ -58,11 +58,11 @@ const MainHeader = (props: Props) => {
 	return (
 		<HeaderStyled sideBarOpen={props.open}>
 			<h1>{width > CONSTANTS.SCREEN_SIZE.DESKTOP && getPageTitle()}</h1>
-			<ConfigDropdown
+			{/* <ConfigDropdown
 				title={MESSAGES.HEADER.CONFIG_TITLE}
 				items={CONFIG_LIST}
 				onClick={onConfigOptionClick}
-			/>
+			/> */}
 			<ProfileDropdown
 				items={PROFILE_LIST}
 				onClick={onProfileClick}
