@@ -2,6 +2,8 @@ const EDIT_PROFILE = {
 	TITLE: "Editar Perfil",
 	NAME: "Nome",
 	EMAIL: "E-mail",
+	ABOUT: "Sobre",
+	BIO_PLACEHOLDER: "Formado em Ciência da Computação pela Universidade Federal Fluminense, possui experiência em Inteligência Artificial.",
 	CONTACTS: "Contatos:",
 	ADD_NEW_CONTACT: "Novo contato",
 	ADD_FINISHED: "Adicionar",

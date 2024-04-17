@@ -96,9 +96,18 @@ const ProfileEditModal = (props: FeedbackModalProps) => {
 		);
 	};
 
+	const handleUpdateAbout = (newAbout: string) => {
+		const newUser = Object.assign({}, editingUser);
+		newUser.info = {
+			about: newAbout,
+			contacts: newUser?.info?.contacts ?? []
+		};
+		setEditingUser(newUser);
+	};
+
 	const handleUpdateUser = () => {
 		props.onClose();
-		if(editingUser && !lodash.isEqual(editingUser, currentUser)){
+		if(editingUser){
 			const toastRef = toast.loading(MESSAGES.EDIT_PROFILE.UPDATING);
 			updateUser(editingUser)
 				.then(() => {
@@ -141,6 +150,16 @@ const ProfileEditModal = (props: FeedbackModalProps) => {
 						type=""
 						title={MESSAGES.EDIT_PROFILE.EMAIL}
 						titleStyle={{ marginTop: "10px" }}
+					/>
+					<MainInput
+						onChange={(newAbout) => handleUpdateAbout(newAbout)}
+						rowsNumber={3}
+						value={editingUser?.info.about ?? ""}
+						placeholder={MESSAGES.EDIT_PROFILE.BIO_PLACEHOLDER}
+						type=""
+						title={MESSAGES.EDIT_PROFILE.ABOUT}
+						titleStyle={{ marginTop: "10px" }}
+						inputStyle={{borderRadius: "16px"}}
 					/>
 					<ContactCardContainer>
 						<h3>{MESSAGES.EDIT_PROFILE.CONTACTS}</h3>

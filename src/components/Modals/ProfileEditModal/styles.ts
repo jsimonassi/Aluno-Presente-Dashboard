@@ -59,6 +59,7 @@ export const ModalBody = styled.div`
 	align-items: center;
 	width: 100%;
 	overflow-y: auto;
+	max-height: 500px;
 `;
 
 export const ModalFooter = styled.div`
@@ -108,6 +109,12 @@ export const ProfileLetterContainer = styled.div`
 		font-size: 56px;
 		line-height: 48px;
 		margin-top: 10px;
+		width: 100px;
+		height: 100px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+		display: flex;
 		color: ${props => props.theme.whiteText};
 	}
 `;
@@ -117,9 +124,7 @@ export const ContactCardContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	overflow-x: hidden;
 	margin-top: 10px;
-	min-height: 100px;
 
 	h3 {
 		font-size: 12px;		
@@ -147,6 +152,6 @@ export const ScrollContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	max-height: 200px;
-	overflow-y: auto;
+	/* max-height: 200px; */
+	/* overflow-y: auto; */
 `;
