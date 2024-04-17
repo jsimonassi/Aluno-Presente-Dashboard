@@ -154,7 +154,7 @@ const ProfileEditModal = (props: FeedbackModalProps) => {
 					<MainInput
 						onChange={(newAbout) => handleUpdateAbout(newAbout)}
 						rowsNumber={3}
-						value={editingUser?.info.about ?? ""}
+						value={editingUser?.info?.about ?? ""}
 						placeholder={MESSAGES.EDIT_PROFILE.BIO_PLACEHOLDER}
 						type=""
 						title={MESSAGES.EDIT_PROFILE.ABOUT}
