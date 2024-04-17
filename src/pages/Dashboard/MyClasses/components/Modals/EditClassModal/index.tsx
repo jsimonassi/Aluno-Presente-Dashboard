@@ -22,7 +22,7 @@ interface EditClassModalProps {
 const EditClassModal = (props: EditClassModalProps) => {
 
 	const [availablePeriods, setAvailablePeriods] = useState<string[]>([]);
-	const [classDays, setClassDays] = useState<ClassTime[]>([{
+	const [classDays, setClassDays] = useState<ClassTime[]>( props.currentClass?.daysOfWeek ?? [{
 		momentStart: moment().set({ hour: 7, minute: 0, second: 0 }),
 		momentEnd: moment().set({ hour: 9, minute: 0, second: 0 })
 	}]);
@@ -37,7 +37,7 @@ const EditClassModal = (props: EditClassModalProps) => {
 		setNameError("");
 		setAboutError("");
 		setPeriodError("");
-		setClassDays([{
+		setClassDays(props.currentClass?.daysOfWeek ?? [{
 			momentStart: moment().set({ hour: 7, minute: 0, second: 0 }),
 			momentEnd: moment().set({ hour: 9, minute: 0, second: 0 })
 		}]);
