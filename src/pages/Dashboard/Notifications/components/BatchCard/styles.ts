@@ -157,6 +157,10 @@ export const StudentName = styled.p<StudentNameProps>`
     background-color: ${props => props.changeBackground ? props.theme.surface2 : props.theme.surface1};
     color: ${props => props.theme.primary};
     text-align: ${props => props.isEmptyList ? "center" : "left"};
+
+    &:hover {
+        opacity: 0.7;
+    }
 `;
 
 interface ContainerProps {

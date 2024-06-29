@@ -8,9 +8,10 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useAppTheme } from "../../../../../contexts/Theme";
 import { useAddBatch } from "../../../../../contexts/AddBatch";
 import { StudentListLoader } from "./components/StudentListLoader";
+import { Tooltip } from "react-tooltip";
 
 interface BatchCardProps {
-    currentMainProcess: BatchProcess
+	currentMainProcess: BatchProcess
 }
 
 export const BatchCard = ({ currentMainProcess: currentProcess }: BatchCardProps) => {
@@ -19,12 +20,13 @@ export const BatchCard = ({ currentMainProcess: currentProcess }: BatchCardProps
 	const [isLoadingFullInfos, setIsLoadingFullInfos] = useState(false);
 	const { currentTheme } = useAppTheme();
 	const { getFullBatchInfo, markBatchAsRead } = useAddBatch();
+	const theme = useAppTheme();
 
 	const getFullInfos = () => {
 		setIsLoadingFullInfos(true);
 		getFullBatchInfo(currentProcess.id)
 			.then((response) => {
-				if(response.isViewed || !response.isFinished) return;
+				if (response.isViewed || !response.isFinished) return;
 				markBatchAsRead(response);
 			}).finally(() => setIsLoadingFullInfos(false));
 	};
@@ -74,7 +76,24 @@ export const BatchCard = ({ currentMainProcess: currentProcess }: BatchCardProps
 				{
 					currentProcess.failures && currentProcess.failures.map((student, index) => {
 						return (
-							<StudentName key={index} changeBackground={index % 2 !== 0} >{student.alias}</StudentName>
+							<>
+								<StudentName data-tooltip-id="add-batch-error-tooltip" data-tooltip-content={student.reason} key={index} changeBackground={index % 2 !== 0} >{student.alias}</StudentName>
+								<Tooltip
+									id="add-batch-error-tooltip"
+									data-tooltip-place="top"
+									style={{
+										backgroundColor: theme.currentTheme.primary,
+										color: theme.currentTheme.surface1,
+										// maxWidth: "300px",
+										borderRadius: "16px",
+										marginLeft: "-30%",
+										// justifyContent: "center",
+										// alignItems: "center",
+										padding: "16px",
+										// textAlign: "center"
+									}}
+								/>
+							</>
 						);
 					})
 				}
@@ -100,7 +119,7 @@ export const BatchCard = ({ currentMainProcess: currentProcess }: BatchCardProps
 								MESSAGES.NOTIFICATIONS.WORKING}</p>
 					</StatusInfos>
 				</InfosContainer>
-				{ currentProcess.isFinished &&
+				{currentProcess.isFinished &&
 					<IconContainer onClick={() => setIsOpen(prev => !prev)}>
 						{isOpen ?
 							<IoIosArrowUp color={currentTheme.primary} fontSize="2.0em" /> :
