@@ -21,27 +21,38 @@ const PostLogin = () => {
 
 	
 	const redirectOrGetTokenIfNeeded = useCallback(() => {
-		if(!params.get("code")) {
-			console.log("location", window.location);
-			session.redirectToLogin(window.location.origin + "/" + ROUTES.POST_LOGIN);
-		} else if(!session.currentSession?.accessToken) {
-			session.getAuthToken(params.get("code") ?? "", window.location.origin + "/" + ROUTES.POST_LOGIN)
-				.then(() => {
-					setTimeout(() => {
-						const defaultRoute = "/" + ROUTES.DASHBOARD + "/" +ROUTES.OPTIONS.MY_CLASSES;
-						navigate(params.get("redirect_url") ?? defaultRoute, {replace: true});
-					}, 1000);
-				}).catch(() => {
-					// navigate("/");
-					alert("Erro ao tentar autenticar o usuário, tente novamente.");
-				});
+		const code = params.get("code");
+		const redirectUrl = params.get("redirect_url");
+		const currentSession = session.currentSession;
+	
+		const redirectToLogin = () => {
+			const postLoginUrl = `${window.location.origin}/${ROUTES.POST_LOGIN}`;
+			session.redirectToLogin(postLoginUrl);
+		};
+	
+		const getAuthToken = async () => {
+			try {
+				const postLoginUrl = `${window.location.origin}/${ROUTES.POST_LOGIN}`;
+				await session.getAuthToken(code ?? "", postLoginUrl);
+				const defaultRoute = `/${ROUTES.DASHBOARD}/${ROUTES.OPTIONS.MY_CLASSES}`;
+				const targetRoute = redirectUrl ?? defaultRoute;
+				navigate(targetRoute, { replace: true });
+			} catch (error) {
+				console.error("Error authenticating user:", error);
+				alert("Erro ao tentar autenticar o usuário, tente novamente.");
+			}
+		};
+	
+		if (!code) {
+			redirectToLogin();
+		} else if (!currentSession?.accessToken) {
+			getAuthToken();
 		}
 	}, [params, session, navigate]);
-
-
+	
 	useEffect(() => {
 		redirectOrGetTokenIfNeeded();
-	}, []);
+	}, [redirectOrGetTokenIfNeeded]);
 	
 
 	return (

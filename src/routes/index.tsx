@@ -34,8 +34,6 @@ const MainRoutes = () => {
 				<Route path={CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_QR_CODE+"/:id"} element={<PrivateRoute> <AttendanceInProgressQrCode /> </PrivateRoute>}/>
 				<Route path={CONSTANTS.ROUTES.ATTENDANCE_IN_PROGRESS_SESSION_CODE+"/:id"} element={<PrivateRoute> <AttendanceInProgressSessionCode /> </PrivateRoute>}/>
 
-				<Route path="auth/*" element={<div/>}/>
-
 				<Route path={CONSTANTS.ROUTES.TERMS} element={<TermsAndPolice />} />
 				<Route path={CONSTANTS.ROUTES.PRIVACY} element={<Privacy />} />
 				<Route path={CONSTANTS.ROUTES.CONSENT} element={<Consent />} />

@@ -30,6 +30,6 @@ export interface WebSocketStopRequest {
 
 export interface WebSocketResponse {
     value: string;
-    type: "CODE" | "WARN" | string;
+    type: "CODE" | "WARN" | "MEMBER_INCLUDED" | string;
     description: string;
 }
