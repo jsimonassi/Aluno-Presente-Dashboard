@@ -8,11 +8,13 @@ export interface BatchProcess {
     isFinished?: boolean;
     endAt?: string;
     successes?: string[];
-    failures?: {
-        reason: string;
-        email: string;
-        registration: string;
-        alias: string;
-    }[];
+    failures?: Failures[];
     createdAt: string;
+}
+
+export interface Failures {
+    reason: string;
+    email: string;
+    registration: string;
+    alias: string;
 }

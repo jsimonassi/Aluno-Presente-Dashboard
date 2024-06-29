@@ -100,12 +100,14 @@ export const BatchCard = ({ currentMainProcess: currentProcess }: BatchCardProps
 								MESSAGES.NOTIFICATIONS.WORKING}</p>
 					</StatusInfos>
 				</InfosContainer>
-				<IconContainer onClick={() => setIsOpen(prev => !prev)}>
-					{isOpen ?
-						<IoIosArrowUp color={currentTheme.primary} fontSize="2.0em" /> :
-						<IoIosArrowDown color={currentTheme.primary} fontSize="2.0em" />
-					}
-				</IconContainer>
+				{ currentProcess.isFinished &&
+					<IconContainer onClick={() => setIsOpen(prev => !prev)}>
+						{isOpen ?
+							<IoIosArrowUp color={currentTheme.primary} fontSize="2.0em" /> :
+							<IoIosArrowDown color={currentTheme.primary} fontSize="2.0em" />
+						}
+					</IconContainer>
+				}
 			</MainInfosContainer>
 			<StudentsInfoContainer isOpen={isOpen}>
 				<hr />

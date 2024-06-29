@@ -18,17 +18,24 @@ const Notifications = () => {
 	const [intervalRef, setIntervalRef] = React.useState<NodeJS.Timer | null>(null);
 
 	useEffect(() => {
-		if(currentAddBatchList && currentAddBatchList.some(batch => !batch.isFinished) && intervalRef === null){
-			startAutoRefresh();
+		console.log("currentAddBatchList", currentAddBatchList?.some(batch => !batch.isFinished));
+		if(currentAddBatchList && currentAddBatchList.some(batch => !batch.isFinished)){
+			if(intervalRef === null) {
+				startAutoRefresh();
+			}
 		}else {
 			stopAutoRefresh();
 		}
+
+		return () => {
+			stopAutoRefresh();
+		};
 	}, [currentAddBatchList]);
 
 	const startAutoRefresh = () => {
 		const interval = setInterval(() => {
-			refreshAddBatchList();
-		}, 30000);
+			handleRefreshList();
+		}, 5000);
 		setIntervalRef(interval);
 	};
 
@@ -53,7 +60,7 @@ const Notifications = () => {
 					</> :
 					filteredBatchList?.map((batch) => {
 						return (
-							<BatchCard key={batch.id} currentMainProcess={batch}/>
+							<BatchCard key={batch.id} currentMainProcess={batch} />
 						);
 					})
 				}
