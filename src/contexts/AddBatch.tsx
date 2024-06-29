@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 import { Student } from "../types/Student";
 import Api from "../services/api";
 import { BatchProcess } from "../types/api/BatchProcess";
+import moment from "moment";
 
 
 interface AddBatchContextData {
@@ -27,7 +28,7 @@ const AddBatchProvider: React.FC<AddBatchProviderProps> = ({ children }) => {
 	const [currentAddBatchList, setCurrentAddBatchList] = useState<BatchProcess[] | null>(null);
 	const openBatchesCount = useMemo(() => {
 		if (!currentAddBatchList) return 0;
-		return currentAddBatchList.filter((batch) => !batch.isFinished).length;
+		return currentAddBatchList.filter((batch) => !batch.isFinished && moment(batch.createdAt).diff(moment(), "days") >= 1).length;
 	}, [currentAddBatchList]);
 
 	const newBatchesCount = useMemo(() => {

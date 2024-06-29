@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Container, FooterInfos, ScrollContainer, ShowMoreInfoStyled } from "./styles";
 import { MainButton } from "../../../components/Buttons";
 import MESSAGES from "../../../constants/messages";
@@ -15,6 +15,27 @@ const Notifications = () => {
 	const {currentAddBatchList, refreshAddBatchList, lastUpdate} = useAddBatch();
 	const [listShowSize, setListShowSize] = React.useState<number>(SLICE_SIZE);
 	const filteredBatchList = useMemo(() => currentAddBatchList?.slice(0, listShowSize), [currentAddBatchList, listShowSize]);
+	const [intervalRef, setIntervalRef] = React.useState<NodeJS.Timer | null>(null);
+
+	useEffect(() => {
+		if(currentAddBatchList && currentAddBatchList.some(batch => !batch.isFinished) && intervalRef === null){
+			startAutoRefresh();
+		}else {
+			stopAutoRefresh();
+		}
+	}, [currentAddBatchList]);
+
+	const startAutoRefresh = () => {
+		const interval = setInterval(() => {
+			refreshAddBatchList();
+		}, 30000);
+		setIntervalRef(interval);
+	};
+
+	const stopAutoRefresh = () => {
+		if (intervalRef) clearInterval(intervalRef);
+		setIntervalRef(null);
+	};
 
 	const handleRefreshList = () => {
 		toast.loading("Atualizando...");
