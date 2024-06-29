@@ -71,11 +71,13 @@ const createAttendanceXlsx = async (attendance: CourseAttendance[], courseInfos:
 			["Período", courseInfos.period],
 			["Data de criação", courseInfos.createdAt],
 			[],
-			["E-mail", "Matrícula", "Nome do aluno", ...formattedHeaderItems]
+			["E-mail", "Matrícula", "Nome do aluno", "Frequência", ...formattedHeaderItems]
 		];
 
 		attendance.forEach(studentAttendance => {
 			const currentStudentAttendance: string[] = [];
+			let totalClassesForStudent = 0;
+			let totalPresentClassesForStudent = 0;
 			dateHeaderItems.forEach((headerDate) => {
 				let statusName = AVAILABLE_FREQUENCY_STATUS.get(studentAttendance.frequencies.find(item => item.date === headerDate)?.status ?? -1)?.name;
 				if (statusName === undefined) {
@@ -84,9 +86,19 @@ const createAttendanceXlsx = async (attendance: CourseAttendance[], courseInfos:
 				if (headerDate === "") {
 					statusName = "";
 				}
+
+				if(statusName === "P") {
+					totalPresentClassesForStudent++;
+				}
+
+				if(statusName !== "" && statusName !== "Não inscrito"){
+					totalClassesForStudent++;
+				}
+
 				currentStudentAttendance.push(statusName);
 			});
-			data.push([studentAttendance.id, studentAttendance.registration ?? "", studentAttendance.name, ...currentStudentAttendance]);
+			const userFrequency = totalClassesForStudent > 0 ? Math.round((totalPresentClassesForStudent / totalClassesForStudent) * 100) : 0;
+			data.push([studentAttendance.id, studentAttendance.registration ?? "", studentAttendance.name, userFrequency + "%", ...currentStudentAttendance]);
 		});
 
 		data.forEach((row, rowIndex) => {
