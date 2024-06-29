@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import { HeaderStyled } from "./styles";
 import ROUTES from "../../../../constants/routes";
@@ -8,10 +8,10 @@ import { useWindowDimensions } from "../../../../hooks";
 import CONSTANTS from "../../../../constants";
 import { useSession } from "../../../../contexts/Session";
 import { toast } from "react-hot-toast";
-import { ProfileEditModal } from "../../../Modals";
 
 interface Props {
     open: boolean;
+	onRequestEditProfile: () => void;
 }
 
 const PROFILE_LIST: string[] = [ MESSAGES.HEADER.PROFILE_OPTION, MESSAGES.HEADER.LOGOUT_OPTION];
@@ -22,7 +22,6 @@ const MainHeader = (props: Props) => {
 	const location = useLocation();
 	const {logout} = useSession();
 	const { width } = useWindowDimensions();
-	const [profileEditModalOpen, setProfileEditModalOpen] = useState(false);
 
 	const getPageTitle = () => {
 		const path = location.pathname;
@@ -48,7 +47,7 @@ const MainHeader = (props: Props) => {
 			logout(window.location.origin + "/" + ROUTES.POST_LOGIN);
 			break;
 		case MESSAGES.HEADER.PROFILE_OPTION:
-			setProfileEditModalOpen(true);
+			props.onRequestEditProfile();
 			break;
 		default:
 			console.log("Not implemented yet");
@@ -67,7 +66,6 @@ const MainHeader = (props: Props) => {
 				items={PROFILE_LIST}
 				onClick={onProfileClick}
 			/>
-			<ProfileEditModal isOpen={profileEditModalOpen} onClose={() => setProfileEditModalOpen(false)} />
 		</HeaderStyled>
 	);
 };

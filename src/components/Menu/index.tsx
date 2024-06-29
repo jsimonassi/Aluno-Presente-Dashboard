@@ -5,6 +5,7 @@ import { Content, MenuStyled } from "./styles";
 import { useWindowDimensions } from "../../hooks";
 import CONSTANTS from "../../constants";
 import { MainHeader, Sidebar, MobileHeader } from "./components";
+import { ProfileEditModal } from "../Modals";
 const IS_OPEN_KEY = "isOpenKey";
 
 interface MenuProps {
@@ -23,6 +24,7 @@ const Menu = (props: MenuProps) => {
 
 
 	const [sidebarOpen, setSidebarOpen] = useState<boolean>(getSideBarPosition());
+	const [editProfileModalOpen, setEditProfileModalOpen] = useState<boolean>(false);
 	const { width } = useWindowDimensions();
 
 	const getFixedComponents = () => {
@@ -42,7 +44,11 @@ const Menu = (props: MenuProps) => {
 				/>
 				<MainHeader
 					open={sidebarOpen}
+					onRequestEditProfile={() => {
+						setEditProfileModalOpen(true);
+					}}
 				/>
+				<ProfileEditModal isOpen={editProfileModalOpen} onClose={() => setEditProfileModalOpen(false)} />
 			</>
 		);
 	};
