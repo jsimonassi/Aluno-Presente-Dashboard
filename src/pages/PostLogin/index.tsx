@@ -39,7 +39,7 @@ const PostLogin = () => {
 				navigate(targetRoute, { replace: true });
 			} catch (error) {
 				console.error("Error authenticating user:", error);
-				alert("Erro ao tentar autenticar o usuário, tente novamente.");
+				redirectToLogin();
 			}
 		};
 	

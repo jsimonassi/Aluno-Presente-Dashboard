@@ -8,6 +8,7 @@ import { AddContactCard, ContactCard } from "./components";
 import { MainButton, OutlineButton } from "../../Buttons";
 import { AVAILABLE_CONTACT_TYPES } from "../../../constants/user";
 import toast from "react-hot-toast";
+import { User } from "../../../types/User";
 
 interface FeedbackModalProps {
 	isOpen: boolean;
@@ -17,7 +18,7 @@ interface FeedbackModalProps {
 const ProfileEditModal = (props: FeedbackModalProps) => {
 
 	const { currentUser, updateUser } = useSession();
-	const [editingUser, setEditingUser] = useState(currentUser);
+	const [editingUser, setEditingUser] = useState<User | null>(currentUser);
 	const [isAddingContactWith, setIsAddingContactWith] = useState<{ id: number, value: string } | null>(null);
 	const [isAddingError, setIsAddingError] = useState<string>("");
 	const userContacts = useMemo(() => {
@@ -104,6 +105,12 @@ const ProfileEditModal = (props: FeedbackModalProps) => {
 		setEditingUser(newUser);
 	};
 
+	const handleUpdateName = (newName: string) => {
+		const newUser = Object.assign({}, editingUser);
+		newUser.name = newName;
+		setEditingUser(newUser);
+	};
+
 	const handleUpdateUser = () => {
 		props.onClose();
 		if(editingUser){
@@ -134,8 +141,7 @@ const ProfileEditModal = (props: FeedbackModalProps) => {
 						<h1>{editingUser?.name[0] ?? ""}</h1>
 					</ProfileLetterContainer>
 					<MainInput
-						onChange={() => null}
-						disabled
+						onChange={(newName) => handleUpdateName(newName)}
 						value={editingUser?.name ?? ""}
 						placeholder=""
 						type=""
