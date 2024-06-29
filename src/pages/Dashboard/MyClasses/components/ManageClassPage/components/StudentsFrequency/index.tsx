@@ -28,7 +28,7 @@ const StudentsFrequency = (props: StudentsFrequencyProps) => {
 
 	const endDate = useMemo(() => {
 		if (!props.currentClass.period) return;
-		return props.currentClass.period.split(".")[1] === "1" ? moment().startOf("year").add(6, "months") : moment().endOf("year");
+		return props.currentClass.period.split(".")[1] === "1" ? moment().startOf("year").add(7, "months") : moment().endOf("year");
 	}, [props.currentClass.period]);
 
 	const chartData = useMemo(() => {

@@ -8,7 +8,7 @@ const MY_CLASSES = {
 		COURSE: "Disciplina",
 		COURSE_PLACEHOLDER: "Inteligência artificial",
 		PERIOD: "Período letivo",
-		PERIOD_PLACEHOLDER: "2023.1",
+		PERIOD_PLACEHOLDER: "2024.1",
 		WEEKDAY: "Dia da semana",
 		WEEKDAY_PLACEHOLDER: "Segunda-feira",
 		FROM: "De",

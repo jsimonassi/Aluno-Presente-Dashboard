@@ -7,7 +7,14 @@ import { User } from "../../../types/User";
 
 const Session = {
 	redirectToLogin: (sessionAuthConfig: SessionAuthConfig) => {
-		const uri = process.env.REACT_APP_AUTH_SERVER_BASE_URL + "/v1/auth/oauth2/authorize?response_type=code&client_id=" + process.env.REACT_APP_AUTH_CLIENT_ID + "&scope=openid%20read%20profile&redirect_uri=" + sessionAuthConfig.redirectUrl + "&code_challenge=" + sessionAuthConfig.codeChallenge + "&code_challenge_method=S256";
+		const uri = process.env.REACT_APP_AUTH_SERVER_BASE_URL + 
+					"/v1/auth/oauth2/authorize?response_type=code&client_id=" + 
+					process.env.REACT_APP_AUTH_CLIENT_ID + 
+					"&scope=openid%20read%20profile&redirect_uri=" + 
+					sessionAuthConfig.redirectUrl + 
+					"&code_challenge=" + 
+					sessionAuthConfig.codeChallenge + 
+					"&code_challenge_method=S256";
 		window.location.href = uri;
 	},
 	getToken: (tokenRequestConfig: TokenRequestConfig) => {

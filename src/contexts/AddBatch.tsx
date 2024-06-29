@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 import { Student } from "../types/Student";
 import Api from "../services/api";
 import { BatchProcess } from "../types/api/BatchProcess";
+import _isEqual from "lodash/isEqual";
 
 
 interface AddBatchContextData {
@@ -42,6 +43,7 @@ const AddBatchProvider: React.FC<AddBatchProviderProps> = ({ children }) => {
 	useEffect(() => setLastUpdate(new Date()), [currentAddBatchList]);
 
 	const refreshAddBatchList = () => {
+		console.log("refreshAddBatchList");
 		return new Promise<void>((resolve, reject) => {
 			Api.Student.getAllAddBatchProcesses()
 				.then((batches) => {
@@ -49,12 +51,13 @@ const AddBatchProvider: React.FC<AddBatchProviderProps> = ({ children }) => {
 					data.sort(
 						(a: BatchProcess, b: BatchProcess) => { return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); }
 					);
-					setCurrentAddBatchList(batches);
+					if (!_isEqual(currentAddBatchList, data)) {
+						setCurrentAddBatchList(batches);
+					}
 					resolve();
 				})
 				.catch((error) => reject(error));
 		});
-
 	};
 
 	const addStudentsByBatch = (students: Student[], classId: string) => {
