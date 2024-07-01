@@ -49,7 +49,7 @@ const Session = {
 	},
 	updateLoggedUser: (newUser: User) => {
 		return new Promise<void>((resolve, reject) => {
-			__ApiResourceClient.patch("/users", newUser.info)
+			__ApiResourceClient.patch("/users", {info: newUser.info, name: newUser.name})
 				.then(() => {
 					resolve();
 				}).catch((error) => {

@@ -76,6 +76,7 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 			Storage.LocalStorage.storeLocalData(SESSION_CACHE_KEY, JSON.stringify(newSession)); //Save token is needed for future requests
 		
 			const newUser = await Api.Session.getLoggedUser();
+			console.log("NEW USER: ", newUser);
 			setCurrentUser(newUser);
 			Storage.LocalStorage.storeLocalData(CURRENT_USER_CACHE_KEY, JSON.stringify(newUser));
 			return Promise.resolve(newSession);

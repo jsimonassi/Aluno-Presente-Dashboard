@@ -138,7 +138,7 @@ const ProfileEditModal = (props: FeedbackModalProps) => {
 				</ModalHeader>
 				<ModalBody>
 					<ProfileLetterContainer>
-						<h1>{editingUser?.name[0] ?? ""}</h1>
+						{/* <h1>{editingUser?.name[0] ?? ""}</h1> */}
 					</ProfileLetterContainer>
 					<MainInput
 						onChange={(newName) => handleUpdateName(newName)}
