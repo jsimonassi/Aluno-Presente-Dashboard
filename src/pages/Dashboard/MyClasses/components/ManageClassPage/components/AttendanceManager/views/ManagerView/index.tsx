@@ -62,8 +62,9 @@ const ManagerView = (props: AttendanceManagerProps) => {
 		if (!props.currentClass.period) return;
 
 		const toastRef = toast.loading(MESSAGES.MY_CLASSES.ATTENDANCE_CONTROLLER.EXPORT_PROGRESS_DOWNLOADING);
+		//TODO: Check start and end date
 		const startDate = props.currentClass.period.split(".")[1] === "1" ? moment().startOf("year") : moment().startOf("year").add(6, "months");
-		const endDate = props.currentClass.period.split(".")[1] === "1" ? moment().startOf("year").add(6, "months") : moment().endOf("year");
+		const endDate = props.currentClass.period.split(".")[1] === "1" ? moment().startOf("year").add(12, "months") : moment().endOf("year").add(12, "months");
 
 		getPeriodAttendanceByDateWithoutCache(props.currentClass.id, startDate.format(), endDate.format())
 			.then((response) => {
