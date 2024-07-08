@@ -9,7 +9,7 @@ interface SvgLoaderProps {
 const SvgLoader = (props: SvgLoaderProps) => (
 	<ContentLoader 
 		speed={2}
-		width={400}
+		width={320}
 		height={200}
 		viewBox="0 0 400 200"
 		backgroundColor="#f3f3f3"
