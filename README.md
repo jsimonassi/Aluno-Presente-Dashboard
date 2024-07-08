@@ -6,7 +6,7 @@ O Aluno Presente facilita seu controle de frequência e reúne em um só lugar t
 
 ### Sobre
 
-Este repositório encontra-se a implementação do portal do professor do sistema Aluno Presente. O portal do professor é uma aplicação web que permite ao professor visualizar as turmas que ele leciona, bem como a frequência dos alunos em cada uma das aulas.
+Neste repositório encontra-se a implementação do portal do professor do sistema Aluno Presente. O portal do professor é uma aplicação web que permite aos professores visualizarem as turmas que lecionam, bem como a frequência dos alunos em cada aula.
 
 Esta é uma aplicação front-end que consome a API do sistema Aluno Presente.
 
