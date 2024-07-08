@@ -36,7 +36,7 @@ const StudentsFrequency = (props: StudentsFrequencyProps) => {
 		const data: any = [];
 	
 		if (presentStudents !== undefined && presentStudents > 0) {
-			data.push({ x: "Presença: " + presentStudents, y: presentStudents });
+			data.push({ x: "Presenças: " + presentStudents, y: presentStudents });
 		}
 	
 		if (faultStudents !== undefined && faultStudents > 0) {
