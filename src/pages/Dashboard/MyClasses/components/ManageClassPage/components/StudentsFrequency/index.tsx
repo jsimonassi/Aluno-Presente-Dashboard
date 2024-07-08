@@ -96,16 +96,16 @@ const StudentsFrequency = (props: StudentsFrequencyProps) => {
 				<InfosContainer>
 					<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.FREQUENCY_DESCRIPTION + ((presentStudents * 100)/(presentStudents + faultStudents)).toFixed(0)}%</h3>
 					<InfoRow>
+						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.CLASSROOM_FREQUENCY.TOTAL_CLASSES}</h3>
+						<p>{sumClass}</p>
+					</InfoRow>
+					<InfoRow>
 						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.CLASSROOM_FREQUENCY.PRESENT_STUDENTS}</h3>
 						<p>{presentStudents}</p>
 					</InfoRow>
 					<InfoRow>
 						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.CLASSROOM_FREQUENCY.FAULT_STUDENTS}</h3>
 						<p>{faultStudents}</p>
-					</InfoRow>
-					<InfoRow>
-						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.CLASSROOM_FREQUENCY.TOTAL_CLASSES}</h3>
-						<p>{sumClass}</p>
 					</InfoRow>
 					<InfoRow>
 						<h3>{MESSAGES.MY_CLASSES.MANAGE_CLASS.CLASSROOM_FREQUENCY.SEARCH_INTERVAL}</h3>

@@ -59,7 +59,7 @@ const MY_CLASSES = {
 			NOTHING_TO_SHOW_TIP: "Inicie uma nova chamada para visualizar a frequência.",
 			PRESENT_STUDENTS: "Número de presenças: ",
 			FAULT_STUDENTS: "Número de faltas: ",
-			TOTAL_CLASSES: "Total de aulas: ",
+			TOTAL_CLASSES: "Total de frequências realizadas: ",
 			SEARCH_INTERVAL: "Intervalo de busca: ",
 			PERIOD: "Período: ",
 			LAST_UPDATE: "Última atualização: ",
